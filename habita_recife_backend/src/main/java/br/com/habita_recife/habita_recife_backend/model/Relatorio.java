@@ -31,4 +31,10 @@ public class Relatorio {
     @JoinColumn(name = "prefeitura_id", nullable = false,
             foreignKey = @ForeignKey(name = "prefeitura_id"))
     private Prefeitura prefeitura;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sindico_id", nullable = false,
+            foreignKey = @ForeignKey(name = "sindico_id"))
+    private Sindico sindico;
+
 }
