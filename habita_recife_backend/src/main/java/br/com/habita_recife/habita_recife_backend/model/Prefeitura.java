@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,11 +19,8 @@ public class Prefeitura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_prefeitura;
 
-    @Column(nullable = false, unique = true)
-    private String nomePrefeitura;
-
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    private Set<Relatorio> relatorios;
+    @OneToMany(mappedBy = "prefeitura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Relatorio> relatorios = new HashSet<>();
 }

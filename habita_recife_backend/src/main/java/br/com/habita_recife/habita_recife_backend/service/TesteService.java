@@ -17,6 +17,7 @@ public class TesteService {
     public TesteService(TesteRepository testeRepository) {
         this.testeRepository = testeRepository;
     }
+
     public List<Prefeitura> findAll() {
         return testeRepository.findAll();
     }
@@ -24,4 +25,6 @@ public class TesteService {
     public Prefeitura save(Prefeitura prefeitura) {
         return testeRepository.save(prefeitura);
     }
+
+
 }
