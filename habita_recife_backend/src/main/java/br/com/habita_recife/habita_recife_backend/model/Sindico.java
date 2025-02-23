@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Sindico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +28,9 @@ public class Sindico {
 
     @Column(nullable = false, length = 10, unique = true)
     private String rg_sindico;
-    
+
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Relatorio> relatorios = new HashSet<>();
-
 
 
 }
