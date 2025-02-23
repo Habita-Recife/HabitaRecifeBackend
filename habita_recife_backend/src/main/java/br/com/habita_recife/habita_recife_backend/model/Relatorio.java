@@ -27,7 +27,7 @@ public class Relatorio {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime data_relatorio;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prefeitura_id", nullable = false,
             foreignKey = @ForeignKey(name = "prefeitura_id"))
     private Prefeitura prefeitura;
