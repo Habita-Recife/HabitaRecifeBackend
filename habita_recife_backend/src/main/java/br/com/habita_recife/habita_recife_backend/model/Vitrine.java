@@ -12,28 +12,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name= "tb_cobranca")
+@Table(name= "tb_vitrine")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cobranca {
+public class Vitrine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cobranca_id;
+    private Long id_produto;
 
     @Column(nullable = false)
-    private Double valor_cobranca;
+    private String nome_produto;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime data_cobranca;
+    private Double valor_produto;
 
     @ManyToOne
-        @JoinColumn(name = "morador_id", nullable = false)
-    private Morador morador;
-
-    @ManyToOne
-        @JoinColumn(name = "sindico_id", nullable = false)
+    @JoinColumn(name = "id_sindico", nullable = false,
+            foreignKey = @ForeignKey(name = "id_sindico"))
     private Sindico sindico;
 }
+
