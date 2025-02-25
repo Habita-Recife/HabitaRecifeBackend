@@ -38,4 +38,7 @@ public class Sindico {
     @OneToOne(fetch = FetchType.EAGER)
     private Porteiro porteiro;
 
+    @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Servico> servicos = new HashSet<>();
+
 }
