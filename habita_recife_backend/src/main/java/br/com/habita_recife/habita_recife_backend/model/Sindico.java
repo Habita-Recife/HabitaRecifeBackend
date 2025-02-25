@@ -35,4 +35,7 @@ public class Sindico {
     @OneToOne(fetch = FetchType.EAGER)
     private Condominio condominio;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Porteiro porteiro;
+
 }

@@ -32,4 +32,7 @@ public class Condominio {
 
     @OneToOne(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Sindico sindico;
+
+    @OneToOne(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Porteiro porteiro;
 }

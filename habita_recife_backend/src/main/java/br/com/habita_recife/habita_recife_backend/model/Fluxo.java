@@ -41,4 +41,9 @@ public class Fluxo {
     @JoinColumn(name = "fluxo_id", nullable = false,
             foreignKey = @ForeignKey(name = "fluxo_id"))
     private Porteiro porteiro;
+
+    /*@ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name = "porteiro_id", nullable = false ,
+            foreignKey = @ForeignKey(name = "porteiro_id"))
+    private Porteiro porteiro;*/
 }
