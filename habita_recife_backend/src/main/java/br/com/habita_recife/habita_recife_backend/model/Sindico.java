@@ -32,5 +32,7 @@ public class Sindico {
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Relatorio> relatorios = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Condominio condominio;
 
 }
