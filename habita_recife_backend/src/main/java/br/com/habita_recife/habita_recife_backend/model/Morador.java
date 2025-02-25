@@ -4,6 +4,8 @@ import br.com.habita_recife.habita_recife_backend.enums.TipoMorador;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_morador")
 @Getter
@@ -34,6 +36,10 @@ public class Morador {
     @JoinColumn(name = "cobranca_id", nullable = false,
             foreignKey = @ForeignKey(name = "cobranca_id"))
     private Cobranca cobranca;
+
+    // Relacionamento com Movimento (1 Morador pode ter vários Movimentos)
+    @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Movimento> movimentos;
 
    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "condominio_id", nullable = false,
