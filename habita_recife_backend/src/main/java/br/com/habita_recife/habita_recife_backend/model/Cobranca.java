@@ -21,7 +21,7 @@ public class Cobranca {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cobranca_id;
+    private Long id_cobranca;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="###,###.00")
     private Double valor_cobranca;
@@ -30,10 +30,10 @@ public class Cobranca {
     private LocalDateTime data_cobranca;
 
     @ManyToOne
-        @JoinColumn(name = "morador_id", nullable = false)
+        @JoinColumn(name = "id_morador", nullable = false)
     private Morador morador;
 
     @ManyToOne
-        @JoinColumn(name = "sindico_id", nullable = false)
+        @JoinColumn(name = "id_sindico", nullable = false)
     private Sindico sindico;
 }

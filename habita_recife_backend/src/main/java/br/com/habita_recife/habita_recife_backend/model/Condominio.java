@@ -35,4 +35,7 @@ public class Condominio {
 
     @OneToOne(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Porteiro porteiro;
+
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Morador morador;
 }

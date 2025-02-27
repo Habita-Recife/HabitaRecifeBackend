@@ -16,7 +16,7 @@ public class Morador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long morador_id;
+    private Long id_morador;
 
     @Column(nullable = false, unique = true)
     private String nome_morador;
@@ -33,13 +33,13 @@ public class Morador {
     private String cpf_morador;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cobranca_id", nullable = false,
-            foreignKey = @ForeignKey(name = "cobranca_id"))
+    @JoinColumn(name = "id_cobranca", nullable = false,
+            foreignKey = @ForeignKey(name = "id_cobranca"))
     private Cobranca cobranca;
 
-    // Relacionamento com Movimento (1 Morador pode ter vários Movimentos)
+    // Relacionamento com Fluxo (1 Morador pode ter vários Movimentos dentro de fluxo que o porteiro controla)
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Movimento> movimentos;
+    private Set<Fluxo> fluxos;
 
    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "condominio_id", nullable = false,
@@ -50,4 +50,10 @@ public class Morador {
     @JoinColumn(name = "confirmacao_id", nullable = false,
             foreignKey = @ForeignKey(name = "confirmacao_id"))
     private Comfirmacao_Servico confirmacao_servico;*/
+    //falta a relação de solicitação aqui tbm
+
+    @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Notificacao notificacao;
+}
+
 }

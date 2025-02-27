@@ -18,7 +18,7 @@ import java.util.Set;
 public class Sindico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sindico_id;
+    private Long id_sindico;
 
     @Column(nullable = false, unique = true)
     private String nome_sindico;
@@ -35,10 +35,13 @@ public class Sindico {
     @OneToOne(fetch = FetchType.EAGER)
     private Condominio condominio;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private Porteiro porteiro;
-
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Servico> servicos = new HashSet<>();
 
+    @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set <Cobranca> cobrancas;
+
+
+    @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set <Notificacao> notificacao;
 }

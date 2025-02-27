@@ -27,9 +27,6 @@ public class Porteiro {
     @Column(nullable = false, unique = true, length = 15)
     private String cpf_porteiro;
 
-    @OneToOne(mappedBy = "porteiro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Sindico sindico;
-
     @OneToMany(mappedBy = "fluxo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Fluxo> fluxos = new HashSet<>();
 

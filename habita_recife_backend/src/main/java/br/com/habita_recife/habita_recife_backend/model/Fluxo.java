@@ -34,12 +34,9 @@ public class Fluxo {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime data_fluxo;
 
-    @ManyToMany(mappedBy = "fluxos")
-    private Set<Movimento> movimentos;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fluxo_id", nullable = false,
-            foreignKey = @ForeignKey(name = "fluxo_id"))
+    @JoinColumn(name = "id_fluxo", nullable = false,
+            foreignKey = @ForeignKey(name = "id_fluxo"))
     private Porteiro porteiro;
 
     /*@ManyToOne(fetch =  FetchType.LAZY)

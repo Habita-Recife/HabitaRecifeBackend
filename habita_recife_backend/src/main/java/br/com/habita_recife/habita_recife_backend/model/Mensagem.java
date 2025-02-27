@@ -20,7 +20,7 @@ public class Mensagem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mensagem_id;
+    private Long id_mensagem;
 
     @Column(nullable = false, length = 30)
     private String titulo;
@@ -36,7 +36,7 @@ public class Mensagem {
     private LocalDateTime data_mensagem;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sindico_id", nullable = false,
-            foreignKey = @ForeignKey(name = "sindico_id"))
+    @JoinColumn(name = "id_sindico", nullable = false,
+            foreignKey = @ForeignKey(name = "id_sindico"))
     private Sindico sindico;
 }

@@ -25,7 +25,7 @@ public class Vitrine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_produto;
+    private Long id_vitrine;
 
     @Column(nullable = false)
     private String nome_produto;

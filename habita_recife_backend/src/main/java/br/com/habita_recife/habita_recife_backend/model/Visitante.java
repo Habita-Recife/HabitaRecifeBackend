@@ -26,4 +26,8 @@ public class Visitante {
 
     @Column(nullable = false, unique = true, length = 15)
     private String numero_telefone;
+
+    @OneToMany(mappedBy = "visitante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Fluxo fluxos;
+
 }

@@ -28,13 +28,13 @@ public class Relatorio {
     private LocalDateTime data_relatorio;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prefeitura_id", nullable = false,
-            foreignKey = @ForeignKey(name = "prefeitura_id"))
+    @JoinColumn(name = "id_prefeitura", nullable = false,
+            foreignKey = @ForeignKey(name = "id_prefeitura"))
     private Prefeitura prefeitura;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sindico_id", nullable = false,
-            foreignKey = @ForeignKey(name = "sindico_id"))
+    @JoinColumn(name = "id_sindico", nullable = false,
+            foreignKey = @ForeignKey(name = "id_sindico"))
     private Sindico sindico;
 
 }

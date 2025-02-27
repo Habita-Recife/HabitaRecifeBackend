@@ -36,8 +36,8 @@ public class Servico {
     private Integer funcionarios_alocados;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sindico_id", nullable = false,
-            foreignKey = @ForeignKey(name = "sindico_id"))
+    @JoinColumn(name = "id_sindico", nullable = false,
+            foreignKey = @ForeignKey(name = "id_sindico"))
     private Sindico sindico;
 
 

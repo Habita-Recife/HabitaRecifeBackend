@@ -18,7 +18,7 @@ public class Solicitacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_solicitacao;
 
     @Column(nullable = false, length = 30)
     private String titulo;
@@ -35,7 +35,7 @@ public class Solicitacao {
     private Status status_solicitacao;
 
     @ManyToOne
-    @JoinColumn(name = "morador_id", nullable = false,
-            foreignKey = @ForeignKey(name = "morador_id"))
+    @JoinColumn(name = "id_morador", nullable = false,
+            foreignKey = @ForeignKey(name = "id_morador"))
     private Morador morador;
 }
