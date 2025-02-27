@@ -4,6 +4,7 @@ import br.com.habita_recife.habita_recife_backend.enums.TipoMorador;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -51,4 +52,8 @@ public class Morador {
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Solicitacao> solicitacao;
+
+    @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ConfirmacaoServico> confirmacao_servicos = new HashSet<>();
+
 }

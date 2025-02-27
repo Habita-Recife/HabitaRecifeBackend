@@ -45,4 +45,7 @@ public class Sindico {
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set <Notificacao> notificacao;
+
+    @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ConfirmacaoServico> confirmacao_servicos = new HashSet<>();
 }
