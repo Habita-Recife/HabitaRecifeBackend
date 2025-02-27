@@ -29,7 +29,7 @@ public class Mensagem {
     private String conteudo;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TipoMensagem tipo_mensagem;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")

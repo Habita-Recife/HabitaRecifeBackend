@@ -33,6 +33,8 @@ public class Sindico {
     private Set<Relatorio> relatorios = new HashSet<>();
 
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_condominio", nullable = false,
+            foreignKey = @ForeignKey(name = "id_condominio"))
     private Condominio condominio;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -40,7 +42,6 @@ public class Sindico {
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set <Cobranca> cobrancas;
-
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set <Notificacao> notificacao;

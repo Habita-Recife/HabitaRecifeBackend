@@ -27,7 +27,7 @@ public class Solicitacao {
     private String conteudo;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TipoSolicitacao tipo_solicitacao;
 
     @Column(nullable = false)

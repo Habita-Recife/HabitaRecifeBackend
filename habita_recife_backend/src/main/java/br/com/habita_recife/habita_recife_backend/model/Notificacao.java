@@ -4,10 +4,18 @@ package br.com.habita_recife.habita_recife_backend.model;
 import br.com.habita_recife.habita_recife_backend.enums.TipoMorador;
 import br.com.habita_recife.habita_recife_backend.enums.TipoNotificacao;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
 @Table(name = "tb_notificacao")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Notificacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +23,7 @@ public class Notificacao {
 
 
     @Column(nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TipoNotificacao tipo_notificacao;
 
 

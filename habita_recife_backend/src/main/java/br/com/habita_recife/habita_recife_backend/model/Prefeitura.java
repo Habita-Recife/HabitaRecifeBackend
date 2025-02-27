@@ -21,6 +21,6 @@ public class Prefeitura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_prefeitura;
 
-    @OneToMany(mappedBy = "prefeitura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Relatorio> relatorios = new HashSet<>();
+    @OneToOne(mappedBy = "prefeitura", fetch = FetchType.LAZY)
+    private Relatorio relatorio;
 }

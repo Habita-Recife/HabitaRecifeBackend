@@ -28,7 +28,7 @@ public class Relatorio {
     private LocalDateTime data_relatorio;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_prefeitura", nullable = false,
+    @JoinColumn(name = "id_prefeitura", nullable = false, unique = true,
             foreignKey = @ForeignKey(name = "id_prefeitura"))
     private Prefeitura prefeitura;
 

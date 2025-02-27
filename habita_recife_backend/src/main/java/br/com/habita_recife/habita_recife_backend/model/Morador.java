@@ -4,6 +4,7 @@ import br.com.habita_recife.habita_recife_backend.enums.TipoMorador;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class Morador {
     private String veiculo;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TipoMorador tipo_morador;
 
     @Column(nullable = false, length = 11, unique = true)
@@ -37,23 +38,17 @@ public class Morador {
             foreignKey = @ForeignKey(name = "id_cobranca"))
     private Cobranca cobranca;
 
-    // Relacionamento com Fluxo (1 Morador pode ter vários Movimentos dentro de fluxo que o porteiro controla)
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Fluxo> fluxos;
 
-   /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "condominio_id", nullable = false,
-            foreignKey = @ForeignKey(name = "condominio_id"))
-    private Condominio condominio; */
-
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "confirmacao_id", nullable = false,
-            foreignKey = @ForeignKey(name = "confirmacao_id"))
-    private Comfirmacao_Servico confirmacao_servico;*/
-    //falta a relação de solicitação aqui tbm
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_condominio", nullable = false,
+            foreignKey = @ForeignKey(name = "id_condominio"))
+    private Condominio condominio;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Notificacao notificacao;
-}
+    private List<Notificacao> notificacao;
 
+    @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Solicitacao> solicitacao;
 }

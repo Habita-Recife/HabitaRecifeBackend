@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_condominio")
 @Getter
@@ -37,5 +39,5 @@ public class Condominio {
     private Porteiro porteiro;
 
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Morador morador;
+    private Set<Morador> morador;
 }

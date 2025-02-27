@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_visitantes")
 @Getter
@@ -28,6 +30,6 @@ public class Visitante {
     private String numero_telefone;
 
     @OneToMany(mappedBy = "visitante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Fluxo fluxos;
+    private List<Fluxo> fluxos;
 
 }
