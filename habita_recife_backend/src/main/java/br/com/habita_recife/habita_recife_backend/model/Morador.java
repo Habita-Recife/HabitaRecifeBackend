@@ -56,4 +56,7 @@ public class Morador {
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ConfirmacaoServico> confirmacao_servicos = new HashSet<>();
 
+    @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Servico> servico = new HashSet<>();
+
 }

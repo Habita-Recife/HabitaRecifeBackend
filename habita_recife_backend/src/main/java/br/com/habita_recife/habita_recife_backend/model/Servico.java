@@ -40,6 +40,15 @@ public class Servico {
             foreignKey = @ForeignKey(name = "id_sindico"))
     private Sindico sindico;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_empresa", nullable = false,
+            foreignKey = @ForeignKey(name = "id_empresa"))
+    private Empresa empresa;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_morador", nullable = false,
+            foreignKey = @ForeignKey(name = "id_morador"))
+    private Morador morador;
 
 
 }

@@ -27,5 +27,8 @@ public class Empresa {
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ConfirmacaoServico> confirmacao_servicos = new HashSet<>();
 
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Servico> servico = new HashSet<>();
+
 
 }
