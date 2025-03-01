@@ -37,6 +37,6 @@ public class Mensagem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sindico", nullable = false,
-            foreignKey = @ForeignKey(name = "id_sindico_fk"))
+            foreignKey = @ForeignKey(name = "id_mensagem_sindico_fk"))
     private Sindico sindico;
 }

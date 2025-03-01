@@ -36,7 +36,7 @@ public class Solicitacao {
 
     @ManyToOne
     @JoinColumn(name = "id_morador", nullable = false,
-            foreignKey = @ForeignKey(name = "id_morador_fk"))
+            foreignKey = @ForeignKey(name = "id_solicitacao_morador_fk"))
     private Morador morador;
 }
 

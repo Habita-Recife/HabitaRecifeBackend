@@ -38,16 +38,16 @@ public class Fluxo {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_morador", nullable = false,
-            foreignKey = @ForeignKey(name = "id_morador_fk"))
+            foreignKey = @ForeignKey(name = "id_fluxo_morador_fk"))
     private Morador morador;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_visitante", nullable = false,
-            foreignKey = @ForeignKey(name = "id_visitante_fk"))
+            foreignKey = @ForeignKey(name = "id_fluxo_visitante_fk"))
     private Visitante visitante;
 
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "id_porteiro", nullable = false ,
-            foreignKey = @ForeignKey(name = "id_porteiro_fk"))
+            foreignKey = @ForeignKey(name = "id_fluxo_porteiro_fk"))
     private Porteiro porteiro;
 }

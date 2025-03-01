@@ -34,17 +34,15 @@ public class Morador {
     @Setter(AccessLevel.NONE)
     private String cpf_morador;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cobranca", nullable = false,
-            foreignKey = @ForeignKey(name = "id_cobranca_fk"))
-    private Cobranca cobranca;
+    @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Cobranca> cobranca;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Fluxo> fluxos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_condominio", nullable = false,
-            foreignKey = @ForeignKey(name = "id_condominio_fk"))
+            foreignKey = @ForeignKey(name = "id_morador_condominio_fk"))
     private Condominio condominio;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -54,10 +52,10 @@ public class Morador {
     private List<Solicitacao> solicitacao;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ConfirmacaoServico> confirmacao_servicos = new HashSet<>();
+    private Set<ConfirmacaoServico> confirmacao_servicos;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Servico> servico = new HashSet<>();
+    private Set<Servico> servico;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Fluxo> fluxo;

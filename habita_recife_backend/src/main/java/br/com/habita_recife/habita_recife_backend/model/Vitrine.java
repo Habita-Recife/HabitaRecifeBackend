@@ -39,7 +39,7 @@ public class Vitrine {
 
     @ManyToOne
     @JoinColumn(name = "id_sindico", nullable = false,
-            foreignKey = @ForeignKey(name = "id_sindico_fk"))
+            foreignKey = @ForeignKey(name = "id_vitrine_sindico_fk"))
     private Sindico sindico;
 
 }

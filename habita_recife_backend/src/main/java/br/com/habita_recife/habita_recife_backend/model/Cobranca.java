@@ -30,10 +30,12 @@ public class Cobranca {
     private LocalDateTime data_cobranca;
 
     @ManyToOne
-        @JoinColumn(name = "id_morador", nullable = false)
+    @JoinColumn(name = "id_morador", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_cobranca_morador_fk"))
     private Morador morador;
 
     @ManyToOne
-        @JoinColumn(name = "id_sindico", nullable = false)
+    @JoinColumn(name = "id_sindico", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_cobranca_sindico_fk"))
     private Sindico sindico;
 }

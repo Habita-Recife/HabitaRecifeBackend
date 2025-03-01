@@ -19,7 +19,7 @@ public class Visitante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id_visitante;
+    private Long id_visitante;
 
     @Column(nullable = false, unique = true, length = 12)
     private String rg_visitante;

@@ -25,10 +25,10 @@ public class Empresa {
     private String nome_empresa;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ConfirmacaoServico> confirmacao_servicos = new HashSet<>();
+    private Set<ConfirmacaoServico> confirmacao_servicos;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Servico> servico = new HashSet<>();
+    private Set<Servico> servico;
 
 
 }

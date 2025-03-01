@@ -30,24 +30,24 @@ public class Sindico {
     private String rg_sindico;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Relatorio> relatorios = new HashSet<>();
+    private Set<Relatorio> relatorios;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_condominio", nullable = false,
-            foreignKey = @ForeignKey(name = "id_condominio_fk"))
+            foreignKey = @ForeignKey(name = "id_sindico_condominio_fk"))
     private Condominio condominio;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Servico> servicos = new HashSet<>();
+    private Set<Servico> servicos;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set <Cobranca> cobrancas;
+    private Set<Cobranca> cobrancas;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set <Notificacao> notificacao;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ConfirmacaoServico> confirmacao_servicos = new HashSet<>();
+    private Set<ConfirmacaoServico> confirmacao_servicos;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Vitrine> vitrines;
