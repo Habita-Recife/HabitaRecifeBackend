@@ -26,21 +26,28 @@ public class Fluxo {
     private Long id_fluxo;
 
     @Enumerated(EnumType.STRING)
-    private TipoFluxo tipo_fluxo;
+    @Column(name = "tipo_fluxo", nullable = false)
+    private TipoFluxo tipoFluxo;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(name = "status_fluxo", nullable = false)
+    private Status statusFluxo;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime data_fluxo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_fluxo", nullable = false,
-            foreignKey = @ForeignKey(name = "id_fluxo"))
-    private Porteiro porteiro;
+    @JoinColumn(name = "id_morador", nullable = false,
+            foreignKey = @ForeignKey(name = "id_morador_fk"))
+    private Morador morador;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_visitante", nullable = false,
+            foreignKey = @ForeignKey(name = "id_visitante_fk"))
+    private Visitante visitante;
 
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "id_porteiro", nullable = false ,
-            foreignKey = @ForeignKey(name = "id_porteiro"))
-    private Porteiro porteiros;
+            foreignKey = @ForeignKey(name = "id_porteiro_fk"))
+    private Porteiro porteiro;
 }

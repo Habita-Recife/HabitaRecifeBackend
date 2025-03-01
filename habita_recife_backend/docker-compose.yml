@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=mydatabase'       # Cria o banco de dados 'mydatabase'
+      - 'MYSQL_ROOT_PASSWORD=Admin2'      # Senha para o usuário root
+      - 'MYSQL_USER=myuser'               # Nome do usuário regular
+      - 'MYSQL_PASSWORD=Admin1'           # Senha para o usuário regular
+    ports:
+      - '3307:3306'                       # Mapeia a porta 3306 do container para a 3307 no host

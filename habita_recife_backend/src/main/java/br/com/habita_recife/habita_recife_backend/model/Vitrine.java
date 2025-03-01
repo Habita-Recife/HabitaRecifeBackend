@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name= "tb_vitrine")
+@Table(name= "tb_vitrines")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,14 +31,16 @@ public class Vitrine {
     private String nome_produto;
 
     @Enumerated(EnumType.STRING)
-    private TipoVitrine tipo_vitrine;
+    @Column(name = "tipo_vitrine",nullable = false)
+    private TipoVitrine tipoVitrine;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="###,###.00")
     private Double valor_produto;
 
     @ManyToOne
     @JoinColumn(name = "id_sindico", nullable = false,
-            foreignKey = @ForeignKey(name = "id_sindico"))
+            foreignKey = @ForeignKey(name = "id_sindico_fk"))
     private Sindico sindico;
+
 }
 

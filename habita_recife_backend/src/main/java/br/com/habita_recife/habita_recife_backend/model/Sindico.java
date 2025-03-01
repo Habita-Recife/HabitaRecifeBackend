@@ -34,7 +34,7 @@ public class Sindico {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_condominio", nullable = false,
-            foreignKey = @ForeignKey(name = "id_condominio"))
+            foreignKey = @ForeignKey(name = "id_condominio_fk"))
     private Condominio condominio;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -48,4 +48,7 @@ public class Sindico {
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ConfirmacaoServico> confirmacao_servicos = new HashSet<>();
+
+    @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Vitrine> vitrines;
 }

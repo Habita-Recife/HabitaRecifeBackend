@@ -28,15 +28,15 @@ public class Mensagem {
     @Column(nullable = false, length = 250)
     private String conteudo;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TipoMensagem tipo_mensagem;
+    @Column(name = "tipo_mensagem", nullable = false)
+    private TipoMensagem tipoMensagem;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime data_mensagem;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sindico", nullable = false,
-            foreignKey = @ForeignKey(name = "id_sindico"))
+            foreignKey = @ForeignKey(name = "id_sindico_fk"))
     private Sindico sindico;
 }

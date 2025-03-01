@@ -30,12 +30,13 @@ public class Solicitacao {
     @Enumerated(EnumType.STRING)
     private TipoSolicitacao tipo_solicitacao;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "statusSolicitacao", nullable = false)
     private Status status_solicitacao;
 
     @ManyToOne
     @JoinColumn(name = "id_morador", nullable = false,
-            foreignKey = @ForeignKey(name = "id_morador"))
+            foreignKey = @ForeignKey(name = "id_morador_fk"))
     private Morador morador;
 }
+

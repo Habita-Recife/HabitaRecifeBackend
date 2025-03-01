@@ -26,9 +26,9 @@ public class Morador {
     @Column
     private String veiculo;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TipoMorador tipo_morador;
+    @Column(name = "tipo_morador", nullable = false)
+    private TipoMorador tipoMorador;
 
     @Column(nullable = false, length = 11, unique = true)
     @Setter(AccessLevel.NONE)
@@ -36,7 +36,7 @@ public class Morador {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cobranca", nullable = false,
-            foreignKey = @ForeignKey(name = "id_cobranca"))
+            foreignKey = @ForeignKey(name = "id_cobranca_fk"))
     private Cobranca cobranca;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -44,7 +44,7 @@ public class Morador {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_condominio", nullable = false,
-            foreignKey = @ForeignKey(name = "id_condominio"))
+            foreignKey = @ForeignKey(name = "id_condominio_fk"))
     private Condominio condominio;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -59,4 +59,6 @@ public class Morador {
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Servico> servico = new HashSet<>();
 
+    @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Fluxo> fluxo;
 }

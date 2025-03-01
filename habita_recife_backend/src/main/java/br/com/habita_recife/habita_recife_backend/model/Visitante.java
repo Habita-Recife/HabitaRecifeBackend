@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_visitantes")
@@ -30,6 +31,6 @@ public class Visitante {
     private String numero_telefone;
 
     @OneToMany(mappedBy = "visitante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Fluxo> fluxos;
+    private Set<Fluxo> fluxos;
 
 }

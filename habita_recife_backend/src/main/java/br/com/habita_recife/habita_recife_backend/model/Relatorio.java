@@ -29,12 +29,12 @@ public class Relatorio {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_prefeitura", nullable = false, unique = true,
-            foreignKey = @ForeignKey(name = "id_prefeitura"))
+            foreignKey = @ForeignKey(name = "id_prefeitura_fk"))
     private Prefeitura prefeitura;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sindico", nullable = false,
-            foreignKey = @ForeignKey(name = "id_sindico"))
+            foreignKey = @ForeignKey(name = "id_sindico_fk"))
     private Sindico sindico;
 
 }

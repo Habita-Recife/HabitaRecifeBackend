@@ -21,22 +21,18 @@ public class Notificacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_notificacao;
 
-
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TipoNotificacao tipo_notificacao;
-
+    @Column(name = "tipo_notificacao", nullable = false)
+    private TipoNotificacao tipoNotificacao;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_morador", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_notificacao_morador"))
+            foreignKey = @ForeignKey(name = "id_notificacao_morador_fk"))
     private Morador morador;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sindico", nullable = false,
-            foreignKey = @ForeignKey(name="fk_notificacao_sindico"))
+            foreignKey = @ForeignKey(name="id_notificacao_sindico_fk"))
     private Sindico sindico;
-
 
 }
