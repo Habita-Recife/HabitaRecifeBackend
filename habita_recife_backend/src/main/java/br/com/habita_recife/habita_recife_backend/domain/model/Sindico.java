@@ -38,7 +38,6 @@ public class Sindico {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_condominio", nullable = true,
             foreignKey = @ForeignKey(name = "id_sindico_condominio_fk"))
-    @JsonIgnore
     private Condominio condominio;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

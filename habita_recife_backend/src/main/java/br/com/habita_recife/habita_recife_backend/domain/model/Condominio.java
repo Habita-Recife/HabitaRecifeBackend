@@ -21,16 +21,16 @@ public class Condominio {
     @Column(name = "id_condominio")
     private Long idCondominio;
 
-    @Column(nullable = true, unique = true)
+    @Column(nullable = false, unique = true)
     private String nome_condominio;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Integer numero_apartamento;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Integer numero_bloco;
 
-    @Column(nullable = true, unique = true, length = 300)
+    @Column(nullable = false, unique = true, length = 300)
     private String endereco_condominio;
 
     @OneToOne(mappedBy = "condominio", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
