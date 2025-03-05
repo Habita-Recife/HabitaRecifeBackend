@@ -21,17 +21,17 @@ public class Condominio {
     @Column(name = "id_condominio")
     private Long idCondominio;
 
-    @Column(nullable = false, unique = true)
-    private String nome_condominio;
+    @Column(name = "nome_condominio", nullable = false, unique = true)
+    private String nomeCondominio;
 
-    @Column(nullable = false)
-    private Integer numero_apartamento;
+    @Column(name = "numero_apartamento", nullable = false)
+    private Integer numeroApartamento;
 
-    @Column(nullable = false)
-    private Integer numero_bloco;
+    @Column(name = "nuemro_bloco", nullable = false)
+    private Integer numeroBloco;
 
-    @Column(nullable = false, unique = true, length = 300)
-    private String endereco_condominio;
+    @Column(name = "endereco_condominio", nullable = false, unique = true, length = 300)
+    private String enderecoCondominio;
 
     @OneToOne(mappedBy = "condominio", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Sindico sindico;
