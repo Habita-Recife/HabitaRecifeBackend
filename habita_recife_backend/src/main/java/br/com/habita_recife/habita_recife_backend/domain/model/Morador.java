@@ -17,7 +17,8 @@ public class Morador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_morador;
+    @Column(name = "id_morador")
+    private Long idMorador;
 
     @Column(nullable = false, unique = true)
     private String nome_morador;

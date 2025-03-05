@@ -38,10 +38,10 @@ public class SindicoServiceImpl implements SindicoService {
 
     @Override
     public Sindico salvar(SindicoDTO sindicoDTO) {
-        Optional<Condominio> optionalCondominio = condominioRepository.findById(sindicoDTO.getId_condominio());
+        Optional<Condominio> optionalCondominio = condominioRepository.findById(sindicoDTO.getIdCondominio());
 
         if (!optionalCondominio.isPresent()) {
-            throw new CondominioNotFoundException("Condomínio não encontrado com id: " + sindicoDTO.getId_condominio());
+            throw new CondominioNotFoundException("Condomínio não encontrado com id: " + sindicoDTO.getIdCondominio());
         }
 
         Optional<Sindico> existingSindico = sindicoRepository.findByCondominio(optionalCondominio.get());
@@ -78,6 +78,7 @@ public class SindicoServiceImpl implements SindicoService {
         sindicoExistente.setTelefoneSindico(sindicoDTO.getTelefoneSindico());
 
         return sindicoRepository.save(sindicoExistente);
+
     }
 
     @Override
