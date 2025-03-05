@@ -2,7 +2,6 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.CondominioDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
-import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.service.CondominioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class CondominioServiceImpl implements CondominioService {
     public Condominio salvar(CondominioDTO condominioDTO) {
         // Busca um condomínio com o mesmo nome ou id
         Optional<Condominio> condominioOptional = condominioRepository
-                .findByNomeCondominioOrId(condominioDTO.getNomeCondominio(), condominioDTO.getIdCondominio());
+                .findByNomeCondominioOrIdCondominio(condominioDTO.getNomeCondominio(), condominioDTO.getIdCondominio());
 
         // Validação: impede duplicação de nome
         if (condominioOptional.isPresent() &&
@@ -47,6 +46,8 @@ public class CondominioServiceImpl implements CondominioService {
         Condominio condominio = new Condominio();
         condominio.setNomeCondominio(condominioDTO.getNomeCondominio());
         condominio.setEnderecoCondominio(condominioDTO.getEnderecoCondominio());
+        condominio.setNumeroApartamento(condominioDTO.getNumeroApartamento());
+        condominio.setNumeroBloco(condominioDTO.getNumeroBloco());
 
         // Salva o objeto e retorna o condomínio criado
         return condominioRepository.save(condominio);
@@ -59,7 +60,7 @@ public class CondominioServiceImpl implements CondominioService {
 
         // Verifica se já existe outro condomínio com o mesmo nome
         Optional<Condominio> condominioOptional = condominioRepository
-                .findByNomeCondominioOrId(condominioDTO.getNomeCondominio(), id);
+                .findByNomeCondominioOrIdCondominio(condominioDTO.getNomeCondominio(), id);
         if (condominioOptional.isPresent() && !condominioOptional.get().getIdCondominio().equals(id)) {
             throw new IllegalArgumentException("Já existe um condomínio com este nome: " + condominioDTO.getNomeCondominio());
         }

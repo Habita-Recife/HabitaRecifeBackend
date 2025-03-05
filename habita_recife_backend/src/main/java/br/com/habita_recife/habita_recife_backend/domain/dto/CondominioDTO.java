@@ -12,6 +12,11 @@ import lombok.Setter;
 public class CondominioDTO {
 
     private Long idCondominio;
+    private Long idSindico;
+    private Long idMorador;
+    private Long idPorteiro;
     private String nomeCondominio;
     private String enderecoCondominio;
+    private Integer numeroApartamento;
+    private Integer numeroBloco;
 }

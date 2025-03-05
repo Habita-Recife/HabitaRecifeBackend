@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,7 @@ public class Sindico {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_condominio", nullable = true,
             foreignKey = @ForeignKey(name = "id_sindico_condominio_fk"))
+    @JsonBackReference
     private Condominio condominio;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
