@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class Porteiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_porteiro;
+    private Long idPorteiro;
 
     @Column(nullable = false, unique = true)
     private String nome_porteiro;
@@ -30,5 +31,6 @@ public class Porteiro {
     private Set<Fluxo> fluxos;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Condominio condominio;
 }

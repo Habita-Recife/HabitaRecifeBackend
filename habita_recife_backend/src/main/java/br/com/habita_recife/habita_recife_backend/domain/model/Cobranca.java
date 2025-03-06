@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
+import br.com.habita_recife.habita_recife_backend.domain.enums.TipoCobranca;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,9 @@ public class Cobranca {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="dd/MM/yyyy HH:mm:ss")
     private LocalDateTime data_cobranca;
+
+    @Enumerated(EnumType.STRING)
+    private TipoCobranca tipoCobranca;
 
     @ManyToOne
     @JoinColumn(name = "id_morador", nullable = false,

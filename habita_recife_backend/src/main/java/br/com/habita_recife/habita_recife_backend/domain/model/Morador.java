@@ -1,6 +1,7 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMorador;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +18,6 @@ public class Morador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_morador")
     private Long idMorador;
 
     @Column(nullable = false, unique = true)
@@ -43,6 +43,7 @@ public class Morador {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_condominio", nullable = false,
             foreignKey = @ForeignKey(name = "id_morador_condominio_fk"))
+    @JsonBackReference
     private Condominio condominio;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
