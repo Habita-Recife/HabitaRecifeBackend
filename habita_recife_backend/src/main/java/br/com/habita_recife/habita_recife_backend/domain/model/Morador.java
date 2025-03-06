@@ -23,16 +23,16 @@ public class Morador {
     @Column(nullable = false, unique = true)
     private String nome_morador;
 
-    @Column
-    private String veiculo;
+    @Column(name = "veiculo", unique = true)
+    private String veiculoMorador;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_morador", nullable = false)
     private TipoMorador tipoMorador;
 
-    @Column(nullable = false, length = 11, unique = true)
+    @Column(name = "cpf_morador", nullable = false, length = 11, unique = true)
     @Setter(AccessLevel.NONE)
-    private String cpf_morador;
+    private String cpfMorador;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Cobranca> cobranca;

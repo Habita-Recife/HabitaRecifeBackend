@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.service;
 
+import br.com.habita_recife.habita_recife_backend.domain.dto.MoradorDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
 
 import java.util.List;
