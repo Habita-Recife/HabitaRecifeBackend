@@ -10,4 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MoradorDTO {
+
+    private Long id_condominio;
 }

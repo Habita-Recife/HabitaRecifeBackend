@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.service.impl;
 
+import br.com.habita_recife.habita_recife_backend.domain.dto.MoradorDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
 import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
 import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
