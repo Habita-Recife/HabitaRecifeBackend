@@ -5,6 +5,7 @@ import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
 import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
+import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,19 +37,29 @@ public class PorteiroServiceImpl implements PorteiroService {
 
     @Override
     public Porteiro salvar(PorteiroDTO porteiroDTO) {
-        Optional<Porteiro> porteiroOptional = porteiroRepository
-                .findByOrIdPorteiroOrCpf_porteiro(porteiroDTO.getIdPorteiro(),
-                        porteiroDTO.getCpf_porteiro());
+        Optional<Condominio> optionalCondominio =
+                condominioRepository.findById(porteiroDTO.getId_condominio());
 
-        if (porteiroOptional.isPresent() &&
-                (porteiroDTO.getIdPorteiro() == null || !porteiroOptional.get().getCpf_porteiro().equals(porteiroDTO.getCpf_porteiro()))) {
-            throw new IllegalArgumentException("Já existe um porteiro com " +
-                    "este cpf: " + porteiroDTO.getCpf_porteiro());
+        if (!optionalCondominio.isPresent()) {
+            throw new CondominioNotFoundException("Condomínio não encontrado " +
+                    "com id: " + porteiroDTO.getId_condominio());
         }
 
+        Optional<Porteiro> porteiroOptional = porteiroRepository
+                .findByIdPorteiroOrCpfPorteiro(porteiroDTO.getIdPorteiro(),
+                        porteiroDTO.getCpfPorteiro());
+
+        if (porteiroOptional.isPresent() &&
+                (porteiroDTO.getIdPorteiro() == null || !porteiroOptional.get().getCpfPorteiro().equals(porteiroDTO.getCpfPorteiro()))) {
+            throw new IllegalArgumentException("Já existe um porteiro com este cpf: " + porteiroDTO.getCpfPorteiro());
+        }
+
+        Condominio condominio = optionalCondominio.get();
+
         Porteiro porteiro = new Porteiro();
-        porteiro.setNome_porteiro(porteiroDTO.getNome_porteiro());
-        porteiro.setCpf_porteiro(porteiroDTO.getCpf_porteiro());
+        porteiro.setNomePorteiro(porteiroDTO.getNomePorteiro());
+        porteiro.setCpfPorteiro(porteiroDTO.getCpfPorteiro());
+        porteiro.setCondominio(condominio);
 
         return porteiroRepository.save(porteiro);
     }
@@ -59,16 +70,15 @@ public class PorteiroServiceImpl implements PorteiroService {
                 .orElseThrow(() -> new RuntimeException("Porteiro não " + "encontrado com id: " + id));
 
         Optional<Porteiro> porteiroOptional = porteiroRepository
-                .findByOrIdPorteiroOrCpf_porteiro(porteiroDTO.getIdPorteiro(),
-                        porteiroDTO.getCpf_porteiro());
-        if (porteiroOptional.isPresent() &&
-                (porteiroDTO.getIdPorteiro() == null || !porteiroOptional.get().getIdPorteiro().equals(porteiroDTO.getIdPorteiro()))) {
-            throw new IllegalArgumentException("Já existe um porteiro com " +
-                    "este id: " + porteiroDTO.getIdPorteiro());
+                .findByIdPorteiroOrCpfPorteiro(porteiroDTO.getIdPorteiro(),
+                        porteiroDTO.getCpfPorteiro());
+        if (porteiroRepository.findByCpfPorteiro(porteiroDTO.getCpfPorteiro()).isPresent() &&
+                !porteiroExistente.getCpfPorteiro().equals(porteiroDTO.getCpfPorteiro())) {
+            throw new IllegalArgumentException("Já existe um porteiro com este cpf: " + porteiroDTO.getCpfPorteiro());
         }
 
-        porteiroExistente.setNome_porteiro(porteiroDTO.getNome_porteiro());
-        porteiroExistente.setCpf_porteiro(porteiroDTO.getCpf_porteiro());
+        porteiroExistente.setNomePorteiro(porteiroDTO.getNomePorteiro());
+        porteiroExistente.setCpfPorteiro(porteiroDTO.getCpfPorteiro());
         return porteiroRepository.save(porteiroExistente);
     }
 
