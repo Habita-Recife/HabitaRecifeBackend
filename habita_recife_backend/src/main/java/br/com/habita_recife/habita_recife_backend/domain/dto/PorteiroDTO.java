@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PorteiroDTO {
 
-    private Long idPorteiro;
     private Long idCondominio;
+    private Long idPorteiro;
     private Long id_fluxo;
     private String nome_porteiro;
     private String cpf_porteiro;
