@@ -20,8 +20,11 @@ public class Morador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMorador;
 
-    @Column(nullable = false, unique = true)
-    private String nome_morador;
+    @Column(name = "nome_morador",nullable = false, unique = true)
+    private String nomeMorador;
+
+    @Column(name = "email_morador", nullable = false, unique = true)
+    private String emailMorador;
 
     @Column(name = "veiculo", unique = true)
     private String veiculoMorador;
@@ -30,8 +33,8 @@ public class Morador {
     @Column(name = "tipo_morador", nullable = false)
     private TipoMorador tipoMorador;
 
+    //@Setter(AccessLevel.NONE)
     @Column(name = "cpf_morador", nullable = false, length = 11, unique = true)
-    @Setter(AccessLevel.NONE)
     private String cpfMorador;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
