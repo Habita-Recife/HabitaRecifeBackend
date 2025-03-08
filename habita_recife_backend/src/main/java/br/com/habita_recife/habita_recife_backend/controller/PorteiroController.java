@@ -2,12 +2,14 @@ package br.com.habita_recife.habita_recife_backend.controller;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.PorteiroDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
+import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/porteiro")
@@ -27,18 +29,21 @@ public class PorteiroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Porteiro> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(porteiroService.buscarPorId(id));
+        Optional<Porteiro> porteiro = porteiroService.buscarPorId(id);
+        return porteiro.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping
     public ResponseEntity<Porteiro> salvar(@RequestBody PorteiroDTO porteiroDTO) {
-        Porteiro novoPorteiro = porteiroService.salvar(novoPorteiro));
+        Porteiro novoPorteiro = porteiroService.salvar(porteiroDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPorteiro);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Porteiro> atualizar(@PathVariable Long id, @RequestBody PorteiroDTO porteiroDTO) {
-        Porteiro porteiroAtualizado = porteiroService.atualizar(id, porteiroDTO);
+        Porteiro porteiroAtualizado = porteiroService.atualizar(id,
+                porteiroDTO);
         return ResponseEntity.ok(porteiroAtualizado);
     }
 
