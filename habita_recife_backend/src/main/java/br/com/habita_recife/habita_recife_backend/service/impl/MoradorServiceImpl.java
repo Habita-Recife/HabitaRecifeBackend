@@ -55,6 +55,7 @@ public class MoradorServiceImpl implements MoradorService {
 
         Morador morador = new Morador();
         morador.setNomeMorador(moradorDTO.getNomeMorador());
+        morador.setEmailMorador(moradorDTO.getEmailMorador());
         morador.setVeiculoMorador(moradorDTO.getVeiculoMorador());
         morador.setTipoMorador(moradorDTO.getTipoMorador());
         morador.setCpfMorador(moradorDTO.getCpfMorador());
