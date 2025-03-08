@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface PorteiroRepository extends JpaRepository<Porteiro, Long> {
-    Optional<Porteiro> findByOrIdPorteiroOrCpf_porteiro(Long idPorteiro, String cpf_porteiro);
-
+    Optional<Porteiro> findByIdPorteiroOrCpfPorteiro(Long idPorteiro, String cpfPorteiro);
+    Optional<Porteiro> findByCpfPorteiro(String cpfPorteiro);
 }
