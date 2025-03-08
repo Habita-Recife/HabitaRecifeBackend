@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,27 +19,29 @@ public class Condominio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_condominio")
     private Long idCondominio;
 
-    @Column(nullable = false, unique = true)
-    private String nome_condominio;
+    @Column(name = "nome_condominio", nullable = false, unique = true)
+    private String nomeCondominio;
 
-    @Column(nullable = false)
-    private Integer numero_apartamento;
+    @Column(name = "numero_apartamento", nullable = false)
+    private Integer numeroApartamento;
 
-    @Column(nullable = false)
-    private Integer numero_bloco;
+    @Column(name = "numero_bloco", nullable = false)
+    private Integer numeroBloco;
 
-    @Column(nullable = false, unique = true, length = 300)
-    private String endereco_condominio;
+    @Column(name = "endereco_condominio", nullable = false, unique = true, length = 300)
+    private String enderecoCondominio;
 
     @OneToOne(mappedBy = "condominio", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Sindico sindico;
 
     @OneToOne(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Porteiro porteiro;
 
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Morador> morador;
 }
