@@ -16,6 +16,5 @@ public class VisitanteDTO {
     private Long idVisitante;
     private String cpfVisitante;
     private String nomeVisitante;
-    private String numeroVelefone;
-    private Status statusVisitante;
+    private String numeroTelefone;
 }
