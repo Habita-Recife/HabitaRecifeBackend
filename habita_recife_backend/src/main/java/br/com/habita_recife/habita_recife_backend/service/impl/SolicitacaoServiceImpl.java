@@ -1,6 +1,8 @@
 package br.com.habita_recife.habita_recife_backend.service.impl;
 
+import br.com.habita_recife.habita_recife_backend.domain.dto.ServicoDTO;
 import br.com.habita_recife.habita_recife_backend.domain.dto.SolicitacaoDTO;
+import br.com.habita_recife.habita_recife_backend.domain.model.Servico;
 import br.com.habita_recife.habita_recife_backend.domain.model.Solicitacao;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SolicitacaoRepository;
 import br.com.habita_recife.habita_recife_backend.service.SolicitacaoService;
@@ -8,13 +10,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class SolicitacaoServiceImpl implements SolicitacaoService {
 
     private final SolicitacaoRepository solicitacaoRepository;
 
-    public SolicitacaoServiceImpl(SolicitacaoRepository solicitacaoRepository) { // @Autowired removido, pois não é necessário
+    public SolicitacaoServiceImpl(SolicitacaoRepository solicitacaoRepository) {
         this.solicitacaoRepository = solicitacaoRepository;
     }
 
@@ -31,11 +32,15 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
     @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
 
+        Solicitacao solicitacao = new Solicitacao();
+        solicitacao.setTitulo(solicitacaoDTO.getTitulo());
+        solicitacao.setConteudo(solicitacaoDTO.getConteudo());
+        solicitacao.setStatus_solicitacao(solicitacao.getStatus_solicitacao());
+        solicitacao.setTipo_solicitacao(solicitacao.getTipo_solicitacao());
 
-
-
-        return solicitacaoRepository.save(solicitacaoDTO);
+        return solicitacaoRepository.save(solicitacao);
     }
+
 
     @Override
     public Solicitacao atualizar(Long id, SolicitacaoDTO solicitacaoDTO) {

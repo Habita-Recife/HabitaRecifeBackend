@@ -30,7 +30,12 @@ public class VitrineServiceImpl implements VitrineService  {
 
     @Override
     public Vitrine salvar(VitrineDTO vitrineDTO) {
-        return vitrineRepository.save(vitrineDTO);
+        Vitrine vitrine = new Vitrine();
+        vitrine.setNome_produto(vitrineDTO.getNome_produto());
+        vitrine.setValor_produto(vitrineDTO.getValor_produto());
+        vitrine.setDescricao_produto(vitrineDTO.getDescricao_produto());
+
+        return vitrineRepository.save(vitrine);
     }
 
     @Override
