@@ -42,6 +42,16 @@ public class FluxoServiceImpl implements FluxoService {
 
     @Override
     public Fluxo salvar(FluxoDTO fluxoDTO) {
+
+        if (fluxoDTO.getIdMorador() == null &&
+                fluxoDTO.getIdVisitante() == null &&
+                fluxoDTO.getIdPorteiro() == null) {
+            throw new IllegalArgumentException("Pelo menos um ID (morador, " +
+                    "visitante ou porteiro) deve ser fornecido!");
+        }
+
+        Fluxo fluxo = new Fluxo();
+
         Optional<Morador> moradorOptional = moradorRepository.findById(fluxoDTO.getIdMorador());
 
         if (!moradorOptional.isPresent()) {
@@ -75,7 +85,6 @@ public class FluxoServiceImpl implements FluxoService {
              */
         }
 
-        Fluxo fluxo = new Fluxo();
         fluxo.setMorador(moradorOptional.get());
         fluxo.setVisitante(visitanteOptional.get());
         fluxo.setPorteiro(porteiroOptional.get());

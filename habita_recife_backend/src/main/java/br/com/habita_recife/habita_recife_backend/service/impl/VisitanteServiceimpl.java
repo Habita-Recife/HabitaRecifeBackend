@@ -2,12 +2,9 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.VisitanteDTO;
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
-import br.com.habita_recife.habita_recife_backend.domain.model.Fluxo;
-import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
 import br.com.habita_recife.habita_recife_backend.domain.model.Visitante;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FluxoRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
-import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.VisitanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +46,7 @@ public class VisitanteServiceimpl implements VisitanteService {
         Visitante visitante = new Visitante();
         visitante.setNomeVisitante(visitanteDTO.getNomeVisitante());
         visitante.setCpfVisitante(visitanteDTO.getCpfVisitante());
-        visitante.setNumeroVelefone(visitanteDTO.getNumeroVelefone());
+        visitante.setNumeroTelefone(visitanteDTO.getNumeroTelefone());
         visitante.setStatusVisitante(Status.ATIVO);
 
         return visitanteRepository.save(visitante);
@@ -65,6 +62,11 @@ public class VisitanteServiceimpl implements VisitanteService {
             throw new IllegalArgumentException("Já existe um visitante com" +
                     " este cpf: " + visitanteDTO.getCpfVisitante());
         }
+
+        visitanteExistente.setNomeVisitante(visitanteDTO.getNomeVisitante());
+        visitanteExistente.setCpfVisitante(visitanteDTO.getCpfVisitante());
+        visitanteExistente.setNumeroTelefone(visitanteDTO.getNumeroTelefone());
+
         return visitanteRepository.save(visitanteExistente);
     }
 
@@ -79,6 +81,6 @@ public class VisitanteServiceimpl implements VisitanteService {
             fluxoRepository.save(fluxo);
         }*/
 
-        fluxoRepository.deleteById(id);
+        visitanteRepository.deleteById(id);
     }
 }

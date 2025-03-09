@@ -30,7 +30,7 @@ public class Visitante {
     private String nomeVisitante;
 
     @Column(nullable = false, unique = true, length = 15)
-    private String numeroVelefone;
+    private String numeroTelefone;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_visitante", nullable = false)
