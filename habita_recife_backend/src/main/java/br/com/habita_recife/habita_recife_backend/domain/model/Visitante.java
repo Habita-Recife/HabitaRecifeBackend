@@ -1,5 +1,7 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
+import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
+import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMorador;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,14 +22,19 @@ public class Visitante {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idVisitante;
 
-    @Column(nullable = false, unique = true, length = 12)
-    private String rgVisitante;
+    @Column(name = "cpf_visitante", nullable = false, unique = true, length =
+            12)
+    private String cpfVisitante;
 
     @Column(nullable = false, unique = true)
     private String nomeVisitante;
 
     @Column(nullable = false, unique = true, length = 15)
     private String numeroVelefone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_visitante", nullable = false)
+    private Status statusVisitante;
 
     @OneToMany(mappedBy = "visitante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Fluxo> fluxos;
