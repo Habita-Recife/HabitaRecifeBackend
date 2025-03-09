@@ -5,6 +5,7 @@ import br.com.habita_recife.habita_recife_backend.domain.model.*;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FluxoRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
+import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
 import br.com.habita_recife.habita_recife_backend.service.FluxoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,8 @@ public class FluxoServiceImpl implements FluxoService {
 
         if (!visitanteOptional.isPresent()) {
             return null;
-            throw new VisitanteNotFoundException("Visitante não encontrado com id: " + fluxoDTO.getIdVisitante());
+            /*throw new VisitanteNotFoundException("Visitante não encontrado " +
+                    "com id: " + fluxoDTO.getIdVisitante());*/
         }
 
         Optional<Porteiro> porteiroOptional = porteiroRepository.findById(fluxoDTO.getIdPorteiro());
