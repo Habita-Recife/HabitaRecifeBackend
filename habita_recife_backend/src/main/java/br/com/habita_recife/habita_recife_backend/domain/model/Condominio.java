@@ -16,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Condominio {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCondominio;

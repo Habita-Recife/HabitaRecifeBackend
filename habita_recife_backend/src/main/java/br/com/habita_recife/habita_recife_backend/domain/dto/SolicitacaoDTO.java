@@ -1,6 +1,5 @@
 package br.com.habita_recife.habita_recife_backend.domain.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +9,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SindicoDTO {
+public class SolicitacaoDTO {
 
-    private Long idCondominio;
-    private String nomeSindico;
-    private String emailSindico;
-    private String telefoneSindico;
-    private String rgSindico;
+    private Long idMorador;
+    private String titulo;
+    private String conteudo;
+    private Enum tipo_solicitacao;
+    private Enum status_solicitacao;
+
 }

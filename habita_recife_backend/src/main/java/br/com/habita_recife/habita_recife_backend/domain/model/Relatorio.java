@@ -22,6 +22,9 @@ public class Relatorio {
     private Long id_relatorio;
 
     @Column(nullable = false, length = 1000)
+    private String titulo;
+
+    @Column(nullable = false, length = 1000)
     private String conteudo_relatorio;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
