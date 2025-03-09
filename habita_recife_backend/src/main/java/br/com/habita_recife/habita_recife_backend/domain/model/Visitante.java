@@ -2,6 +2,7 @@ package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMorador;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +38,7 @@ public class Visitante {
     private Status statusVisitante;
 
     @OneToMany(mappedBy = "visitante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Fluxo> fluxos;
 
 }

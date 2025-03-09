@@ -2,6 +2,7 @@ package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,18 +31,14 @@ public class Fluxo {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataFluxo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_morador", nullable = true,
-            foreignKey = @ForeignKey(name = "id_fluxo_morador_fk"))
-    private Morador morador;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_visitante", nullable = true,
-            foreignKey = @ForeignKey(name = "id_fluxo_visitante_fk"))
-    private Visitante visitante;
-
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "id_porteiro", nullable = true,
             foreignKey = @ForeignKey(name = "id_fluxo_porteiro_fk"))
     private Porteiro porteiro;
+
+    @ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name = "id_visitante", nullable = true,
+            foreignKey = @ForeignKey(name = "id_fluxo_visitante_fk"))
+    @JsonBackReference
+    Visitante visitante;
 }
