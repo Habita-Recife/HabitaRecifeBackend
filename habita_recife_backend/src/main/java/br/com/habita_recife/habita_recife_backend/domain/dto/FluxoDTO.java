@@ -14,10 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FluxoDTO {
 
-    private Long idMorador;
-    private Long idVisitante;
     private Long idPorteiro;
     private Long idFluxo;
+    private Long id_visitante;
     private TipoFluxo tipoFluxo;
     private LocalDateTime dataFluxo;
 }

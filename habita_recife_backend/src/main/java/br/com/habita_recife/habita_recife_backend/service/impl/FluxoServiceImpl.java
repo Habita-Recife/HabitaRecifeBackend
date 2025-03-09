@@ -42,54 +42,19 @@ public class FluxoServiceImpl implements FluxoService {
 
     @Override
     public Fluxo salvar(FluxoDTO fluxoDTO) {
+        Optional<Visitante> optionalVisitante =
+                visitanteRepository.findById(fluxoDTO.getId_visitante());
 
-        if (fluxoDTO.getIdMorador() == null &&
-                fluxoDTO.getIdVisitante() == null &&
-                fluxoDTO.getIdPorteiro() == null) {
-            throw new IllegalArgumentException("Pelo menos um ID (morador, " +
-                    "visitante ou porteiro) deve ser fornecido!");
+        if (!optionalVisitante.isPresent()) {
+            throw new RuntimeException("Visitante não encontrado com id: " + fluxoDTO.getId_visitante());
         }
+
+        Visitante visitante = optionalVisitante.get();
 
         Fluxo fluxo = new Fluxo();
-
-        Optional<Morador> moradorOptional = moradorRepository.findById(fluxoDTO.getIdMorador());
-
-        if (!moradorOptional.isPresent()) {
-            return null;
-            /*throw new MoradorNotFoundException("Morador não encontrado com " +
-                    "id: " + fluxoDTO.getIdMorador());*/
-        }
-
-        Optional<Visitante> visitanteOptional = visitanteRepository.findById(fluxoDTO.getIdVisitante());
-
-        if (!visitanteOptional.isPresent()) {
-            return null;
-            /*throw new VisitanteNotFoundException("Visitante não encontrado " +
-                    "com id: " + fluxoDTO.getIdVisitante());*/
-        }
-
-        Optional<Porteiro> porteiroOptional = porteiroRepository.findById(fluxoDTO.getIdPorteiro());
-
-        if (!porteiroOptional.isPresent()) {
-            return null;
-            /*throw new PorteiroNotFoundException("Porteiro não encontrado
-            com id: " + fluxoDTO.getIdPorteiro());
-             */
-        }
-
-        Optional<Fluxo> fluxoOptional = fluxoRepository.findById(fluxoDTO.getIdFluxo());
-        if (fluxoOptional.isPresent()) {
-            return null;
-            /*throw new FluxoAlreadyExistsException("Fluxo já registrado: " +
-             fluxoDTO.getIdFluxo());
-             */
-        }
-
-        fluxo.setMorador(moradorOptional.get());
-        fluxo.setVisitante(visitanteOptional.get());
-        fluxo.setPorteiro(porteiroOptional.get());
         fluxo.setTipoFluxo(fluxoDTO.getTipoFluxo());
         fluxo.setDataFluxo(LocalDateTime.now());
+        fluxo.setVisitante(visitante);
 
         return fluxoRepository.save(fluxo);
     }
@@ -97,16 +62,6 @@ public class FluxoServiceImpl implements FluxoService {
     @Override
     public void excluir(Long id) {
         Fluxo fluxo = fluxoRepository.findById(id).orElseThrow(() -> new RuntimeException("Fluxo não " + "encontrado com id: " + id));
-
-        Morador morador = fluxo.getMorador();
-        if (morador != null) {
-            morador.getFluxos().remove(fluxo);
-        }
-
-        Visitante visitante = fluxo.getVisitante();
-        if (visitante != null) {
-            visitante.getFluxos().remove(fluxo);
-        }
 
         Porteiro porteiro = fluxo.getPorteiro();
         if (porteiro != null) {

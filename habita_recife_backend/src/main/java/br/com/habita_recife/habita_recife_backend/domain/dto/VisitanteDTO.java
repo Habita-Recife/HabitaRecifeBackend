@@ -12,8 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class VisitanteDTO {
 
-    private Long idFluxo;
     private Long idVisitante;
+    private Long idFluxo;
     private String cpfVisitante;
     private String nomeVisitante;
     private String numeroTelefone;

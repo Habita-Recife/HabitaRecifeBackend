@@ -40,9 +40,6 @@ public class Morador {
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Financeiro> financeiro;
 
-    @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Fluxo> fluxos;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_condominio", nullable = false,
             foreignKey = @ForeignKey(name = "id_morador_condominio_fk"))
@@ -60,7 +57,4 @@ public class Morador {
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Servico> servico;
-
-    @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Fluxo> fluxo;
 }
