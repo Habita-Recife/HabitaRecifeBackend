@@ -2,6 +2,7 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.PorteiroDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
+import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
 import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
@@ -38,20 +39,17 @@ public class PorteiroServiceImpl implements PorteiroService {
     @Override
     public Porteiro salvar(PorteiroDTO porteiroDTO) {
         Optional<Condominio> optionalCondominio =
-                condominioRepository.findById(porteiroDTO.getId_condominio());
+                condominioRepository.findById(porteiroDTO.getIdCondominio());
 
         if (!optionalCondominio.isPresent()) {
             throw new CondominioNotFoundException("Condomínio não encontrado " +
-                    "com id: " + porteiroDTO.getId_condominio());
+                    "com id: " + porteiroDTO.getIdCondominio());
         }
 
-        Optional<Porteiro> porteiroOptional = porteiroRepository
-                .findByIdPorteiroOrCpfPorteiro(porteiroDTO.getIdPorteiro(),
-                        porteiroDTO.getCpfPorteiro());
-
-        if (porteiroOptional.isPresent() &&
-                (porteiroDTO.getIdPorteiro() == null || !porteiroOptional.get().getCpfPorteiro().equals(porteiroDTO.getCpfPorteiro()))) {
-            throw new IllegalArgumentException("Já existe um porteiro com este cpf: " + porteiroDTO.getCpfPorteiro());
+        Optional<Porteiro> existingPorteiro =
+                porteiroRepository.findByCpfPorteiro(porteiroDTO.getCpfPorteiro());
+        if (existingPorteiro.isPresent()) {
+            throw new RuntimeException("Já existe um porteiro com este cpf: " + porteiroDTO.getCpfPorteiro());
         }
 
         Condominio condominio = optionalCondominio.get();
@@ -69,9 +67,6 @@ public class PorteiroServiceImpl implements PorteiroService {
         Porteiro porteiroExistente = porteiroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Porteiro não " + "encontrado com id: " + id));
 
-        Optional<Porteiro> porteiroOptional = porteiroRepository
-                .findByIdPorteiroOrCpfPorteiro(porteiroDTO.getIdPorteiro(),
-                        porteiroDTO.getCpfPorteiro());
         if (porteiroRepository.findByCpfPorteiro(porteiroDTO.getCpfPorteiro()).isPresent() &&
                 !porteiroExistente.getCpfPorteiro().equals(porteiroDTO.getCpfPorteiro())) {
             throw new IllegalArgumentException("Já existe um porteiro com este cpf: " + porteiroDTO.getCpfPorteiro());

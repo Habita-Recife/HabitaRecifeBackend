@@ -10,5 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface MoradorRepository extends JpaRepository<Morador, Long> {
-    Optional<Sindico> findByCondominio(Condominio condominio);
+    Optional<Morador> findByEmailMorador(String email);
+    Optional<Morador> findByCondominio(Condominio condominio);
 }

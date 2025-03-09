@@ -83,7 +83,7 @@ public class SindicoServiceImpl implements SindicoService {
     @Override
     public void excluir(Long id) {
         Sindico sindico = sindicoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Síndico não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Síndico não encontrado id"));
 
         // Desvincula o síndico do condomínio antes de deletar
         Condominio condominio = sindico.getCondominio();
