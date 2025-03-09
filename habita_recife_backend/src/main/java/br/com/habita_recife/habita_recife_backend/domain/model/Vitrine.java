@@ -29,6 +29,9 @@ public class Vitrine {
     @Column(name = "tipo_vitrine",nullable = false)
     private TipoVitrine tipoVitrine;
 
+    @Column(nullable = false)
+    private String descricao_produto;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="###,###.00")
     private Double valor_produto;
 

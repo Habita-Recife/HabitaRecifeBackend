@@ -1,13 +1,15 @@
 package br.com.habita_recife.habita_recife_backend.domain.repository;
 
-import br.com.habita_recife.habita_recife_backend.domain.model.Vitrine;
+
+import br.com.habita_recife.habita_recife_backend.domain.model.Servico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface VitrineRepository extends JpaRepository<Vitrine, Long> {
+public interface ServicoRepository extends JpaRepository<Servico, Long> {
 
-    Optional<Vitrine> findById(Long id_vitrine);
+    Optional<Servico> findById(Servico id_servico);
+
 }

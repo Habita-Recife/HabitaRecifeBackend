@@ -1,21 +1,20 @@
 package br.com.habita_recife.habita_recife_backend.service.impl;
 
+import br.com.habita_recife.habita_recife_backend.domain.dto.SolicitacaoDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Solicitacao;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SolicitacaoRepository;
 import br.com.habita_recife.habita_recife_backend.service.SolicitacaoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SolicitacaoServicelmpl implements SolicitacaoService {
+public class SolicitacaoServiceImpl implements SolicitacaoService {
 
     private final SolicitacaoRepository solicitacaoRepository;
 
-    @Autowired
-    public SolicitacaoServicelmpl(SolicitacaoRepository solicitacaoRepository) {
+    public SolicitacaoServiceImpl(SolicitacaoRepository solicitacaoRepository) { // @Autowired removido, pois não é necessário
         this.solicitacaoRepository = solicitacaoRepository;
     }
 
@@ -30,53 +29,30 @@ public class SolicitacaoServicelmpl implements SolicitacaoService {
     }
 
     @Override
-    public Solicitacao salvar(String titulo, Long id, Solicitacao solicitacao) {
+    public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
 
-        Optional<Solicitacao> solicitacaoExistenteOptional = solicitacaoRepository.findByTitulo(titulo);
 
-        if (solicitacaoExistenteOptional.isPresent()) {
-            Solicitacao solicitacaoExistente = solicitacaoExistenteOptional.get();
 
-            if (id != null && solicitacaoExistente.getId_solicitacao() != null && solicitacaoExistente.getId_solicitacao().equals(id)) {
-                // Título e ID correspondem, atualiza.
-                solicitacaoExistente.setTitulo(solicitacao.getTitulo());
-                solicitacaoExistente.setConteudo(solicitacao.getConteudo());
-                return solicitacaoRepository.save(solicitacaoExistente);
-            } else if (id != null && solicitacaoExistente.getId_solicitacao() == null) {
-                // Título existe, mas ID não existe.
-                // Adicione aqui a lógica que você deseja para esse caso.
-                // Exemplo: lançar uma exceção ou criar uma nova solicitação.
-                throw new RuntimeException("Solicitação com título '" + titulo + "' encontrada, mas não possui ID.");
-                //Ou
-                //return solicitacaoRepository.save(solicitacao);
-            } else {
-                // Título existe, ID existe, mas não correspondem.
-                throw new RuntimeException("Solicitação com título '" + titulo + "' encontrada, mas o ID fornecido não corresponde.");
-            }
-        } else {
-            // Título não existe, cria nova solicitação.
-            return solicitacaoRepository.save(solicitacao);
-        }
+
+        return solicitacaoRepository.save(solicitacaoDTO);
     }
 
     @Override
-    public Solicitacao atualizar(Long id, Solicitacao solicitacao) {
+    public Solicitacao atualizar(Long id, SolicitacaoDTO solicitacaoDTO) {
         Solicitacao solicitacaoExistente = solicitacaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("solicitação não encontrado com id: " + id));
+                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada com ID: " + id));
 
-        solicitacaoExistente.setTitulo(solicitacao.getTitulo());
-        solicitacaoExistente.setConteudo(solicitacao.getConteudo());
+        solicitacaoExistente.setTitulo(solicitacaoDTO.getTitulo());
+        solicitacaoExistente.setConteudo(solicitacaoDTO.getConteudo());
 
-        Solicitacao update = solicitacaoRepository.save(solicitacaoExistente);
-        return update;
+        return solicitacaoRepository.save(solicitacaoExistente);
     }
 
     @Override
     public void excluir(Long id) {
+        if (!solicitacaoRepository.existsById(id)) {
+            throw new RuntimeException("Solicitação não encontrada com ID: " + id);
+        }
         solicitacaoRepository.deleteById(id);
-
     }
 }
-
-
-//metodo atualizar  passar pro salvar e ver qual usar no controller ,post e put
