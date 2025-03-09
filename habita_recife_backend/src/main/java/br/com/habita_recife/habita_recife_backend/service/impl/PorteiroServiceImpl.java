@@ -38,11 +38,11 @@ public class PorteiroServiceImpl implements PorteiroService {
     @Override
     public Porteiro salvar(PorteiroDTO porteiroDTO) {
         Optional<Condominio> optionalCondominio =
-                condominioRepository.findById(porteiroDTO.getId_condominio());
+                condominioRepository.findById(porteiroDTO.getIdCondominio());
 
         if (!optionalCondominio.isPresent()) {
             throw new CondominioNotFoundException("Condomínio não encontrado " +
-                    "com id: " + porteiroDTO.getId_condominio());
+                    "com id: " + porteiroDTO.getIdCondominio());
         }
 
         Optional<Porteiro> porteiroOptional = porteiroRepository
