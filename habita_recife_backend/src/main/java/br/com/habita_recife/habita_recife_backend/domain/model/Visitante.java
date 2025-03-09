@@ -18,16 +18,16 @@ public class Visitante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_visitante;
+    private Long idVisitante;
 
     @Column(nullable = false, unique = true, length = 12)
-    private String rg_visitante;
+    private String rgVisitante;
 
     @Column(nullable = false, unique = true)
-    private String nome_visitante;
+    private String nomeVisitante;
 
     @Column(nullable = false, unique = true, length = 15)
-    private String numero_telefone;
+    private String numeroVelefone;
 
     @OneToMany(mappedBy = "visitante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Fluxo> fluxos;

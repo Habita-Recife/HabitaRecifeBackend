@@ -21,18 +21,14 @@ public class Fluxo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_fluxo;
+    private Long idFluxo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_fluxo", nullable = false)
     private TipoFluxo tipoFluxo;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status_fluxo", nullable = false)
-    private Status statusFluxo;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime data_fluxo;
+    private LocalDateTime dataFluxo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_morador", nullable = false,
