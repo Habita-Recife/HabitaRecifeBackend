@@ -77,33 +77,34 @@ A plataforma é desenvolvida utilizando tecnologias modernas e robustas:
    mvn spring-boot:run
    ```
 
-## 💰 Banco de Dados
+## Banco de Dados
 Representação no Mermaid
-
-# Habita-Recife-Backend
 
 ```mermaid
 classDiagram
 	%% Grupo 1: Entidades principais
 	class Condominio {
-    	+int id_unidade
-    	+string endereco
-    	+string nome_condominio
-    	+int numero_apartamento
+    	+int idCondominio
+    	+string enderecoCondominio
+    	+string nomeCondominio
+    	+string numeroBloco
+    	+int numeroApartamento
 	}
 
 	class Sindico {
-    	+int id_sindico
-    	+string nome_sindico
-    	+string telefone_sindico
-    	+int id_unidade
+    	+int idSindico
+    	+string nomeSindico
+    	+string telefoneSindico
+    	+string emailSindico
+	+string rgSindico
 	}
 
 	class Morador {
-    	+string cpf_morador
-    	+string nome_morador
+    	+string idMorador
+	+string cpfMorador
+    	+string nomeMorador
     	+string veiculo
-    	+string[] membros
+    	+enum tipoMorador
     	+int id_unidade
     	+int id_Financeiro
 	}
@@ -135,23 +136,27 @@ classDiagram
 
 	class Financeiro{
     	+int id_financeiro
-    	+string tipo
-    	+double valor
-    	+int id_sindico
+    	+double valor_cobranca
+    	+date ata_cobranca
+    	+enum tipoCobranca
+    	+enum tipoMovimentacao
 	}
 
 	%% Grupo 3: Comunicação e Relatórios
 	class Relatorio {
     	+int id_relatorio
+    	+string titulo
     	+string conteudo
+    	+date data_relatorio;
     	+int id_sindico
 	}
 
 	class Mensagem {
     	+int id_mensagem
+    	+string titulo
     	+string conteudo
-    	+string tipo
-    	+int id_sindico
+    	+string tipoMensagem
+    	+datetime data_mensagem
 	}
 
 
@@ -168,6 +173,7 @@ classDiagram
     	+string nome_produto
     	+TipoVitrine tipoVitrine
     	+double valor_produto
+	+string descricao_produto
 	}
 
 	class Visitante {
@@ -196,15 +202,16 @@ classDiagram
 	class ConfirmacaoServico  {
     	+int id_confirmacao_servico
     	+string statusConfirmacao
-    	+string tipolocal
-    	+date dataReservada
+    	
 	}
 
 
 	class Relatorio {
     	+int id_relatorio
     	+string conteudo
-    	+int id_sindico
+    	+string titulo
+	+datetime data_relatorio
+
 	}
 
 	
@@ -217,6 +224,7 @@ classDiagram
 	Condominio "1" *--> "1" Sindico : gerenciado_por
 	Condominio "1" *--> "N" Morador : habita
 	Condominio "1" *--> "1" Porteiro: possui
+	Condominio "1" *--> "1" Conta_Bancaria: possui
 
 	Porteiro"1" *--> "N" Fluxo: controla
 	Visitante"1" *--> "N" Fluxo: é aceito 
@@ -233,7 +241,7 @@ classDiagram
 	Sindico "1" *--> "N" Servico: solicita
 	Sindico "1" *--> "N" Notificacao: recebe
 
-	Financeiro"1" *--> "1" Conta_Bancaria : possui
+	Financeiro"1" *--> "1" Conta_Bancaria : recebe
 
 	Servico"1" *--> "N" ConfirmacaoServico: emite
 	ConfirmacaoServico "1" *--> "N" Morador : envia
