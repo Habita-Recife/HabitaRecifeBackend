@@ -1,6 +1,8 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoCobranca;
+import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMovimentacao;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,11 +18,11 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cobranca {
+public class Financeiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_cobranca;
+    private Long id_financeiro;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="###,###.00")
     private Double valor_cobranca;
@@ -29,7 +31,12 @@ public class Cobranca {
     private LocalDateTime data_cobranca;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_cobranca", nullable = false)
     private TipoCobranca tipoCobranca;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_movimentacao", nullable = false)
+    private TipoMovimentacao tipoMovimentacao;
 
     @ManyToOne
     @JoinColumn(name = "id_morador", nullable = false,
@@ -40,4 +47,10 @@ public class Cobranca {
     @JoinColumn(name = "id_sindico", nullable = false,
             foreignKey = @ForeignKey(name = "fk_cobranca_sindico_fk"))
     private Sindico sindico;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_conta_bancaria", nullable = true,
+            foreignKey = @ForeignKey(name = "id_financeiro_conta_bancaria_fk"))
+    @JsonBackReference
+    private ContaBancaria contaBancaria;
 }

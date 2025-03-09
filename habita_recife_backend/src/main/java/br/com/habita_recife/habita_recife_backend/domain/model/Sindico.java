@@ -1,7 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +45,7 @@ public class Sindico {
     private Set<Servico> servicos;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Cobranca> cobrancas;
+    private Set<Financeiro> financeiros;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set <Notificacao> notificacao;

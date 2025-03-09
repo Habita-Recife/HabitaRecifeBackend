@@ -35,7 +35,7 @@ public class Morador {
     private String cpfMorador;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Cobranca> cobranca;
+    private Set<Financeiro> financeiro;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Fluxo> fluxos;
