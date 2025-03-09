@@ -2,6 +2,7 @@ package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,31 +22,23 @@ public class Fluxo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_fluxo;
+    private Long idFluxo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_fluxo", nullable = false)
     private TipoFluxo tipoFluxo;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status_fluxo", nullable = false)
-    private Status statusFluxo;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime data_fluxo;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_morador", nullable = false,
-            foreignKey = @ForeignKey(name = "id_fluxo_morador_fk"))
-    private Morador morador;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_visitante", nullable = false,
-            foreignKey = @ForeignKey(name = "id_fluxo_visitante_fk"))
-    private Visitante visitante;
+    private LocalDateTime dataFluxo;
 
     @ManyToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "id_porteiro", nullable = false ,
+    @JoinColumn(name = "id_porteiro", nullable = true,
             foreignKey = @ForeignKey(name = "id_fluxo_porteiro_fk"))
     private Porteiro porteiro;
+
+    @ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name = "id_visitante", nullable = true,
+            foreignKey = @ForeignKey(name = "id_fluxo_visitante_fk"))
+    @JsonBackReference
+    Visitante visitante;
 }

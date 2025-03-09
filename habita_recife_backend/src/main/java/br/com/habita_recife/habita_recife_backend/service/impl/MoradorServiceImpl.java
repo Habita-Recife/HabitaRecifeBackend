@@ -45,23 +45,55 @@ public class MoradorServiceImpl implements MoradorService {
             throw new CondominioNotFoundException("Condomínio não encontrado com id: " + moradorDTO.getId_condominio());
         }
 
-        Optional<Sindico> existingSindico = moradorRepository.findByCondominio(optionalCondominio.get());
+        Optional<Morador> existingSindico = moradorRepository.findByCondominio(optionalCondominio.get());
         if (existingSindico.isPresent()) {
-            throw new RuntimeException("Já existe um síndico para este condomínio.");
+            throw new RuntimeException("Já existe um morador para este condomínio.");
         }
 
 
         Condominio condominio = optionalCondominio.get();
-        return null;
+
+        Morador morador = new Morador();
+        morador.setNomeMorador(moradorDTO.getNomeMorador());
+        morador.setEmailMorador(moradorDTO.getEmailMorador());
+        morador.setVeiculoMorador(moradorDTO.getVeiculoMorador());
+        morador.setTipoMorador(moradorDTO.getTipoMorador());
+        morador.setCpfMorador(moradorDTO.getCpfMorador());
+        morador.setCondominio(condominio);
+
+        return moradorRepository.save(morador);
     }
 
     @Override
     public Morador atualizar(Long id, MoradorDTO moradorDTO) {
-        return null;
+        Morador moradorExistente = moradorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Moraodr não encontrado com id: " + id));
+
+        //Não façam essa tratamento so para a entidade sindico
+        if (moradorRepository.findByEmailMorador(moradorDTO.getEmailMorador()).isPresent() &&
+                !moradorExistente.getEmailMorador().equals(moradorDTO.getEmailMorador())) {
+            throw new IllegalArgumentException("Já existe um síndico com este e-mail: " + moradorDTO.getEmailMorador());
+        }
+
+        moradorExistente.setNomeMorador(moradorDTO.getNomeMorador());
+        moradorExistente.setEmailMorador(moradorDTO.getEmailMorador());
+        moradorExistente.setVeiculoMorador(moradorDTO.getVeiculoMorador());
+
+        return moradorRepository.save(moradorExistente);
     }
 
     @Override
     public void excluir(Long id) {
+        Morador morador = moradorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Morador não encontrado com id."));
+
+        Condominio condominio = morador.getCondominio();
+        if (condominio != null){
+            condominio.setMorador(null);
+            condominioRepository.save(condominio);
+        }
+
+        moradorRepository.delete(morador);
 
     }
 }
