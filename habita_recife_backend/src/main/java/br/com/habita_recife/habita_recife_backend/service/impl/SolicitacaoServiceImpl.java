@@ -31,10 +31,14 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
     @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
 
+        Solicitacao solicitacao = new Solicitacao();
+        solicitacao.setTitulo(solicitacaoDTO.getTitulo());
+        solicitacao.setConteudo(solicitacao.getConteudo());
+        solicitacao.setTipo_solicitacao(solicitacaoDTO.getTipo_solicitacao());
+        solicitacao.setStatus_solicitacao(solicitacaoDTO.getStatus_solicitacao());
 
 
-
-        return solicitacaoRepository.save(solicitacaoDTO);
+        return solicitacaoRepository.save(solicitacao);
     }
 
     @Override

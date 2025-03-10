@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ServicoRepository extends JpaRepository<Servico, Long> {
 
-    Optional<Servico> findById(Servico id_servico);
+    Optional<Servico> findById(Long id_servico);
 
 }

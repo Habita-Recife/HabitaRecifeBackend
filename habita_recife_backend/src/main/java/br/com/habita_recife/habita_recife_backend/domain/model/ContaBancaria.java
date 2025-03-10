@@ -9,6 +9,8 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "tb_conta_bancaria")
 public class ContaBancaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
