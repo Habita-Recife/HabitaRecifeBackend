@@ -9,6 +9,8 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "tb_conta_bancaria")
 public class ContaBancaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +32,7 @@ public class ContaBancaria {
     @JsonBackReference
     private Condominio condominio;
 
-    @OneToOne(mappedBy = "financeiro", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "contaBancaria", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Financeiro financeiro;
 }
