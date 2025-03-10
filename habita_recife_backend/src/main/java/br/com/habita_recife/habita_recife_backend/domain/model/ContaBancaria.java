@@ -30,7 +30,7 @@ public class ContaBancaria {
     @JsonBackReference
     private Condominio condominio;
 
-    @OneToOne(mappedBy = "financeiro", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "contaBancaria", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Financeiro financeiro;
 }
