@@ -38,12 +38,12 @@ public class Financeiro {
     @Column(name = "tipo_movimentacao", nullable = false)
     private TipoMovimentacao tipoMovimentacao;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_morador", nullable = false,
             foreignKey = @ForeignKey(name = "fk_cobranca_morador_fk"))
     private Morador morador;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sindico", nullable = false,
             foreignKey = @ForeignKey(name = "fk_cobranca_sindico_fk"))
     private Sindico sindico;
