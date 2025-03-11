@@ -1,6 +1,8 @@
 package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.FluxoDTO;
+import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
+import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
 import br.com.habita_recife.habita_recife_backend.domain.model.*;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FluxoRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
@@ -41,22 +43,39 @@ public class FluxoServiceImpl implements FluxoService {
     }
 
     @Override
-    public Fluxo salvar(FluxoDTO fluxoDTO) {
-        Optional<Visitante> optionalVisitante =
-                visitanteRepository.findById(fluxoDTO.getId_visitante());
+    public Fluxo registrarEntrada(FluxoDTO fluxoDTO) {
+        Visitante visitante = visitanteRepository.findById(fluxoDTO.getIdVisitante())
+                .orElseThrow(() -> new RuntimeException("Visitante não encontrado com id: " + fluxoDTO.getIdVisitante()));
 
-        if (!optionalVisitante.isPresent()) {
-            throw new RuntimeException("Visitante não encontrado com id: " + fluxoDTO.getId_visitante());
+        Fluxo fluxoAtual = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
+            if (fluxoAtual != null && fluxoAtual.getStatusFluxo() == Status.ATIVO && fluxoAtual.getTipoFluxo() == TipoFluxo.ENTRADA) {
+            throw new RuntimeException("O visitante já realizou uma entrada anteriormente.");
         }
 
-        Visitante visitante = optionalVisitante.get();
-
         Fluxo fluxo = new Fluxo();
-        fluxo.setTipoFluxo(fluxoDTO.getTipoFluxo());
+        fluxo.setTipoFluxo(TipoFluxo.ENTRADA);
+        fluxo.setStatusFluxo(Status.ATIVO);
         fluxo.setDataFluxo(LocalDateTime.now());
         fluxo.setVisitante(visitante);
 
         return fluxoRepository.save(fluxo);
+    }
+
+    @Override
+    public Fluxo registrarSaida(FluxoDTO fluxoDTO) {
+        Visitante visitante = visitanteRepository.findById(fluxoDTO.getIdVisitante())
+                .orElseThrow(() -> new RuntimeException("Visitante não encontrado com id: " + fluxoDTO.getIdVisitante()));
+
+        Fluxo fluxoAtual = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
+        if (fluxoAtual != null && fluxoAtual.getStatusFluxo() != Status.ATIVO && fluxoAtual.getTipoFluxo() != TipoFluxo.ENTRADA) {
+            throw new RuntimeException("O visitante já realizou uma saída anteriormente.");
+        }
+
+        fluxoAtual.setTipoFluxo(TipoFluxo.SAIDA);
+        fluxoAtual.setStatusFluxo(Status.INATIVO);
+        fluxoAtual.setDataFluxo(LocalDateTime.now());
+
+        return fluxoRepository.save(fluxoAtual);
     }
 
     @Override
