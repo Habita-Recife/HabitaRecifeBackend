@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface FluxoRepository extends JpaRepository<Fluxo, Long> {
     Optional<Fluxo> findByVisitante(Visitante visitante);
+    Fluxo findTopByVisitanteOrderByDataFluxoDesc(Visitante visitante);
 }
