@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.domain.dto;
 
+import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,8 @@ public class FluxoDTO {
 
     private Long idPorteiro;
     private Long idFluxo;
-    private Long id_visitante;
+    private Long idVisitante;
     private TipoFluxo tipoFluxo;
     private LocalDateTime dataFluxo;
+    private Status statusFluxo;
 }

@@ -1,7 +1,9 @@
 package br.com.habita_recife.habita_recife_backend.service.impl;
 
+import br.com.habita_recife.habita_recife_backend.domain.dto.FluxoDTO;
 import br.com.habita_recife.habita_recife_backend.domain.dto.VisitanteDTO;
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
+import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
 import br.com.habita_recife.habita_recife_backend.domain.model.Visitante;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FluxoRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
@@ -49,7 +51,12 @@ public class VisitanteServiceimpl implements VisitanteService {
         visitante.setNumeroTelefone(visitanteDTO.getNumeroTelefone());
         visitante.setStatusVisitante(Status.ATIVO);
 
-        return visitanteRepository.save(visitante);
+        Visitante salvarVisitante = visitanteRepository.save(visitante);
+        FluxoDTO fluxoDTO = new FluxoDTO();
+        fluxoDTO.setIdVisitante(salvarVisitante.getIdVisitante());
+        fluxoDTO.setTipoFluxo(TipoFluxo.ENTRADA);
+
+        return salvarVisitante;
     }
 
     @Override

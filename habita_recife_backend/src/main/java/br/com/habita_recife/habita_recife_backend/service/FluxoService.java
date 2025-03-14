@@ -10,6 +10,7 @@ public interface FluxoService {
 
     List<Fluxo> listarTodos();
     Optional<Fluxo> buscarPorId(Long id);
-    Fluxo salvar(FluxoDTO fluxoDTO);
+    Fluxo registrarEntrada(FluxoDTO fluxoDTO);
+    Fluxo registrarSaida(FluxoDTO fluxoDTO);
     void excluir(Long id);
 }

@@ -31,13 +31,17 @@ public class Fluxo {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataFluxo;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_fluxo", nullable = false)
+    private Status statusFluxo;
+
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "id_porteiro", nullable = true,
             foreignKey = @ForeignKey(name = "id_fluxo_porteiro_fk"))
     private Porteiro porteiro;
 
     @ManyToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "id_visitante", nullable = true,
+    @JoinColumn(name = "idVisitante", nullable = true,
             foreignKey = @ForeignKey(name = "id_fluxo_visitante_fk"))
     @JsonBackReference
     Visitante visitante;

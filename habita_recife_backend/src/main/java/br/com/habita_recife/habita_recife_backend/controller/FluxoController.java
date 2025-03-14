@@ -34,9 +34,15 @@ public class FluxoController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @PostMapping
-    public ResponseEntity<Fluxo> salvar(@RequestBody FluxoDTO fluxoDTO) {
-        Fluxo novoFluxo = fluxoService.salvar(fluxoDTO);
+    @PostMapping("/entrada")
+    public ResponseEntity<Fluxo> registrarEntrada(@RequestBody FluxoDTO fluxoDTO) {
+        Fluxo novoFluxo = fluxoService.registrarEntrada(fluxoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoFluxo);
+    }
+
+    @PostMapping("/saida")
+    public ResponseEntity<Fluxo> registrarSaida(@RequestBody FluxoDTO fluxoDTO) {
+        Fluxo novoFluxo = fluxoService.registrarSaida(fluxoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoFluxo);
     }
 

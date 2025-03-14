@@ -1,7 +1,9 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
+import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMorador;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,7 +39,7 @@ public class Visitante {
     @Column(name = "status_visitante", nullable = false)
     private Status statusVisitante;
 
-    @OneToMany(mappedBy = "visitante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "visitante",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<Fluxo> fluxos;
 
