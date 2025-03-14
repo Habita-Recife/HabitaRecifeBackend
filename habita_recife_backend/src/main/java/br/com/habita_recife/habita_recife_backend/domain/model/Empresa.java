@@ -23,10 +23,10 @@ public class Empresa {
     @Column(nullable = false, unique = true)
     private String nomeEmpresa;
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<ConfirmacaoServico> confirmacaoServicos;
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Servico> servico;
 
 

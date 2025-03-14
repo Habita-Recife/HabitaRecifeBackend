@@ -32,7 +32,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Override
     public Empresa salvar(EmpresaDTO empresaDTO) {
         Empresa empresa = new Empresa();
-        empresa.setNomeEmpresa(empresaDTO.getNome_empresa());
+        empresa.setNomeEmpresa(empresaDTO.getNomeEmpresa());
 
         return empresaRepository.save(empresa);
     }
