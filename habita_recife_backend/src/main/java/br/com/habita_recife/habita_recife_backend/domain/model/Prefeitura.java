@@ -16,7 +16,10 @@ public class Prefeitura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_prefeitura;
+    private Long idPrefeitura;
+
+    @Column(name = "nome_prefeitura", nullable = false)
+    private String nomePrefeitura;
 
     @OneToOne(mappedBy = "prefeitura", fetch = FetchType.LAZY)
     private Relatorio relatorio;
