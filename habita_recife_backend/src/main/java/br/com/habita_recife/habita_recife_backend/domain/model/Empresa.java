@@ -18,13 +18,13 @@ public class Empresa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_empresa;
+    private Long idEmpresa;
 
     @Column(nullable = false, unique = true)
-    private String nome_empresa;
+    private String nomeEmpresa;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ConfirmacaoServico> confirmacao_servicos;
+    private Set<ConfirmacaoServico> confirmacaoServicos;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Servico> servico;
