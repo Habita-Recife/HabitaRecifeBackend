@@ -3,7 +3,6 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.PrefeituraDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Prefeitura;
 import br.com.habita_recife.habita_recife_backend.service.PrefeituraService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ public class PrefeituraController {
 
     private final PrefeituraService prefeituraService;
 
-    @Autowired
     public PrefeituraController(PrefeituraService prefeituraService) {
         this.prefeituraService = prefeituraService;
     }

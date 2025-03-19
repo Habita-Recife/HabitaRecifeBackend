@@ -3,7 +3,6 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.SindicoDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
 import br.com.habita_recife.habita_recife_backend.service.SindicoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ public class SindicoController {
 
     private final SindicoService sindicoService;
 
-    @Autowired
     public SindicoController(SindicoService sindicoService) {
         this.sindicoService = sindicoService;
     }

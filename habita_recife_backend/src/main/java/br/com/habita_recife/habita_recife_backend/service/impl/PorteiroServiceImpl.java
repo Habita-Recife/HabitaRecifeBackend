@@ -2,13 +2,11 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.PorteiroDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
-import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
 import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +18,6 @@ public class PorteiroServiceImpl implements PorteiroService {
     private final PorteiroRepository porteiroRepository;
     private final CondominioRepository condominioRepository;
 
-    @Autowired
     public PorteiroServiceImpl(PorteiroRepository porteiroRepository, CondominioRepository condominioRepository) {
         this.porteiroRepository = porteiroRepository;
         this.condominioRepository = condominioRepository;

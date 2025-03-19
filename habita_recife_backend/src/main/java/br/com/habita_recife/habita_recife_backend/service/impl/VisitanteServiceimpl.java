@@ -8,7 +8,6 @@ import br.com.habita_recife.habita_recife_backend.domain.model.Visitante;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FluxoRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
 import br.com.habita_recife.habita_recife_backend.service.VisitanteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +19,6 @@ public class VisitanteServiceimpl implements VisitanteService {
     private final VisitanteRepository visitanteRepository;
     private final FluxoRepository fluxoRepository;
 
-    @Autowired
     public VisitanteServiceimpl(VisitanteRepository visitanteRepository, FluxoRepository fluxoRepository) {
         this.visitanteRepository = visitanteRepository;
         this.fluxoRepository = fluxoRepository;

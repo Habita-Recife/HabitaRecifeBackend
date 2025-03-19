@@ -2,7 +2,6 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.PrefeituraDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Prefeitura;
-import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PrefeituraRepository;
 import br.com.habita_recife.habita_recife_backend.service.PrefeituraService;
 import org.springframework.stereotype.Service;
