@@ -14,7 +14,7 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
 
     private final SolicitacaoRepository solicitacaoRepository;
 
-    public SolicitacaoServiceImpl(SolicitacaoRepository solicitacaoRepository) { // @Autowired removido, pois não é necessário
+    public SolicitacaoServiceImpl(SolicitacaoRepository solicitacaoRepository) {
         this.solicitacaoRepository = solicitacaoRepository;
     }
 

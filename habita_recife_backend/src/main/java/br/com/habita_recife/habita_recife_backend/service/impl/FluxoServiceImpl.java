@@ -9,7 +9,6 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepos
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
 import br.com.habita_recife.habita_recife_backend.service.FluxoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,7 +23,6 @@ public class FluxoServiceImpl implements FluxoService {
     private final VisitanteRepository visitanteRepository;
     private final PorteiroRepository porteiroRepository;
 
-    @Autowired
     public FluxoServiceImpl(FluxoRepository fluxoRepository, MoradorRepository moradorRepository, VisitanteRepository visitanteRepository, PorteiroRepository porteiroRepository) {
         this.fluxoRepository = fluxoRepository;
         this.moradorRepository = moradorRepository;

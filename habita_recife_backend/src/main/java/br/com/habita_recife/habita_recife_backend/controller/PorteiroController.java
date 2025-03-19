@@ -3,7 +3,6 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.PorteiroDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
 import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ public class PorteiroController {
 
     private final PorteiroService porteiroService;
 
-    @Autowired
     public PorteiroController(PorteiroService porteiroService) {
         this.porteiroService = porteiroService;
     }

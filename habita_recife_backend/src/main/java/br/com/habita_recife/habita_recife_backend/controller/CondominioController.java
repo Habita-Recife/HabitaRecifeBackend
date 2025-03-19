@@ -3,7 +3,6 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.CondominioDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
 import br.com.habita_recife.habita_recife_backend.service.CondominioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ public class CondominioController {
 
     private final CondominioService condominioService;
 
-    @Autowired
     public CondominioController(CondominioService condominioService) {
         this.condominioService = condominioService;
     }
