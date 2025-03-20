@@ -5,7 +5,6 @@ import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
 import br.com.habita_recife.habita_recife_backend.domain.model.*;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FluxoRepository;
-import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
 import br.com.habita_recife.habita_recife_backend.service.FluxoService;
@@ -19,13 +18,11 @@ import java.util.Optional;
 public class FluxoServiceImpl implements FluxoService {
 
     private final FluxoRepository fluxoRepository;
-    private final MoradorRepository moradorRepository;
     private final VisitanteRepository visitanteRepository;
     private final PorteiroRepository porteiroRepository;
 
-    public FluxoServiceImpl(FluxoRepository fluxoRepository, MoradorRepository moradorRepository, VisitanteRepository visitanteRepository, PorteiroRepository porteiroRepository) {
+    public FluxoServiceImpl(FluxoRepository fluxoRepository, VisitanteRepository visitanteRepository, PorteiroRepository porteiroRepository) {
         this.fluxoRepository = fluxoRepository;
-        this.moradorRepository = moradorRepository;
         this.visitanteRepository = visitanteRepository;
         this.porteiroRepository = porteiroRepository;
     }
@@ -83,6 +80,7 @@ public class FluxoServiceImpl implements FluxoService {
         Porteiro porteiro = fluxo.getPorteiro();
         if (porteiro != null) {
             porteiro.getFluxos().remove(fluxo);
+            porteiroRepository.save(porteiro);
         }
 
         fluxoRepository.deleteById(id);

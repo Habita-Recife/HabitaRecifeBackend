@@ -5,7 +5,6 @@ import br.com.habita_recife.habita_recife_backend.domain.dto.VisitanteDTO;
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
 import br.com.habita_recife.habita_recife_backend.domain.model.Visitante;
-import br.com.habita_recife.habita_recife_backend.domain.repository.FluxoRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
 import br.com.habita_recife.habita_recife_backend.service.VisitanteService;
 import org.springframework.stereotype.Service;
@@ -17,11 +16,9 @@ import java.util.Optional;
 public class VisitanteServiceimpl implements VisitanteService {
 
     private final VisitanteRepository visitanteRepository;
-    private final FluxoRepository fluxoRepository;
 
-    public VisitanteServiceimpl(VisitanteRepository visitanteRepository, FluxoRepository fluxoRepository) {
+    public VisitanteServiceimpl(VisitanteRepository visitanteRepository) {
         this.visitanteRepository = visitanteRepository;
-        this.fluxoRepository = fluxoRepository;
     }
 
     @Override
@@ -79,12 +76,6 @@ public class VisitanteServiceimpl implements VisitanteService {
     public void excluir(Long id) {
         Visitante visitante = visitanteRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Visitante não encontrado com id: " + id));
-
-        /*Fluxo fluxo = visitante.getFluxo();
-        if (fluxo != null) {
-            fluxo.setVisitante(null);
-            fluxoRepository.save(fluxo);
-        }*/
 
         visitanteRepository.deleteById(id);
     }

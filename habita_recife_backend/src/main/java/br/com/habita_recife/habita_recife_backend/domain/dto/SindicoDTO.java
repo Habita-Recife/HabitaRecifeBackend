@@ -1,6 +1,5 @@
 package br.com.habita_recife.habita_recife_backend.domain.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
