@@ -3,7 +3,6 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.VisitanteDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Visitante;
 import br.com.habita_recife.habita_recife_backend.service.VisitanteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ public class VisitanteController {
 
     private final VisitanteService visitanteService;
 
-    @Autowired
     public VisitanteController(VisitanteService visitanteService) {
         this.visitanteService = visitanteService;
     }

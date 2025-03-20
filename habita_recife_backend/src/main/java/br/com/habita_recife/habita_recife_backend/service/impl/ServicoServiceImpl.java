@@ -4,7 +4,6 @@ import br.com.habita_recife.habita_recife_backend.domain.dto.ServicoDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Servico;
 import br.com.habita_recife.habita_recife_backend.domain.repository.ServicoRepository;
 import br.com.habita_recife.habita_recife_backend.service.ServicoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +14,6 @@ public class ServicoServiceImpl implements ServicoService {
 
     private final ServicoRepository servicoRepository;
 
-    @Autowired
     public ServicoServiceImpl(ServicoRepository servicoRepository) {
         this.servicoRepository = servicoRepository;
     }

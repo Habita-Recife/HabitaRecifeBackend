@@ -7,7 +7,6 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRe
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.SindicoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +19,6 @@ public class SindicoServiceImpl implements SindicoService {
 
     private final CondominioRepository condominioRepository;
 
-    @Autowired
     public SindicoServiceImpl(SindicoRepository sindicoRepository, CondominioRepository condominioRepository) {
         this.sindicoRepository = sindicoRepository;
         this.condominioRepository = condominioRepository;
@@ -49,7 +47,6 @@ public class SindicoServiceImpl implements SindicoService {
             throw new RuntimeException("Já existe um síndico para este condomínio.");
         }
 
-
         Condominio condominio = optionalCondominio.get();
 
         Sindico sindico = new Sindico();
@@ -67,7 +64,6 @@ public class SindicoServiceImpl implements SindicoService {
         Sindico sindicoExistente = sindicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sindico não encontrado com id: " + id));
 
-        //Não façam essa tratamento so para a entidade sindico
         if (sindicoRepository.findByEmailSindico(sindicoDTO.getEmailSindico()).isPresent() &&
                 !sindicoExistente.getEmailSindico().equals(sindicoDTO.getEmailSindico())) {
             throw new IllegalArgumentException("Já existe um síndico com este e-mail: " + sindicoDTO.getEmailSindico());
@@ -86,7 +82,6 @@ public class SindicoServiceImpl implements SindicoService {
         Sindico sindico = sindicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Síndico não encontrado id"));
 
-        // Desvincula o síndico do condomínio antes de deletar
         Condominio condominio = sindico.getCondominio();
         if (condominio != null) {
             condominio.setSindico(null);

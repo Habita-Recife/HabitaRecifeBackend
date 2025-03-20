@@ -3,12 +3,10 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.MoradorDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
 import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
-import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.MoradorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +19,6 @@ public class MoradorServiceImpl implements MoradorService {
 
     private final CondominioRepository condominioRepository;
 
-    @Autowired
     public MoradorServiceImpl(MoradorRepository moradorRepository, CondominioRepository condominioRepository) {
         this.moradorRepository = moradorRepository;
         this.condominioRepository = condominioRepository;
@@ -50,7 +47,6 @@ public class MoradorServiceImpl implements MoradorService {
             throw new RuntimeException("Já existe um morador para este condomínio.");
         }
 
-
         Condominio condominio = optionalCondominio.get();
 
         Morador morador = new Morador();
@@ -69,7 +65,6 @@ public class MoradorServiceImpl implements MoradorService {
         Morador moradorExistente = moradorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Moraodr não encontrado com id: " + id));
 
-        //Não façam essa tratamento so para a entidade sindico
         if (moradorRepository.findByEmailMorador(moradorDTO.getEmailMorador()).isPresent() &&
                 !moradorExistente.getEmailMorador().equals(moradorDTO.getEmailMorador())) {
             throw new IllegalArgumentException("Já existe um síndico com este e-mail: " + moradorDTO.getEmailMorador());

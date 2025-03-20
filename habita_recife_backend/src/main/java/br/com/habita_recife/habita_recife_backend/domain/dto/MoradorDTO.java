@@ -1,10 +1,10 @@
 package br.com.habita_recife.habita_recife_backend.domain.dto;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMorador;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
