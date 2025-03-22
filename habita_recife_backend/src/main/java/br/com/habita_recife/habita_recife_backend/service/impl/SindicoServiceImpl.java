@@ -8,6 +8,7 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepos
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.SindicoService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,16 +26,19 @@ public class SindicoServiceImpl implements SindicoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Sindico> listarTodos() {
         return sindicoRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Sindico> buscarPorId(Long id) {
         return sindicoRepository.findById(id);
     }
 
     @Override
+    @Transactional
     public Sindico salvar(SindicoDTO sindicoDTO) {
         Optional<Condominio> optionalCondominio = condominioRepository.findById(sindicoDTO.getIdCondominio());
 
@@ -60,6 +64,7 @@ public class SindicoServiceImpl implements SindicoService {
     }
 
     @Override
+    @Transactional
     public Sindico atualizar(Long id, SindicoDTO sindicoDTO) {
         Sindico sindicoExistente = sindicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sindico não encontrado com id: " + id));
@@ -78,6 +83,7 @@ public class SindicoServiceImpl implements SindicoService {
     }
 
     @Override
+    @Transactional
     public void excluir(Long id) {
         Sindico sindico = sindicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Síndico não encontrado id"));

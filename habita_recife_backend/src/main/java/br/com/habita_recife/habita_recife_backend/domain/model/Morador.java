@@ -20,13 +20,13 @@ public class Morador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMorador;
 
-    @Column(name = "nome_morador",nullable = false, unique = true)
+    @Column(name = "nome_morador",nullable = false)
     private String nomeMorador;
 
     @Column(name = "email_morador", nullable = false, unique = true)
     private String emailMorador;
 
-    @Column(name = "veiculo", unique = true)
+    @Column(name = "veiculo", unique = false)
     private String veiculoMorador;
 
     @Enumerated(EnumType.STRING)

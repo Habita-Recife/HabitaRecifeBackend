@@ -40,7 +40,8 @@ public class Condominio {
     @JsonManagedReference
     private Porteiro porteiro;
 
-    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, fetch =
+            FetchType.EAGER)
     @JsonManagedReference
     private Set<Morador> morador;
 }
