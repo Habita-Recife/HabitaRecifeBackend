@@ -21,7 +21,7 @@ public class Porteiro {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idPorteiro;
 
-    @Column(name = "nome_porteiro", nullable = false, unique = true)
+    @Column(name = "nome_porteiro", nullable = false)
     private String nomePorteiro;
 
     @Column(name = "cpf_porteiro", nullable = false, unique = true, length = 15)

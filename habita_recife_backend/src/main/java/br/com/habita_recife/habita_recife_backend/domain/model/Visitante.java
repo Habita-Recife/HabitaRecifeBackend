@@ -29,7 +29,7 @@ public class Visitante {
             12)
     private String cpfVisitante;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nomeVisitante;
 
     @Column(nullable = false, unique = true, length = 15)

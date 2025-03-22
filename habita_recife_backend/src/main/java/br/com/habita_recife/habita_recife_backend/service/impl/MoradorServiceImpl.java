@@ -42,10 +42,7 @@ public class MoradorServiceImpl implements MoradorService {
             throw new CondominioNotFoundException("Condomínio não encontrado com id: " + moradorDTO.getId_condominio());
         }
 
-        Optional<Morador> existingSindico = moradorRepository.findByCondominio(optionalCondominio.get());
-        if (existingSindico.isPresent()) {
-            throw new RuntimeException("Já existe um morador para este condomínio.");
-        }
+
 
         Condominio condominio = optionalCondominio.get();
 
@@ -63,7 +60,7 @@ public class MoradorServiceImpl implements MoradorService {
     @Override
     public Morador atualizar(Long id, MoradorDTO moradorDTO) {
         Morador moradorExistente = moradorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Moraodr não encontrado com id: " + id));
+                .orElseThrow(() -> new RuntimeException("Moraodor não encontrado com id: " + id));
 
         if (moradorRepository.findByEmailMorador(moradorDTO.getEmailMorador()).isPresent() &&
                 !moradorExistente.getEmailMorador().equals(moradorDTO.getEmailMorador())) {
