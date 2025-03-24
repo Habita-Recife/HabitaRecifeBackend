@@ -12,22 +12,53 @@ Conjuntos habitacionais da cidade do Recife e seus respectivos síndicos e morad
 
 ## ⚙️ Funcionalidades  
 
-
 #### 👤 Cadastro e gestão de moradores:  
 
 - Cadastro completo de moradores e seus dependentes.
 - Histórico e informações de contato.
-- Controle de inadimplência.
   
 
+#### 🛠️ Serviços e Solicitações
+
+- Vitrine de Serviços do Morador 
+- Solicitações de Serviços (CRUD) 
+
+#### 💰 Financeiro
+
+- QR Code fixo no front 
+
+#### 📢 Comunicação
+
+- Notificações de Mensagens 
+
+  
+#### 📊 Visitantes
+
+- Cadastro e historico de Visitantes
+
+
+## 💳 Futuras Implementações 
+
+#### ⛓️ Acesso e Segurança:  
+
+- Cadastro e Histórico de entradas e saídas de visitantes.
+- Cadastro de moradores e veículos.
+  
+#### 🗒️ Tarefas administrativas:  
+
+- Geração de relatórios para prestação de contas.
+- Gerenciamento de documentos e contratos.
+  
 #### 📈 Controle financeiro:  
 
 - Lançamento de receitas e despesas.
 - Emissão de relatórios financeiros detalhados.
 - Controle de inadimplência, cobrança e multas.
 - Arrecadação de taxas condominiais.
+- Geração de renda e abatimento de contas para moradores desempregados (parcerias).
+- Mercado para anúncios de moradores.
+- de visitantes e controle de acesso com QR Code.
   
-
 #### 💬 Comunicação:  
 
 - Canal de comunicação com envio de avisos e comunicados aos moradores.
@@ -35,32 +66,6 @@ Conjuntos habitacionais da cidade do Recife e seus respectivos síndicos e morad
 - Agendamento de assembleias pelo síndico online e presenciais.
 - Vitrine para divulgação de serviços de moradores.
   
-
-#### 🗒️ Tarefas administrativas:  
-
-- Geração de relatórios para prestação de contas.
-- Gerenciamento de documentos e contratos.
-  
-
-#### ⚖️ Manutenção:  
-
-- Abertura e acompanhamento de solicitações de manutenção.
-- Histórico de manutenções realizadas.
-  
-
-#### ⛓️ Acesso e Segurança:  
-
-- Histórico de entradas e saídas (moradores e visitantes).
-- Cadastro de visitantes e controle de acesso com QR Code.
-- Cadastro de moradores e veículos.
-  
-
-#### 💳 Outras Funcionalidades:  
-
-- Geração de renda e abatimento de contas para moradores desempregados (parcerias).
-- Mercado para anúncios de moradores.
-  
-
   
 ## 🌐 Arquitetura e Stack  
 
