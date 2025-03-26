@@ -8,7 +8,6 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepos
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.MoradorService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
