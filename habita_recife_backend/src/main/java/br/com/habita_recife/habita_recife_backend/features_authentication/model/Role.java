@@ -6,40 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "tb_roles")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Role {
+public enum Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_Role")
-    private Long idRole;
+    ADMIN("admin"),
+    PORTEIRO("porteiro"),
+    MORADOR("morador");
 
-    @Column(nullable = false)
-    private String nomeRole;
+    private String role;
 
-
-    public enum Values {
-
-        ADMIN(1L),
-        PORTEIRO(2L),
-        MORADOR(3L);
-
-        long roleId;
-
-        Values(long roleId) {
-            this.roleId = roleId;
-        }
-
-        public long getRoleId() {
-            return roleId;
-        }
+    Role(String role) {
+        this.role = role;
     }
 
-
+    public String getRole() {
+        return role;
+    }
 
 }

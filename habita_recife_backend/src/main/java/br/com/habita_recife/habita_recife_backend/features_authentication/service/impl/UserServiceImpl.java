@@ -1,24 +1,33 @@
 package br.com.habita_recife.habita_recife_backend.features_authentication.service.impl;
 
+import br.com.habita_recife.habita_recife_backend.features_authentication.config.JwtTokenService;
+import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserLoginDTO;
 import br.com.habita_recife.habita_recife_backend.features_authentication.util.PasswordUtil;
 import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserDTO;
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
 import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
 import br.com.habita_recife.habita_recife_backend.features_authentication.service.UserService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final PasswordUtil passwordUtil;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenService jwtTokenService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordUtil passwordUtil) {
+    public UserServiceImpl(UserRepository userRepository, PasswordUtil passwordUtil, AuthenticationManager authenticationManager, JwtTokenService jwtTokenService) {
         this.userRepository = userRepository;
         this.passwordUtil = passwordUtil;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @Override
@@ -41,19 +50,34 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setUsername(userDTO.getUsername());
         user.setPassword(PasswordUtil.encodePassword(userDTO.getPassword()));
         user.setEmail(userDTO.getEmail());
+        user.setRoles(userDTO.getRoles());
+        user.setVersion(0);
+
+
+        // Gerando o token JWT para o usuário
+        String token = jwtTokenService.generateToken(user.getEmail());
+
 
         return userRepository.save(user);
     }
 
     @Override
-    public User loginUser(UserDTO userDTO) {
-        return null;
+    public UserLoginDTO loginUser(UserLoginDTO userLoginDTO) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                userLoginDTO.getEmail(),
+                userLoginDTO.getPassword()
+        ));
+        User user = userRepository.findByEmail(userLoginDTO.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
+
+        String token = jwtTokenService.generateToken(user.getEmail());
+
+        UserLoginDTO responseDTO = new UserLoginDTO(user.getUsername(), user.getEmail(), token, user.getRoles());
+
+        return responseDTO;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(
-                () -> new UsernameNotFoundException("Usuário não encontrado!")
-        );
-    }
+
+
+
 }

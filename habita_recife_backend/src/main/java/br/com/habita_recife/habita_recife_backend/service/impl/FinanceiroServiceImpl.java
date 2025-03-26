@@ -29,7 +29,6 @@ public class FinanceiroServiceImpl implements FinanceiroService {
         return Optional.empty();
     }
 
-    //alterar o salvar e atualizar
     @Override
     public Financeiro salvar(FinanceiroDTO financeiroDTO) {
         return null;
