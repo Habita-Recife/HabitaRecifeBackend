@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User registerUser(UserDTO userDTO) {
+    public UserDTO registerUser(UserDTO userDTO) {
 
         if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
             throw new RuntimeException("Usuário já existe!");
@@ -53,12 +53,14 @@ public class UserServiceImpl implements UserService{
         user.setRoles(userDTO.getRoles());
         user.setVersion(0);
 
+        User savedUser = userRepository.save(user);
 
         // Gerando o token JWT para o usuário
         String token = jwtTokenService.generateToken(user.getEmail());
 
 
-        return userRepository.save(user);
+        return new UserDTO(savedUser.getUsername(), savedUser.getEmail(), token, savedUser.getRoles());
+
     }
 
     @Override
@@ -76,8 +78,5 @@ public class UserServiceImpl implements UserService{
 
         return responseDTO;
     }
-
-
-
 
 }

@@ -1,25 +1,18 @@
 package br.com.habita_recife.habita_recife_backend.features_authentication.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public enum Role {
-
-    ADMIN("admin"),
-    PORTEIRO("porteiro"),
-    MORADOR("morador");
-
-    private String role;
-
-    Role(String role) {
-        this.role = role;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
+@Entity
+@Table(name = "tb_roles")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Role {
 }

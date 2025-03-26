@@ -7,6 +7,6 @@ import br.com.habita_recife.habita_recife_backend.features_authentication.model.
 
 public interface UserService {
 
-    User registerUser(UserDTO userDTO);
+    UserDTO registerUser(UserDTO userDTO);
     UserLoginDTO loginUser(UserLoginDTO userLoginDTO);
 }

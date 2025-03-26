@@ -22,5 +22,10 @@ public class UserDTO {
     private String token;
     private Set<Role> roles = new HashSet<>();
 
-
+    public UserDTO(String username, String email, String token, Set<Role> roles) {
+        this.username = username;
+        this.email = email;
+        this.token = token;
+        this.roles = roles;
+    }
 }
