@@ -5,8 +5,11 @@ import br.com.habita_recife.habita_recife_backend.features_authentication.dto.Us
 import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserLoginDTO;
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
 
+import java.util.List;
+
 public interface UserService {
 
     UserDTO registerUser(UserDTO userDTO);
     UserLoginDTO loginUser(UserLoginDTO userLoginDTO);
+    List<User> listarTodos();
 }

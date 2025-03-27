@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.features_authentication.service.impl;
 
+import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
 import br.com.habita_recife.habita_recife_backend.features_authentication.config.JwtTokenService;
 import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserLoginDTO;
 import br.com.habita_recife.habita_recife_backend.features_authentication.util.PasswordUtil;
@@ -11,6 +12,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -25,6 +28,11 @@ public class UserServiceImpl implements UserService{
         this.passwordUtil = passwordUtil;
         this.authenticationManager = authenticationManager;
         this.jwtTokenService = jwtTokenService;
+    }
+
+    @Override
+    public List<User> listarTodos() {
+        return userRepository.findAll();
     }
 
     @Override
