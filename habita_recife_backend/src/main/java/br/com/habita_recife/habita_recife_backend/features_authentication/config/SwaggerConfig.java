@@ -15,9 +15,6 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Habita Recife API")
                         .version("1.0")
-                        .description("Documentação da API do sistema de gestão condominial."))
-                .addTagsItem(new Tag().name("Usuários").description("Gerenciamento de usuários"))
-                .addTagsItem(new Tag().name("Condomínios").description("Gestão de condomínios"))
-                .addTagsItem(new Tag().name("Autenticação").description("Endpoints de login e autenticação"));
+                        .description("Documentação da API do sistema de gestão condominial."));
     }
 }

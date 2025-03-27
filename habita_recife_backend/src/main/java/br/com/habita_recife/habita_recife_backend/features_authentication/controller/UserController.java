@@ -39,6 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Login", description = "Realiza o login do usuario.")
     public ResponseEntity<UserLoginDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO) {
         UserLoginDTO responseDTO = userService.loginUser(userLoginDTO);
         return ResponseEntity.ok(responseDTO);
