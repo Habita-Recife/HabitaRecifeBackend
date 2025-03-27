@@ -20,7 +20,7 @@ public class Mensagem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_mensagem;
+    private Long idMensagem;
 
     @Column(nullable = false, length = 30)
     private String titulo;
@@ -33,7 +33,7 @@ public class Mensagem {
     private TipoMensagem tipoMensagem;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime data_mensagem;
+    private LocalDateTime dataMensagem;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sindico", nullable = false,

@@ -17,7 +17,7 @@ public class ConfirmacaoServico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_confirmacao_servico;
+    private Long idConfirmacaoServico;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_confirmacao", nullable = false)

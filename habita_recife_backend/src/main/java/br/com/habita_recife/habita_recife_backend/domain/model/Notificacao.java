@@ -18,7 +18,7 @@ import lombok.Setter;
 public class Notificacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_notificacao;
+    private Long idNotificacao;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_notificacao", nullable = false)
