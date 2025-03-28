@@ -7,8 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public enum RoleName {
+    ADMIN("admin"),
+    MORADOR("morador"),
+    PORTEIRO("porteiro");
 
-    ADMIN,
-    MORADOR,
-    PORTEIRO
+    private String role;
+
+    RoleName(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
 }
