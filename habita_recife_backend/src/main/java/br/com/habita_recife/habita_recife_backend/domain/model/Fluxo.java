@@ -36,12 +36,12 @@ public class Fluxo {
     private Status statusFluxo;
 
     @ManyToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "id_porteiro", nullable = true,
+    @JoinColumn(name = "id_porteiro",
             foreignKey = @ForeignKey(name = "id_fluxo_porteiro_fk"))
     private Porteiro porteiro;
 
     @ManyToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "idVisitante", nullable = true,
+    @JoinColumn(name = "idVisitante",
             foreignKey = @ForeignKey(name = "id_fluxo_visitante_fk"))
     @JsonBackReference
     Visitante visitante;

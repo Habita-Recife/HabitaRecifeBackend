@@ -31,7 +31,7 @@ public class Porteiro {
     private Set<Fluxo> fluxos;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_condominio", nullable = true,
+    @JoinColumn(name = "id_condominio",
             foreignKey = @ForeignKey(name = "id_porteiro_condominio_fk"))
     @JsonBackReference
     private Condominio condominio;

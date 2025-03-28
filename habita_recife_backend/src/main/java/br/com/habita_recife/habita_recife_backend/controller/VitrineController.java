@@ -3,7 +3,6 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.VitrineDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Vitrine;
 import br.com.habita_recife.habita_recife_backend.service.VitrineService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ public class VitrineController {
 
     private final VitrineService vitrineService;
 
-    @Autowired
     public VitrineController(VitrineService vitrineService) {
         this.vitrineService = vitrineService;
     }
