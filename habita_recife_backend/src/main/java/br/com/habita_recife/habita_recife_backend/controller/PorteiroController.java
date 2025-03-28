@@ -5,6 +5,7 @@ import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsAdmin;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsPorteiro;
 import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/porteiro")
+@Tag(name = "PorteiroController", description = "Gericiamento do Porteiro cadastrado.")
 @IsPorteiro
 public class PorteiroController {
 

@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.CondominioDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
 import br.com.habita_recife.habita_recife_backend.service.CondominioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/condominio")
+@Tag(name = "CondominioController", description = "Gericiamento do condominio cadastrado.")
 public class CondominioController {
 
     private final CondominioService condominioService;

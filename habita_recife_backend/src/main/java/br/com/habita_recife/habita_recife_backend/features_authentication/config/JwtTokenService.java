@@ -26,7 +26,7 @@ public class JwtTokenService {
 
     public String generateToken(String email, Set<Role> roles) {
         List<String> roleNames = roles.stream()
-                .map(role -> "ROLE_" + role.getRole().name()) // Adiciona o prefixo ROLE_ como o Spring Security espera
+                .map(role -> "ROLE_" + role.getRole().name())
                 .collect(Collectors.toList());
 
         return Jwts.builder()
@@ -64,11 +64,10 @@ public class JwtTokenService {
 
     public List<String> getRolesFromToken(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(secretKey) // Sua chave secreta para assinar o JWT
-                .parseClaimsJws(token)    // Parse do token
-                .getBody();               // Extração do corpo do JWT
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
 
-        // Aqui estamos assumindo que as roles estão armazenadas como uma lista de strings na claim "roles"
         return claims.get("roles", List.class);
     }
 }

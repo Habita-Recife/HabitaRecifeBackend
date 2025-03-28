@@ -5,6 +5,7 @@ import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsAdmin;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsMorador;
 import br.com.habita_recife.habita_recife_backend.service.MoradorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/morador")
+@Tag(name = "MoradorController", description = "Gericiamento do Morador cadastrado.")
 @IsMorador
 public class MoradorController {
 

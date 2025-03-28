@@ -66,9 +66,8 @@ public class UserServiceImpl implements UserService{
         Set<Role> roles = new HashSet<>();
         for (String roleName : userDTO.getRoles()) {
             try {
-                RoleName roleEnum = RoleName.valueOf(roleName); // Converte a String para Enum
+                RoleName roleEnum = RoleName.valueOf(roleName);
 
-                // Aqui garantimos que a Role já exista no banco antes de associar
                 Role role = roleRepository.findByRole(roleEnum)
                         .orElseThrow(() -> new RuntimeException("Role não encontrada: " + roleName));
 
@@ -86,12 +85,10 @@ public class UserServiceImpl implements UserService{
 
         Set<String> roleNames = new HashSet<>();
         for (Role role : savedUser.getRoles()) {
-            roleNames.add(role.getRole().name());  // Agora getRole() não será mais null
+            roleNames.add(role.getRole().name());
         }
 
-
         return new UserDTO(savedUser.getUsername(), savedUser.getEmail(), token, roleNames);
-
     }
 
     @Override
@@ -109,5 +106,4 @@ public class UserServiceImpl implements UserService{
 
         return responseDTO;
     }
-
 }
