@@ -2,6 +2,8 @@ package br.com.habita_recife.habita_recife_backend.controller;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.MoradorDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
+import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsAdmin;
+import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsMorador;
 import br.com.habita_recife.habita_recife_backend.service.MoradorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/morador")
+@IsMorador
 public class MoradorController {
 
     private final MoradorService moradorService;
@@ -35,19 +38,21 @@ public class MoradorController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @IsAdmin
     public ResponseEntity<Morador> salvar(@RequestBody MoradorDTO moradorDTO){
         Morador novoMorador = moradorService.salvar(moradorDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoMorador);
     }
 
     @PutMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<Morador> atualizar(@PathVariable Long id, @RequestBody MoradorDTO moradorDTO) {
         Morador moradorAtualizado = moradorService.atualizar(id, moradorDTO);
         return ResponseEntity.ok(moradorAtualizado);
     }
 
     @DeleteMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         moradorService.excluir(id);
         return ResponseEntity.noContent().build();

@@ -2,6 +2,8 @@ package br.com.habita_recife.habita_recife_backend.controller;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.PorteiroDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
+import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsAdmin;
+import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsPorteiro;
 import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/porteiro")
+@IsPorteiro
 public class PorteiroController {
 
     private final PorteiroService porteiroService;
@@ -33,12 +36,14 @@ public class PorteiroController {
     }
 
     @PostMapping
+    @IsAdmin
     public ResponseEntity<Porteiro> salvar(@RequestBody PorteiroDTO porteiroDTO) {
         Porteiro novoPorteiro = porteiroService.salvar(porteiroDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPorteiro);
     }
 
     @PutMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<Porteiro> atualizar(@PathVariable Long id, @RequestBody PorteiroDTO porteiroDTO) {
         Porteiro porteiroAtualizado = porteiroService.atualizar(id,
                 porteiroDTO);
@@ -46,6 +51,7 @@ public class PorteiroController {
     }
 
     @DeleteMapping("/{id}")
+    @IsAdmin
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         porteiroService.excluir(id);
         return ResponseEntity.noContent().build();

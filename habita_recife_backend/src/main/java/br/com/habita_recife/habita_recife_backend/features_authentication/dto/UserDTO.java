@@ -19,9 +19,9 @@ public class UserDTO {
     private String email;
     private Integer version;
     private String token;
-    private Set<Role> roles = new HashSet<>();
+    private Set<String> roles = new HashSet<>();
 
-    public UserDTO(String username, String email, String token, Set<Role> roles) {
+    public UserDTO(String username, String email, String token, Set<String> roles) {
         this.username = username;
         this.email = email;
         this.token = token;
