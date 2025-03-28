@@ -8,6 +8,7 @@ import lombok.Setter;
 
 public enum RoleName {
     ADMIN("admin"),
+    PREFEITURA("admin"),
     MORADOR("morador"),
     PORTEIRO("porteiro");
 
