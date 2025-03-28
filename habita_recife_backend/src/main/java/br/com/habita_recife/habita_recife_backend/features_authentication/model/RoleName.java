@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 public enum RoleName {
     ADMIN("admin"),
+    PREFEITURA("admin"),
     MORADOR("morador"),
     PORTEIRO("porteiro");
 
