@@ -22,4 +22,16 @@ public class Role {
     @Column(nullable = false, unique = true)
     private RoleName role;
 
+    public Role(RoleName role){
+        this.role = role;
+    }
+
+    public RoleName getRole() {
+        return role;
+    }
+
+    public void setRole(RoleName role) {
+        this.role = role;
+    }
+
 }

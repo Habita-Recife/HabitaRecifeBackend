@@ -2,10 +2,13 @@ package br.com.habita_recife.habita_recife_backend.features_authentication.servi
 
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
 import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
@@ -24,7 +27,9 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
-                .authorities("USER")
+                .authorities(user.getRoles().stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole().name()))
+                        .collect(Collectors.toList()))
                 .build();
     }
 }

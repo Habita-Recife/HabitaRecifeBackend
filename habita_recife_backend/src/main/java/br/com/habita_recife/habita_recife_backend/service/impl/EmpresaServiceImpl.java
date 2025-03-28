@@ -18,7 +18,6 @@ public class EmpresaServiceImpl implements EmpresaService {
         this.empresaRepository = empresaRepository;
     }
 
-
     @Override
     public List<Empresa> listarTodos() {
         return empresaRepository.findAll();
