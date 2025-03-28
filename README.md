@@ -174,6 +174,19 @@ classDiagram
 	+string rgSindico
 	}
 
+	class Usuario{
+	+Long idUser
+	+string username
+    	+string email
+    	+string password
+    	+enum tipoMorador
+	}
+
+	class Role{
+	+Long id
+	+RoleName role
+	}
+    	
 	class Morador {
     	+string idMorador
 	+string cpfMorador
@@ -303,10 +316,12 @@ classDiagram
 
 	Porteiro"1" *--> "N" Fluxo: controla
 	Visitante"1" *--> "N" Fluxo: é aceito 
-	Morador"1" *--> "N" Fluxo: é aceito 
+	Morador"1" *--> "N" Fluxo: é aceito
 
-
-
+	Usuario "1" *-- "N" Role : possui
+	Role "1" *-- "N" Morador : assume
+	Role "1" *-- "1" Sindico : assume
+	Role "1" *-- "1" Porteiro : assume
 
 	Sindico "1" *--> "1" Financeiro: gerencia
 	Sindico "1" *--> "N" Relatorio : emite
