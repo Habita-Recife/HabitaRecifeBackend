@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface PrefeituraRepository extends JpaRepository<Prefeitura, Long>{
 
     Optional<Prefeitura> findById(Long idPrefeitura);
+    Optional<Prefeitura> findByNomePrefeitura(String nomePrefeitura);
+    Optional<Prefeitura> findByEmailPrefeitura(String emailPrefeitura);
 }

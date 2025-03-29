@@ -24,6 +24,9 @@ public class Porteiro {
     @Column(name = "nome_porteiro", nullable = false)
     private String nomePorteiro;
 
+    @Column(name = "email_porteiro", nullable = false)
+    private String emailPorteiro;
+
     @Column(name = "cpf_porteiro", nullable = false, unique = true, length = 15)
     private String cpfPorteiro;
 

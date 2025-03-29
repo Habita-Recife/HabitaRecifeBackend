@@ -21,6 +21,9 @@ public class Prefeitura {
     @Column(name = "nome_prefeitura", nullable = false)
     private String nomePrefeitura;
 
+    @Column(name = "email_prefeitura")
+    private String emailPrefeitura;
+
     @OneToOne(mappedBy = "prefeitura", fetch = FetchType.LAZY)
     private Relatorio relatorio;
 }
