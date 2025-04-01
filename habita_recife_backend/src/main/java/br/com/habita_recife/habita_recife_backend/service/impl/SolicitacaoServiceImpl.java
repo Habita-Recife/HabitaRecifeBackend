@@ -28,15 +28,12 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
         return solicitacaoRepository.findById(id);
     }
 
-    @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
-
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setTitulo(solicitacaoDTO.getTitulo());
-        solicitacao.setConteudo(solicitacao.getConteudo());
+        solicitacao.setConteudo(solicitacaoDTO.getConteudo()); // Corrigido!
         solicitacao.setTipo_solicitacao(solicitacaoDTO.getTipo_solicitacao());
         solicitacao.setStatus_solicitacao(solicitacaoDTO.getStatus_solicitacao());
-
 
         return solicitacaoRepository.save(solicitacao);
     }
