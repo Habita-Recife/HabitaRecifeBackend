@@ -20,5 +20,18 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
-    private RoleName name;
+    private RoleName role;
+
+    public Role(RoleName role){
+        this.role = role;
+    }
+
+    public RoleName getRole() {
+        return role;
+    }
+
+    public void setRole(RoleName role) {
+        this.role = role;
+    }
+
 }
