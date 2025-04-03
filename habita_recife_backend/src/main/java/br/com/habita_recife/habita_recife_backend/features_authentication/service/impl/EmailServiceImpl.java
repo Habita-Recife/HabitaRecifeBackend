@@ -14,6 +14,10 @@ public class EmailServiceImpl implements EmailService {
 
     private JavaMailSender javaMailSender;
 
+    public EmailServiceImpl(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
+
     @Value("${spring.mail.username}")
     private String remetente;
 

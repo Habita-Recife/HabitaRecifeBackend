@@ -54,5 +54,14 @@ public class UserController {
         return ResponseEntity.ok("Se o e-mail estiver cadastrado, um link de redefinição foi enviado.");
     }
 
+    @PostMapping("/reset-password")
+    @Operation(summary = "Redefinir senha", description = "Redefine a senha do usuário com base no token de redefinição.")
+    public ResponseEntity<String> forgotPasswordReset(@RequestParam String token, @RequestParam String newPassword, @RequestParam String confirmPassword) {
+        if (!newPassword.equals(confirmPassword)) {
+            return ResponseEntity.badRequest().body("As senhas não coincidem.");
+        }
+        forgotPasswordService.forgotPasswordReset(token, newPassword);
+        return ResponseEntity.ok("Senha redefinida com sucesso.");
+    }
 
 }
