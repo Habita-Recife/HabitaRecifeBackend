@@ -53,6 +53,7 @@ public class PorteiroServiceImpl implements PorteiroService {
 
         Porteiro porteiro = new Porteiro();
         porteiro.setNomePorteiro(porteiroDTO.getNomePorteiro());
+        porteiro.setEmailPorteiro(porteiroDTO.getEmailPorteiro());
         porteiro.setCpfPorteiro(porteiroDTO.getCpfPorteiro());
         porteiro.setCondominio(condominio);
 
