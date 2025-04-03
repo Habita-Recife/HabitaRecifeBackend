@@ -6,6 +6,7 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.SolicitacaoR
 import br.com.habita_recife.habita_recife_backend.service.SolicitacaoService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,8 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
 
     @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
+
+        verificarLimitesSolicitacoes(solicitacaoDTO.getIdMorador());
 
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setTitulo(solicitacaoDTO.getTitulo());
@@ -59,4 +62,29 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
         }
         solicitacaoRepository.deleteById(id);
     }
+
+    @Override
+    public void verificarLimitesSolicitacoes(long moradorId) {
+
+    }
+
+    @Override
+    public void verificarLimitesSolicitacoes(Long moradorId) {
+        LocalDateTime agora = LocalDateTime.now();
+        LocalDateTime umaHoraAtras = agora.minusHours(1);
+        LocalDateTime umDiaAtras = agora.minusDays(1);
+
+        long ultimaHora = solicitacaoRepository.countSolicitacoesUltimahora(moradorId, umaHoraAtras);
+        if (ultimaHora >= 1){
+            throw new RuntimeException("Você só pode enviar uma solicitação por hora.");
+        }
+
+        long ultimodia = solicitacaoRepository.countSolicitacoersUltimoDia(moradorId, umDiaAtras);
+        if (ultimodia >= 5) {
+            throw new RuntimeException("Você atingiu o limite de 5 solicitaões diárias.");
+        }
+
+    }
+
+
 }
