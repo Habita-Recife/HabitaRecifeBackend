@@ -41,6 +41,8 @@ public class SecurityConfig {
                         .requestMatchers("/v1/sindico/**").hasRole("SINDICO")
                         .requestMatchers("/v1/users/register").permitAll()
                         .requestMatchers("/v1/users/login").permitAll()
+                        .requestMatchers("/v1/users/forgot-password").permitAll()
+                        .requestMatchers("/test/send-email").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenService, userDetailsService), UsernamePasswordAuthenticationFilter.class);

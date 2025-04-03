@@ -9,6 +9,7 @@ import br.com.habita_recife.habita_recife_backend.features_authentication.dto.Us
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.RoleName;
 import br.com.habita_recife.habita_recife_backend.features_authentication.repository.RoleRepository;
+import br.com.habita_recife.habita_recife_backend.features_authentication.service.EmailService;
 import br.com.habita_recife.habita_recife_backend.features_authentication.util.PasswordUtil;
 import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserDTO;
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -38,9 +40,13 @@ public class UserServiceImpl implements UserService{
     private final PasswordUtil passwordUtil;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
+    private final EmailService emailService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, MoradorRepository moradorRepository, SindicoRepository sindicoRepository, PorteiroRepository porteiroRepository, PrefeituraRepository prefeituraRepository, RoleRepository roleRepository, PasswordUtil passwordUtil, AuthenticationManager authenticationManager, JwtTokenService jwtTokenService) {
+    public UserServiceImpl(UserRepository userRepository,
+                           MoradorRepository moradorRepository,
+                           SindicoRepository sindicoRepository,
+                           PorteiroRepository porteiroRepository, PrefeituraRepository prefeituraRepository, RoleRepository roleRepository, PasswordUtil passwordUtil, AuthenticationManager authenticationManager, JwtTokenService jwtTokenService, EmailService emailService) {
         this.userRepository = userRepository;
         this.moradorRepository = moradorRepository;
         this.sindicoRepository = sindicoRepository;
@@ -50,11 +56,17 @@ public class UserServiceImpl implements UserService{
         this.passwordUtil = passwordUtil;
         this.authenticationManager = authenticationManager;
         this.jwtTokenService = jwtTokenService;
+        this.emailService = emailService;
     }
 
     @Override
     public List<User> listarTodos() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> findByEmail(UserDTO userDTO) {
+        return userRepository.findByEmail(userDTO.getEmail());
     }
 
     @Override

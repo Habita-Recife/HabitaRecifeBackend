@@ -37,6 +37,18 @@ public class JwtTokenService {
                 .compact();
     }
 
+    public String generateResetToken(String email) {
+        long resetTokenExpiration = 15 * 60 * 1000;
+
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + resetTokenExpiration))
+                .signWith(secretKey, SignatureAlgorithm.HS512)
+                .compact();
+    }
+
+
     public String getEmailFromToken(String token) {
         return getClaims(token).getSubject();
     }
