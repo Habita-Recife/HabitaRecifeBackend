@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface SolicitacaoService {
     List<Solicitacao> listarTodos();
     Optional<Solicitacao> buscarPorId(Long id);
+    Optional<Solicitacao> buscarPorTitulo(String titulo);
     Solicitacao salvar(SolicitacaoDTO solicitacaoDTO);
     Solicitacao atualizar(Long id, SolicitacaoDTO solicitacaoDTO);
     void excluir(Long id);

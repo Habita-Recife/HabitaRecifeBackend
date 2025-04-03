@@ -28,12 +28,21 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
         return solicitacaoRepository.findById(id);
     }
 
+    @Override
+    public Optional<Solicitacao> buscarPorTitulo(String titulo) {
+        return solicitacaoRepository.findByTitulo(titulo);
+    }
+
+
+    @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
+
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setTitulo(solicitacaoDTO.getTitulo());
-        solicitacao.setConteudo(solicitacaoDTO.getConteudo()); // Corrigido!
+        solicitacao.setConteudo(solicitacao.getConteudo());
         solicitacao.setTipo_solicitacao(solicitacaoDTO.getTipo_solicitacao());
         solicitacao.setStatus_solicitacao(solicitacaoDTO.getStatus_solicitacao());
+
 
         return solicitacaoRepository.save(solicitacao);
     }

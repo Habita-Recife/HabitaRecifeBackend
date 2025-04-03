@@ -13,4 +13,5 @@ public class PrefeituraDTO {
 
     private Long idPrefeitura;
     private String nomePrefeitura;
+    private String emailPrefeitura;
 }

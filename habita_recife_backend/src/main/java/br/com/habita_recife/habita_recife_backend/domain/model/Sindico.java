@@ -1,9 +1,7 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +36,7 @@ public class Sindico {
     private Set<Relatorio> relatorios;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_condominio", nullable = true,
+    @JoinColumn(name = "id_condominio",
             foreignKey = @ForeignKey(name = "id_sindico_condominio_fk"))
     @JsonBackReference
     private Condominio condominio;
