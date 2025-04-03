@@ -3,7 +3,6 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.ServicoDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Servico;
 import br.com.habita_recife.habita_recife_backend.service.ServicoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,6 @@ import java.util.Optional;
 public class ServicoController {
     private final ServicoService servicoService;
 
-    @Autowired
     public ServicoController(ServicoService servicoService) {
         this.servicoService = servicoService;
     }
@@ -24,7 +22,7 @@ public class ServicoController {
     @GetMapping
     public ResponseEntity<List<Servico>> listarTodos() {
         List<Servico> servicos = servicoService.listarTodos();
-        return ResponseEntity.ok(servicos); // Corrected return object
+        return ResponseEntity.ok(servicos);
     }
 
     @GetMapping("/{id}")

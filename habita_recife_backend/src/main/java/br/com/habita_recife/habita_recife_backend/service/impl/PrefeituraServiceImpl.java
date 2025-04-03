@@ -33,6 +33,7 @@ public class PrefeituraServiceImpl implements PrefeituraService {
     public Prefeitura salvar(PrefeituraDTO prefeituraDTO) {
       Prefeitura prefeitura = new Prefeitura();
       prefeitura.setNomePrefeitura(prefeituraDTO.getNomePrefeitura());
+      prefeitura.setEmailPrefeitura(prefeituraDTO.getEmailPrefeitura());
 
        return prefeituraRepository.save(prefeitura);
     }

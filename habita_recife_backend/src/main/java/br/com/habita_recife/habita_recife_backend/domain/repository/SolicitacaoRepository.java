@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {//notação losango
-
+public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
     Optional<Solicitacao> findByTitulo(String titulo);
 }

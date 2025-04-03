@@ -3,7 +3,6 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.RelatorioDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Relatorio;
 import br.com.habita_recife.habita_recife_backend.service.RelatorioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ public class RelatorioController {
 
     private final RelatorioService relatorioService;
 
-    @Autowired
     public RelatorioController(RelatorioService relatorioService){
         this.relatorioService=relatorioService;
     }
@@ -26,7 +24,6 @@ public class RelatorioController {
     @GetMapping
     public ResponseEntity <List<Relatorio>> listarTodos(){
         return ResponseEntity.ok(relatorioService.listarTodos());
-        //retorna o objeto
     }
 
     @GetMapping("/{id}")

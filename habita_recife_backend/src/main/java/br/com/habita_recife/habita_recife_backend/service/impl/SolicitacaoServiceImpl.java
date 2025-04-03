@@ -29,6 +29,12 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
     }
 
     @Override
+    public Optional<Solicitacao> buscarPorTitulo(String titulo) {
+        return solicitacaoRepository.findByTitulo(titulo);
+    }
+
+
+    @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
 
         Solicitacao solicitacao = new Solicitacao();

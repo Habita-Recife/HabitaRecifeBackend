@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface PorteiroRepository extends JpaRepository<Porteiro, Long> {
     Optional<Porteiro> findByIdPorteiroOrCpfPorteiro(Long idPorteiro, String cpfPorteiro);
     Optional<Porteiro> findByCpfPorteiro(String cpfPorteiro);
+    Optional<Porteiro> findByEmailPorteiro(String emailPorteiro);
 }

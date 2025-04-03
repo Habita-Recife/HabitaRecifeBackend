@@ -1,4 +1,4 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.util;
+package br.com.habita_recife.habita_recife_backend.features_authentication.bootstrap;
 
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.RoleName;

@@ -23,6 +23,7 @@ public class SwaggerConfig {
                 .addTagsItem(new Tag().name("SindicoController").description("Gericiamento do Sindico cadastrado."))
                 .addTagsItem(new Tag().name("MoradorController").description("Gericiamento do Morador cadastrado."))
                 .addTagsItem(new Tag().name("PorteiroController").description("Gericiamento do Porteiro cadastrado."))
+                .addTagsItem(new Tag().name("PrefeituraController").description("Gericiamento da Prefeitura cadastrada."))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()

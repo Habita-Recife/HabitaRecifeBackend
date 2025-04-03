@@ -49,7 +49,7 @@ public class Financeiro {
     private Sindico sindico;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_conta_bancaria", nullable = true,
+    @JoinColumn(name = "id_conta_bancaria",
             foreignKey = @ForeignKey(name = "id_financeiro_conta_bancaria_fk"))
     @JsonBackReference
     private ContaBancaria contaBancaria;

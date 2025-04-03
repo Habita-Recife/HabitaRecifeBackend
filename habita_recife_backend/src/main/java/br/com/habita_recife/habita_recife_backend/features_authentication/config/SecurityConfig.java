@@ -37,9 +37,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/v1/morador/**").hasRole("MORADOR")
                         .requestMatchers("/v1/porteiro/**").hasRole("PORTEIRO")
-                        .requestMatchers("/v1/sindico/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/prefeitura**").hasRole("PREFEITURA")
+                        .requestMatchers("/v1/sindico/**").hasRole("SINDICO")
                         .requestMatchers("/v1/users/register").permitAll()
                         .requestMatchers("/v1/users/login").permitAll()
+                        .requestMatchers("/v1/users/forgot-password").permitAll()
+                        .requestMatchers("/test/send-email").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenService, userDetailsService), UsernamePasswordAuthenticationFilter.class);
