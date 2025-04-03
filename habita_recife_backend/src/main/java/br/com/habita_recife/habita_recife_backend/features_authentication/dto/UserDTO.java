@@ -1,6 +1,5 @@
 package br.com.habita_recife.habita_recife_backend.features_authentication.dto;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

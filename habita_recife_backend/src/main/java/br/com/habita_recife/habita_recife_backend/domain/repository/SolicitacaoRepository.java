@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
@@ -16,4 +17,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
 
     @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.id = :moradorId AND s.dataCriacao >= :diaAtras")
     long countSolicitacoesUltimoDia(@Param("moradorId") Long moradorId, @Param("diaAtras") LocalDateTime diaAtras);
+
+    Optional<Solicitacao> findByTitulo(String titulo);
 }

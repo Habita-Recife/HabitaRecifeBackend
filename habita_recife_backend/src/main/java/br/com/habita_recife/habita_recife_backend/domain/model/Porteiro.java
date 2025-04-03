@@ -24,6 +24,9 @@ public class Porteiro {
     @Column(name = "nome_porteiro", nullable = false)
     private String nomePorteiro;
 
+    @Column(name = "email_porteiro", nullable = false)
+    private String emailPorteiro;
+
     @Column(name = "cpf_porteiro", nullable = false, unique = true, length = 15)
     private String cpfPorteiro;
 
@@ -31,7 +34,7 @@ public class Porteiro {
     private Set<Fluxo> fluxos;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_condominio", nullable = true,
+    @JoinColumn(name = "id_condominio",
             foreignKey = @ForeignKey(name = "id_porteiro_condominio_fk"))
     @JsonBackReference
     private Condominio condominio;

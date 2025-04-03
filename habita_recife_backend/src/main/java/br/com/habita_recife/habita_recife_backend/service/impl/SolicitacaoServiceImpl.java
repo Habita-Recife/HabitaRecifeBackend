@@ -17,11 +17,14 @@ import java.util.Optional;
 @Service
 public class SolicitacaoServiceImpl implements SolicitacaoService {
 
-    @Autowired
-    private SolicitacaoRepository solicitacaoRepository;
+    private final SolicitacaoRepository solicitacaoRepository;
+    private final MoradorRepository moradorRepository;
 
-    @Autowired
-    private MoradorRepository moradorRepository;
+    public SolicitacaoServiceImpl(SolicitacaoRepository solicitacaoRepository, MoradorRepository moradorRepository) {
+        this.solicitacaoRepository = solicitacaoRepository;
+        this.moradorRepository = moradorRepository;
+    }
+
 
     @Override
     public List<Solicitacao> listarTodos() {
@@ -32,6 +35,12 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
     public Optional<Solicitacao> buscarPorId(Long id) {
         return solicitacaoRepository.findById(id);
     }
+
+    @Override
+    public Optional<Solicitacao> buscarPorTitulo(String titulo) {
+        return solicitacaoRepository.findByTitulo(titulo);
+    }
+
 
     @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {

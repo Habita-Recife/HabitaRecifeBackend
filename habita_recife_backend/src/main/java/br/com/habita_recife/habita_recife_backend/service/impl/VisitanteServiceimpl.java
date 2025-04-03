@@ -61,8 +61,7 @@ public class VisitanteServiceimpl implements VisitanteService {
 
         Optional<Visitante> visitanteOptional = visitanteRepository.findByCpfVisitante(visitanteDTO.getCpfVisitante());
         if (visitanteRepository.findByCpfVisitante(visitanteDTO.getCpfVisitante()).isPresent() && !visitanteExistente.getCpfVisitante().equals(visitanteDTO.getCpfVisitante())) {
-            throw new IllegalArgumentException("Já existe um visitante com" +
-                    " este cpf: " + visitanteDTO.getCpfVisitante());
+            throw new IllegalArgumentException("Já existe um visitante com este cpf: " + visitanteDTO.getCpfVisitante());
         }
 
         visitanteExistente.setNomeVisitante(visitanteDTO.getNomeVisitante());

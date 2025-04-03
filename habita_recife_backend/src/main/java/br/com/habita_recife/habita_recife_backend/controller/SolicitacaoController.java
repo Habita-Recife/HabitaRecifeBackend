@@ -7,6 +7,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +36,7 @@ public class SolicitacaoController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar por ID", description = "obter detalhes de uma solicitação específica.")
-    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable long id){
+    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable long id) {
         Optional<Solicitacao> solicitacao = solicitacaoService.buscarPorId(id);
         return solicitacao.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -47,14 +51,14 @@ public class SolicitacaoController {
 
     @PutMapping
     @Operation(summary = "Atualizar", description = "Atualizar uma solicitação existente.")
-    public ResponseEntity<Solicitacao> atualizar(@PathVariable long id, @RequestBody SolicitacaoDTO solicitacaoDTO){
-        Solicitacao solicitacaoAtualizada = solicitacaoService.atualizar(id,solicitacaoDTO);
+    public ResponseEntity<Solicitacao> atualizar(@PathVariable long id, @RequestBody SolicitacaoDTO solicitacaoDTO) {
+        Solicitacao solicitacaoAtualizada = solicitacaoService.atualizar(id, solicitacaoDTO);
         return ResponseEntity.ok(solicitacaoAtualizada);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Excluir", description = "Excluir uma solicitação existente.")
-    public ResponseEntity<Void> excluir(@PathVariable long id){
+    public ResponseEntity<Void> excluir(@PathVariable long id) {
         solicitacaoService.excluir(id);
         return ResponseEntity.noContent().build();
     }
