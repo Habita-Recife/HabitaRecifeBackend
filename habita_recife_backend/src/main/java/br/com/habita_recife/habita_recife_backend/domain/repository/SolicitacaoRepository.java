@@ -7,17 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Repository
-public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {//notação losango
+public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
 
-    Optional<Solicitacao> findByTitulo(String titulo);
+    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.id = :moradorId AND s.dataCriacao >= :horaAtras")
+    long countSolicitacoesUltimaHora(@Param("moradorId") Long moradorId, @Param("horaAtras") LocalDateTime horaAtras);
 
-    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.id = moradorId AND s.dataCriacao >= :umaHoraAtras")
-    long countSolicitacoesUltimahora(@Param("moradorId") long moradorId, @Param("umaHoraAtras") LocalDateTime umDiaAtras);
-
-    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.id = :moradorId AND s.dataCriacao >= umDiaAtras")
-    long countSolicitacoersUltimoDia(@Param("moradorId") long mordaroId, @Param("umDiaAtras") LocalDateTime umDiaAtras);
-
+    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.id = :moradorId AND s.dataCriacao >= :diaAtras")
+    long countSolicitacoesUltimoDia(@Param("moradorId") Long moradorId, @Param("diaAtras") LocalDateTime diaAtras);
 }

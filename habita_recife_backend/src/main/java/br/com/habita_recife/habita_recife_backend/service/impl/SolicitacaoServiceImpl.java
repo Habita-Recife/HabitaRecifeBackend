@@ -1,9 +1,13 @@
 package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.SolicitacaoDTO;
+import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
+import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
 import br.com.habita_recife.habita_recife_backend.domain.model.Solicitacao;
+import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SolicitacaoRepository;
 import br.com.habita_recife.habita_recife_backend.service.SolicitacaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,11 +17,11 @@ import java.util.Optional;
 @Service
 public class SolicitacaoServiceImpl implements SolicitacaoService {
 
-    private final SolicitacaoRepository solicitacaoRepository;
+    @Autowired
+    private SolicitacaoRepository solicitacaoRepository;
 
-    public SolicitacaoServiceImpl(SolicitacaoRepository solicitacaoRepository) {
-        this.solicitacaoRepository = solicitacaoRepository;
-    }
+    @Autowired
+    private MoradorRepository moradorRepository;
 
     @Override
     public List<Solicitacao> listarTodos() {
@@ -31,41 +35,41 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
 
     @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
+        Morador morador = moradorRepository.findById(solicitacaoDTO.getIdMorador())
+                .orElseThrow(() -> new RuntimeException("Morador não encontrado"));
 
-        verificarLimitesSolicitacoes(solicitacaoDTO.getIdMorador());
+        verificarLimitesSolicitacoes(morador.getIdMorador());
 
-        Solicitacao solicitacao = new Solicitacao();
-        solicitacao.setTitulo(solicitacaoDTO.getTitulo());
-        solicitacao.setConteudo(solicitacao.getConteudo());
-        solicitacao.setTipo_solicitacao(solicitacaoDTO.getTipo_solicitacao());
-        solicitacao.setStatus_solicitacao(solicitacaoDTO.getStatus_solicitacao());
-
+        Solicitacao solicitacao = new Solicitacao(
+                solicitacaoDTO.getTitulo(),
+                solicitacaoDTO.getConteudo(),
+                solicitacaoDTO.getTipo_solicitacao(),
+                morador
+        );
+        solicitacao.setStatus_solicitacao(solicitacaoDTO.getStatus_solicitacao() != null ?
+                solicitacaoDTO.getStatus_solicitacao() : Status.PENDENTE);
 
         return solicitacaoRepository.save(solicitacao);
     }
 
     @Override
     public Solicitacao atualizar(Long id, SolicitacaoDTO solicitacaoDTO) {
-        Solicitacao solicitacaoExistente = solicitacaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada com ID: " + id));
+        Solicitacao solicitacao = buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
 
-        solicitacaoExistente.setTitulo(solicitacaoDTO.getTitulo());
-        solicitacaoExistente.setConteudo(solicitacaoDTO.getConteudo());
+        solicitacao.setTitulo(solicitacaoDTO.getTitulo());
+        solicitacao.setConteudo(solicitacaoDTO.getConteudo());
+        solicitacao.setTipo_solicitacao(solicitacaoDTO.getTipo_solicitacao());
+        solicitacao.setStatus_solicitacao(solicitacaoDTO.getStatus_solicitacao());
 
-        return solicitacaoRepository.save(solicitacaoExistente);
+        return solicitacaoRepository.save(solicitacao);
     }
 
     @Override
     public void excluir(Long id) {
-        if (!solicitacaoRepository.existsById(id)) {
-            throw new RuntimeException("Solicitação não encontrada com ID: " + id);
-        }
-        solicitacaoRepository.deleteById(id);
-    }
-
-    @Override
-    public void verificarLimitesSolicitacoes(long moradorId) {
-
+        Solicitacao solicitacao = buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
+        solicitacaoRepository.delete(solicitacao);
     }
 
     @Override
@@ -74,17 +78,14 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
         LocalDateTime umaHoraAtras = agora.minusHours(1);
         LocalDateTime umDiaAtras = agora.minusDays(1);
 
-        long ultimaHora = solicitacaoRepository.countSolicitacoesUltimahora(moradorId, umaHoraAtras);
-        if (ultimaHora >= 1){
+        long ultimasHora = solicitacaoRepository.countSolicitacoesUltimaHora(moradorId, umaHoraAtras);
+        if (ultimasHora >= 1) {
             throw new RuntimeException("Você só pode enviar uma solicitação por hora.");
         }
 
-        long ultimodia = solicitacaoRepository.countSolicitacoersUltimoDia(moradorId, umDiaAtras);
-        if (ultimodia >= 5) {
-            throw new RuntimeException("Você atingiu o limite de 5 solicitaões diárias.");
+        long ultimasDia = solicitacaoRepository.countSolicitacoesUltimoDia(moradorId, umDiaAtras);
+        if (ultimasDia >= 5) {
+            throw new RuntimeException("Você atingiu o limite de 5 solicitações diárias.");
         }
-
     }
-
-
 }
