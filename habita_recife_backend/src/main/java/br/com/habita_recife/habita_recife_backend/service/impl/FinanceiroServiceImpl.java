@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.FinanceiroDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Financeiro;
 import br.com.habita_recife.habita_recife_backend.domain.model.Visitante;
+import br.com.habita_recife.habita_recife_backend.domain.repository.ContaBancariaRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FinanceiroRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
 import br.com.habita_recife.habita_recife_backend.service.FinanceiroService;
@@ -16,13 +17,13 @@ public class FinanceiroServiceImpl implements FinanceiroService {
 
     private final FinanceiroRepository financeiroRepository;
     private final SindicoRepository sindicoRepository;
-//    private final ContaBancariaRepository contaBancariaRepository;
+    private final ContaBancariaRepository contaBancariaRepository;
 
 
-    public FinanceiroServiceImpl(FinanceiroRepository financeiroRepository, SindicoRepository sindicoRepository/*ContaBancariaRepository contaBancariaRepository*/) {
+    public FinanceiroServiceImpl(FinanceiroRepository financeiroRepository, SindicoRepository sindicoRepository ,ContaBancariaRepository contaBancariaRepository) {
         this.financeiroRepository = financeiroRepository;
         this.sindicoRepository = sindicoRepository;
-//        this.contaBancariaRepository = contaBancariaRepository;
+        this.contaBancariaRepository = contaBancariaRepository;
     }
 
     @Override
@@ -35,6 +36,7 @@ public class FinanceiroServiceImpl implements FinanceiroService {
         return financeiroRepository.findById(id);
     }
 
+//falta salvar e atualizar
     @Override
     public Financeiro salvar(FinanceiroDTO financeiroDTO) {
         return null;

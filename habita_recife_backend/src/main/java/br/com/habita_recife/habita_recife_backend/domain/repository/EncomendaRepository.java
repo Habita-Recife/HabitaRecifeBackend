@@ -1,13 +1,13 @@
 package br.com.habita_recife.habita_recife_backend.domain.repository;
 
-import br.com.habita_recife.habita_recife_backend.domain.model.Relatorio;
+import br.com.habita_recife.habita_recife_backend.domain.model.Encomenda;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface RelatorioRepository extends JpaRepository<Relatorio, Long> {
-    @Override
-    Optional<Relatorio> findById(Long id_relatorio);
+public interface EncomendaRepository extends JpaRepository<Encomenda, Long> {
+
+    Optional<Encomenda> findById(Long aLong);
 }

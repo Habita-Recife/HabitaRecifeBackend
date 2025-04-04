@@ -40,12 +40,12 @@ public class Financeiro {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_morador", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_cobranca_morador_fk"))
+            foreignKey = @ForeignKey(name = "id_cobranca_morador_fk"))
     private Morador morador;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sindico", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_cobranca_sindico_fk"))
+            foreignKey = @ForeignKey(name = "id_cobranca_sindico_fk"))
     private Sindico sindico;
 
     @OneToOne(fetch = FetchType.LAZY)

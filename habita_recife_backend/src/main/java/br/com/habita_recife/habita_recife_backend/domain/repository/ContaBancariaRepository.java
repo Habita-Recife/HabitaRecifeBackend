@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FinanceiroRepository extends JpaRepository<Financeiro,Long> {
+public interface ContaBancariaRepository extends JpaRepository<ContaBancaria, Long> {
 
-    Optional<Financeiro> findById(Long id_financeiro);
+    Optional<ContaBancaria> findBy(String nomeEmpresa);
+    Optional<ContaBancaria> findByFinanceiro(Financeiro financeiro);
+
 
 }

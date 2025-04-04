@@ -3,8 +3,10 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.MoradorDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
 import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
+import br.com.habita_recife.habita_recife_backend.domain.model.Solicitacao;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
+import br.com.habita_recife.habita_recife_backend.domain.repository.SolicitacaoRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.MoradorService;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,13 @@ import java.util.Optional;
 public class MoradorServiceImpl implements MoradorService {
 
     private final MoradorRepository moradorRepository;
+    private final SolicitacaoRepository solicitacaoRepository;
 
     private final CondominioRepository condominioRepository;
 
-    public MoradorServiceImpl(MoradorRepository moradorRepository, CondominioRepository condominioRepository) {
+    public MoradorServiceImpl(MoradorRepository moradorRepository, SolicitacaoRepository solicitacaoRepository, CondominioRepository condominioRepository) {
         this.moradorRepository = moradorRepository;
+        this.solicitacaoRepository = solicitacaoRepository;
         this.condominioRepository = condominioRepository;
     }
 
@@ -40,8 +44,6 @@ public class MoradorServiceImpl implements MoradorService {
         if (!optionalCondominio.isPresent()) {
             throw new CondominioNotFoundException("Condomínio não encontrado com id: " + moradorDTO.getId_condominio());
         }
-
-
 
         Condominio condominio = optionalCondominio.get();
 

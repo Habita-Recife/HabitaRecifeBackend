@@ -4,6 +4,7 @@ import br.com.habita_recife.habita_recife_backend.domain.dto.MensagemDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Mensagem;
 import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
 import br.com.habita_recife.habita_recife_backend.domain.repository.MensagemRepository;
+import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
 import br.com.habita_recife.habita_recife_backend.service.MensagemService;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,13 @@ public class MensagemServiceImpl implements MensagemService {
 
     private final MensagemRepository mensagemRepository;
     private final SindicoRepository sindicoRepository;
+    private final MoradorRepository moradorRepository;
 
 
-    public MensagemServiceImpl(MensagemRepository mensagemRepository,SindicoRepository sindicoRepository) {
+    public MensagemServiceImpl(MensagemRepository mensagemRepository, SindicoRepository sindicoRepository, MoradorRepository moradorRepository) {
         this.mensagemRepository = mensagemRepository;
         this.sindicoRepository = sindicoRepository;
+        this.moradorRepository = moradorRepository;
     }
 
     @Override
@@ -34,20 +37,18 @@ public class MensagemServiceImpl implements MensagemService {
         return mensagemRepository.findById(id);
 
     }
-
+//alterar aqui
     @Override
     public Mensagem salvar(MensagemDTO mensagemDTO) {
-        // Buscar o síndico pelo ID
         Sindico sindico = sindicoRepository.findById(mensagemDTO.getIdSindico())
                 .orElseThrow(() -> new RuntimeException("Síndico não encontrado"));
 
-        // Criar a mensagem e associar o síndico
         Mensagem mensagem = new Mensagem();
         mensagem.setDataMensagem(mensagemDTO.getDataMensagem());
         mensagem.setTipoMensagem(mensagemDTO.getTipoMensagem());
         mensagem.setTitulo(mensagemDTO.getTitulo());
         mensagem.setConteudo(mensagemDTO.getConteudo());
-        mensagem.setSindico(sindico); // <--- Faltava essa linha!
+        mensagem.setSindico(sindico);
 
         return mensagemRepository.save(mensagem);
     }
