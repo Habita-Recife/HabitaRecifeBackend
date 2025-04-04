@@ -2,6 +2,7 @@ package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMorador;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,6 +50,7 @@ public class Morador {
     private List<Notificacao> notificacao;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Solicitacao> solicitacao;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

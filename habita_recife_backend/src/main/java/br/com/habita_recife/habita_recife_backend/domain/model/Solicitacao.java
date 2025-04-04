@@ -2,6 +2,7 @@ package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoSolicitacao;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class Solicitacao {
     @ManyToOne
     @JoinColumn(name = "id_morador", nullable = false,
             foreignKey = @ForeignKey(name = "id_solicitacao_morador_fk"))
+    @JsonBackReference
     private Morador morador;
 
     @Column(nullable = false, updatable = false)
