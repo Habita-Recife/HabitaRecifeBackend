@@ -25,7 +25,6 @@ public class SwaggerConfig {
                 .addTagsItem(new Tag().name("PorteiroController").description("Gericiamento do Porteiro cadastrado."))
                 .addTagsItem(new Tag().name("PrefeituraController").description("Gericiamento da Prefeitura cadastrada."))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)
