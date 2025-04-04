@@ -34,6 +34,12 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
     }
 
     @Override
+    public Optional<Solicitacao> buscarPorTitulo(String titulo) {
+        return solicitacaoRepository.findByTitulo(titulo);
+    }
+
+
+    @Override
     public Solicitacao salvar(SolicitacaoDTO solicitacaoDTO) {
         Morador morador = moradorRepository.findById(solicitacaoDTO.getIdMorador())
                 .orElseThrow(() -> new RuntimeException("Morador não encontrado"));

@@ -1,9 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
-import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
-import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMorador;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

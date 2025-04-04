@@ -33,7 +33,6 @@ public class Morador {
     @Column(name = "tipo_morador", nullable = false)
     private TipoMorador tipoMorador;
 
-    //@Setter(AccessLevel.NONE)
     @Column(name = "cpf_morador", nullable = false, length = 11, unique = true)
     private String cpfMorador;
 

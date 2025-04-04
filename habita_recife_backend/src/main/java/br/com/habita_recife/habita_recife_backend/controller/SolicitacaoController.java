@@ -59,5 +59,11 @@ public class SolicitacaoController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/titulo/{titulo}")
+    public ResponseEntity<Solicitacao> buscarPorTitulo(@PathVariable String titulo) {
+        Optional<Solicitacao> solicitacao = solicitacaoService.buscarPorTitulo(titulo);
+        return solicitacao.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
 

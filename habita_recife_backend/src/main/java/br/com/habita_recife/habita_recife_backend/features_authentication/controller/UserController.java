@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.features_authentication.contr
 import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserDTO;
 import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserLoginDTO;
 import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
+import br.com.habita_recife.habita_recife_backend.features_authentication.service.ForgotPasswordService;
 import br.com.habita_recife.habita_recife_backend.features_authentication.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,9 +19,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final ForgotPasswordService forgotPasswordService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, ForgotPasswordService forgotPasswordService) {
         this.userService = userService;
+        this.forgotPasswordService = forgotPasswordService;
     }
 
 
@@ -43,6 +46,23 @@ public class UserController {
     public ResponseEntity<UserLoginDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO) {
         UserLoginDTO responseDTO = userService.loginUser(userLoginDTO);
         return ResponseEntity.ok(responseDTO);
+    }
+
+    @PostMapping("/forgot-password")
+    @Operation(summary = "Solicitar redefinição de senha", description = "Envia um e-mail com um link para redefinir a senha.")
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+        forgotPasswordService.forgotPassword(email);
+        return ResponseEntity.ok("Se o e-mail estiver cadastrado, um link de redefinição foi enviado.");
+    }
+
+    @PostMapping("/reset-password")
+    @Operation(summary = "Redefinir senha", description = "Redefine a senha do usuário com base no token de redefinição.")
+    public ResponseEntity<String> forgotPasswordReset(@RequestParam String token, @RequestParam String newPassword, @RequestParam String confirmPassword) {
+        if (!newPassword.equals(confirmPassword)) {
+            return ResponseEntity.badRequest().body("As senhas não coincidem.");
+        }
+        forgotPasswordService.forgotPasswordReset(token, newPassword);
+        return ResponseEntity.ok("Senha redefinida com sucesso.");
     }
 
 }

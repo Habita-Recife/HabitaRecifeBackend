@@ -7,7 +7,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -37,6 +36,18 @@ public class JwtTokenService {
                 .signWith(secretKey, SignatureAlgorithm.HS512)
                 .compact();
     }
+
+    public String generateResetToken(String email) {
+        long resetTokenExpiration = 15 * 60 * 1000;
+
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + resetTokenExpiration))
+                .signWith(secretKey, SignatureAlgorithm.HS512)
+                .compact();
+    }
+
 
     public String getEmailFromToken(String token) {
         return getClaims(token).getSubject();

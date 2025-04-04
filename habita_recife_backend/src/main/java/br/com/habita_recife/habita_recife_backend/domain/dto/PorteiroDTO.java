@@ -15,5 +15,6 @@ public class PorteiroDTO {
     private Long idPorteiro;
     private Long idFluxo;
     private String nomePorteiro;
+    private String emailPorteiro;
     private String cpfPorteiro;
 }
