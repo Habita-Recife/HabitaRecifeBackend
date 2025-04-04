@@ -1,15 +1,45 @@
+version: '3.8'
+
 services:
   mysql:
     image: 'mysql:8.0'
+    container_name: habita-db
     environment:
-      - 'MYSQL_DATABASE=habita_recife_backend'
-      - 'MYSQL_ROOT_PASSWORD=Admin2'
-      - 'MYSQL_USER=myuser'
-      - 'MYSQL_PASSWORD=Admin1'
+      - MYSQL_DATABASE=habita_recife_backend
+      - MYSQL_ROOT_PASSWORD=Admin2
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=Admin1
     ports:
       - '3307:3306'
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - habita-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: habita-app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/habita_recife_backend
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: Admin1
+    ports:
+      - '8080:8080'
+    networks:
+      - habita-net
 
 volumes:
   db_data:
+
+networks:
+  habita-net:
