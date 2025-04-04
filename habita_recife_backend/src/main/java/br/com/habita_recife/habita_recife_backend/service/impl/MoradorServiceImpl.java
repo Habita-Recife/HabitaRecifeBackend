@@ -6,7 +6,10 @@ import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
+import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
+import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
 import br.com.habita_recife.habita_recife_backend.service.MoradorService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +21,12 @@ public class MoradorServiceImpl implements MoradorService {
 
     private final CondominioRepository condominioRepository;
 
-    public MoradorServiceImpl(MoradorRepository moradorRepository, CondominioRepository condominioRepository) {
+    private final UserRepository userRepository;
+
+    public MoradorServiceImpl(MoradorRepository moradorRepository, CondominioRepository condominioRepository, UserRepository userRepository) {
         this.moradorRepository = moradorRepository;
         this.condominioRepository = condominioRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -57,18 +63,26 @@ public class MoradorServiceImpl implements MoradorService {
     }
 
     @Override
+    @Transactional
     public Morador atualizar(Long id, MoradorDTO moradorDTO) {
         Morador moradorExistente = moradorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Moraodor não encontrado com id: " + id));
+                .orElseThrow(() -> new RuntimeException("Morador não encontrado com id: " + id));
 
         if (moradorRepository.findByEmailMorador(moradorDTO.getEmailMorador()).isPresent() &&
                 !moradorExistente.getEmailMorador().equals(moradorDTO.getEmailMorador())) {
-            throw new IllegalArgumentException("Já existe um síndico com este e-mail: " + moradorDTO.getEmailMorador());
+            throw new IllegalArgumentException("Já existe um morador com este e-mail: " + moradorDTO.getEmailMorador());
         }
+
+        Optional<User> optionalUser = userRepository.findByEmail(moradorExistente.getEmailMorador());
 
         moradorExistente.setNomeMorador(moradorDTO.getNomeMorador());
         moradorExistente.setEmailMorador(moradorDTO.getEmailMorador());
         moradorExistente.setVeiculoMorador(moradorDTO.getVeiculoMorador());
+
+        optionalUser.ifPresent(user -> {
+            user.setEmail(moradorDTO.getEmailMorador());
+            userRepository.save(user);
+        });
 
         return moradorRepository.save(moradorExistente);
     }

@@ -6,6 +6,8 @@ import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
+import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
+import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
 import br.com.habita_recife.habita_recife_backend.service.SindicoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +22,14 @@ public class SindicoServiceImpl implements SindicoService {
 
     private final CondominioRepository condominioRepository;
 
-    public SindicoServiceImpl(SindicoRepository sindicoRepository, CondominioRepository condominioRepository) {
+    private final UserRepository userRepository;
+
+    public SindicoServiceImpl(SindicoRepository sindicoRepository,
+                              CondominioRepository condominioRepository, UserRepository userRepository) {
         this.sindicoRepository = sindicoRepository;
         this.condominioRepository = condominioRepository;
+        this.userRepository = userRepository;
+
     }
 
     @Override
@@ -74,9 +81,16 @@ public class SindicoServiceImpl implements SindicoService {
             throw new IllegalArgumentException("Já existe um síndico com este e-mail: " + sindicoDTO.getEmailSindico());
         }
 
+        Optional<User> optionalUser = userRepository.findByEmail(sindicoExistente.getEmailSindico());
+
         sindicoExistente.setNomeSindico(sindicoDTO.getNomeSindico());
         sindicoExistente.setEmailSindico(sindicoDTO.getEmailSindico());
         sindicoExistente.setTelefoneSindico(sindicoDTO.getTelefoneSindico());
+
+        optionalUser.ifPresent(user -> {
+            user.setEmail(sindicoDTO.getEmailSindico());
+            userRepository.save(user);
+        });
 
         return sindicoRepository.save(sindicoExistente);
 
