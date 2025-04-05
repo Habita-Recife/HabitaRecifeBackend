@@ -32,9 +32,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> {})
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .securityMatcher("/api/**")
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/v2/api-docs/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/swagger-ui.html",
+                                "/webjars/**"
+                        ).permitAll()
                         .requestMatchers("/v1/morador/**").hasRole("MORADOR")
                         .requestMatchers("/v1/porteiro/**").hasRole("PORTEIRO")
                         .requestMatchers("/v1/prefeitura**").hasRole("PREFEITURA")
@@ -62,19 +70,5 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter(jwtTokenService, userDetailsService);
-    }
-
-
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers(
-                "/v2/api-docs/**",
-                "/v3/api-docs/**",
-                "/swagger-resources/**",
-                "/swagger-ui.html",
-                "/swagger-ui/**",
-                "/webjars/**"
-        );
     }
 }
