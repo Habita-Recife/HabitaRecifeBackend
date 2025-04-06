@@ -34,7 +34,7 @@ public class Solicitacao {
     private TipoSolicitacao tipo_solicitacao;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "statusSolicitacao", nullable = false)
+    @Column(name = "status_solicitacao", nullable = false)
     private Status status_solicitacao;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
@@ -44,5 +44,20 @@ public class Solicitacao {
     @JoinColumn(name = "id_morador", nullable = false,
             foreignKey = @ForeignKey(name = "id_solicitacao_morador_fk"))
     private Morador morador;
-}
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime dataCriacao;
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    public Solicitacao(String titulo, String conteudo, TipoSolicitacao tipo_solicitacao, Morador morador) {
+        this.titulo = titulo;
+        this.conteudo = conteudo;
+        this.tipo_solicitacao = tipo_solicitacao;
+        this.status_solicitacao = Status.PENDENTE;
+        this.morador = morador;
+    }
+}
