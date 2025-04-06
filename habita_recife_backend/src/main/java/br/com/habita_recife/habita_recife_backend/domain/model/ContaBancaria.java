@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_conta_bancaria")
@@ -38,7 +39,7 @@ public class ContaBancaria {
     @JsonBackReference
     private Condominio condominio;
 
-    @OneToOne(mappedBy = "contaBancaria", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contaBancaria", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Financeiro financeiro;
+    private Set<Financeiro> financeiros;
 }

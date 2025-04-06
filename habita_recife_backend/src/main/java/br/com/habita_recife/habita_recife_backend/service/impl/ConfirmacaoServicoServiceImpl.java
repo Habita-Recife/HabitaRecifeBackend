@@ -13,6 +13,7 @@ public class ConfirmacaoServicoServiceImpl implements ConfirmacaoServicoService 
 
     private final ConfirmacaoServicoRepository confirmacaoServicoRepository;
 
+
     public ConfirmacaoServicoServiceImpl(ConfirmacaoServicoRepository confirmacaoServicoRepository) {
         this.confirmacaoServicoRepository = confirmacaoServicoRepository;
     }

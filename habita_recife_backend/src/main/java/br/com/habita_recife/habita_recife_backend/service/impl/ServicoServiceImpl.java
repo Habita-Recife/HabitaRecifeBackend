@@ -13,6 +13,8 @@ import java.util.Optional;
 public class ServicoServiceImpl implements ServicoService {
 
     private final ServicoRepository servicoRepository;
+    //sindico
+    //falta o bollean de confirmado
 
     public ServicoServiceImpl(ServicoRepository servicoRepository) {
         this.servicoRepository = servicoRepository;
