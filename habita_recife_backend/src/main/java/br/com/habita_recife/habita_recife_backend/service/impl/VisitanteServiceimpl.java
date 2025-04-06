@@ -6,6 +6,7 @@ import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
 import br.com.habita_recife.habita_recife_backend.domain.model.Visitante;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
+import br.com.habita_recife.habita_recife_backend.service.FluxoService;
 import br.com.habita_recife.habita_recife_backend.service.VisitanteService;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,11 @@ import java.util.Optional;
 public class VisitanteServiceimpl implements VisitanteService {
 
     private final VisitanteRepository visitanteRepository;
+    private final FluxoService fluxoService;
 
-    public VisitanteServiceimpl(VisitanteRepository visitanteRepository) {
+    public VisitanteServiceimpl(VisitanteRepository visitanteRepository, FluxoService fluxoService) {
         this.visitanteRepository = visitanteRepository;
+        this.fluxoService = fluxoService;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class VisitanteServiceimpl implements VisitanteService {
         FluxoDTO fluxoDTO = new FluxoDTO();
         fluxoDTO.setIdVisitante(salvarVisitante.getIdVisitante());
         fluxoDTO.setTipoFluxo(TipoFluxo.ENTRADA);
+        fluxoService.registrarEntrada(fluxoDTO);
 
         return salvarVisitante;
     }
