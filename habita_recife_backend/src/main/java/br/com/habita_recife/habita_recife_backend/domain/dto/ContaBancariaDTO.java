@@ -18,5 +18,6 @@ public class ContaBancariaDTO {
     private String numeroConta;
     private String agencia;
     private String banco;
+    private Long idCondominio;
 
 }

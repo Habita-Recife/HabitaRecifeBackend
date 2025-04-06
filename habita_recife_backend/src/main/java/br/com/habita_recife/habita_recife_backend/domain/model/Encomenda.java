@@ -29,14 +29,13 @@ public class Encomenda {
     private LocalDateTime dataEncomenda;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_encomenda" ,nullable = false,
-            foreignKey = @ForeignKey(name="id_encomenda_porteiro_fk"))
+    @JoinColumn(name = "porteiro_id" ,nullable = false,
+            foreignKey = @ForeignKey(name="porteiro_id_fk"))
     private Porteiro porteiro;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_encomenda", nullable = false,
-            foreignKey = @ForeignKey(name = "id_encomenda_morador_fk"))
+    @JoinColumn(name = "morador_id", nullable = false,
+            foreignKey = @ForeignKey(name = "morador_id_fk"))
     private Morador morador;
 
 

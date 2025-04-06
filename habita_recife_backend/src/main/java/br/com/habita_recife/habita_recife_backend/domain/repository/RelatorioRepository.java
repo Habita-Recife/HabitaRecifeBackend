@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface RelatorioRepository extends JpaRepository<Relatorio, Long> {
-    @Override
-    Optional<Relatorio> findById(Long id_relatorio);
+
+    Optional<Relatorio> findByTitulo(String titulo);
 }

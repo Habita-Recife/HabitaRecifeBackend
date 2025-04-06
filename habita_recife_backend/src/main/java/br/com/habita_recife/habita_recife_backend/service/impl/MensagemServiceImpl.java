@@ -37,7 +37,6 @@ public class MensagemServiceImpl implements MensagemService {
         return mensagemRepository.findById(id);
 
     }
-//alterar aqui
     @Override
     public Mensagem salvar(MensagemDTO mensagemDTO) {
         Sindico sindico = sindicoRepository.findById(mensagemDTO.getIdSindico())

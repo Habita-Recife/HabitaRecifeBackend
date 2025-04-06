@@ -39,9 +39,9 @@ public class VitrineServiceImpl implements VitrineService  {
         Vitrine vitrineExistente = vitrineRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vitrine não encontrada com ID: " + id));
 
-        vitrineExistente.setNome_produto(vitrineDTO.getNome_produto());
-        vitrineExistente.setValor_produto(vitrineDTO.getValor_produto());
-        vitrineExistente.setDescricao_produto(vitrineDTO.getDescricao_produto());
+        vitrineExistente.setNomeProduto(vitrineDTO.getNome_produto());
+        vitrineExistente.setValorProduto(vitrineDTO.getValor_produto());
+        vitrineExistente.setDescricaoProduto(vitrineDTO.getDescricao_produto());
 
         return vitrineRepository.save(vitrineExistente);
     }

@@ -17,6 +17,6 @@ public class CondominioDTO {
     private Long idPorteiro;
     private String nomeCondominio;
     private String enderecoCondominio;
-//    private Integer numeroApartamento;
-//    private Integer numeroBloco;
+    private Integer numeroApartamento;
+    private Integer numeroBloco;
 }

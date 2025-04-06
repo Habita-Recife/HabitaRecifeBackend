@@ -14,8 +14,11 @@ import java.time.LocalDateTime;
 public class EncomendaDTO {
 
     private Long id_encomenda;
+    private Long idMorador;
+    private Long idPorteiro;
     private TipoEncomenda tipoEncomenda;
     private LocalDateTime dataEncomenda;
+
 
 }
 

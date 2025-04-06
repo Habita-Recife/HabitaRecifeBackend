@@ -10,8 +10,8 @@ import java.util.Optional;
 public interface EncomendaService {
     List<Encomenda> listarTodos();
     Optional<Encomenda> buscarPorId(Long id);
-    Empresa salvar(EncomendaDTO encomendaDTO);
-    Empresa atualizar(Long id, EncomendaDTO encomendaDTO);
+    Encomenda salvar(EncomendaDTO encomendaDTO);
+    Encomenda atualizar(Long id, EncomendaDTO encomendaDTO);
     void excluir(Long id);
 }
 

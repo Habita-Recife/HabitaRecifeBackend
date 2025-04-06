@@ -1,8 +1,11 @@
 package br.com.habita_recife.habita_recife_backend.service;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.FinanceiroDTO;
+import br.com.habita_recife.habita_recife_backend.domain.enums.TipoMovimentacao;
+import br.com.habita_recife.habita_recife_backend.domain.model.ContaBancaria;
 import br.com.habita_recife.habita_recife_backend.domain.model.Financeiro;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 

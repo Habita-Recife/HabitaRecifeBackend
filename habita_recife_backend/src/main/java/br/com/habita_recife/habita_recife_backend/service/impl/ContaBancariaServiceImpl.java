@@ -2,13 +2,16 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.ContaBancariaDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.*;
+import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.ContaBancariaRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FinanceiroRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.ContaBancariaService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +23,13 @@ public class ContaBancariaServiceImpl implements ContaBancariaService {
     private final ContaBancariaRepository contaBancariaRepository;
     private final FinanceiroRepository financeiroRepository;
     private final SindicoRepository sindicoRepository;
+    private final CondominioRepository condominioRepository;
 
-
-    public ContaBancariaServiceImpl(ContaBancariaRepository contaBancariaRepository, FinanceiroRepository financeiroRepository, SindicoRepository sindicoRepository) {
+    public ContaBancariaServiceImpl(ContaBancariaRepository contaBancariaRepository, FinanceiroRepository financeiroRepository, SindicoRepository sindicoRepository, CondominioRepository condominioRepository) {
         this.contaBancariaRepository = contaBancariaRepository;
         this.financeiroRepository = financeiroRepository;
         this.sindicoRepository = sindicoRepository;
+        this.condominioRepository = condominioRepository;
     }
 
     @Override
@@ -36,50 +40,40 @@ public class ContaBancariaServiceImpl implements ContaBancariaService {
     public Optional<ContaBancaria> buscarPorId(Long id) {
         return contaBancariaRepository.findById(id);    }
 
+
+
     @Override
     public ContaBancaria salvar(ContaBancariaDTO contaBancariaDTO) {
-        Optional<Financeiro> financeiroOptional = financeiroRepository.findById(contaBancariaDTO.getIdContaBancaria());
+        Condominio condominio = condominioRepository.findById(contaBancariaDTO.getIdCondominio())
+                .orElseThrow(() -> new EntityNotFoundException("Condomínio não encontrado com ID: " + contaBancariaDTO.getIdCondominio()));
+        ContaBancaria contaBancaria = new ContaBancaria();
+        contaBancaria.setSaldoConta(contaBancariaDTO.getSaldoConta() != null ? contaBancariaDTO.getSaldoConta() : BigDecimal.ZERO);
+        contaBancaria.setNumeroConta(contaBancariaDTO.getNumeroConta());
+        contaBancaria.setAgencia(contaBancariaDTO.getAgencia());
+        contaBancaria.setBanco(contaBancariaDTO.getBanco());
+        contaBancaria.setCondominio(condominio);
 
-        if (financeiroOptional.isPresent()) {
-            throw new CondominioNotFoundException("Financeiro não encontrado com id: " + financeiroRepository.getReferenceById());
-        }
-
-        Optional<ContaBancaria> exitingContaBancaria = contaBancariaRepository.findByFinanceiro(financeiroOptional.get());
-        if (exitingContaBancaria.isPresent()) {
-            throw new RuntimeException("Já existe uma Conta Bancaria para este condomínio.");
-        }
-
-        Financeiro financeiro = financeiroOptional.get();
-
-        if (financeiroOptional.isPresent()) {
-            Financeiro financeiro = financeiroOptional.get();
-
-            ContaBancaria contaBancaria = new ContaBancaria();
-            contaBancaria.setIdContaBancaria(contaBancariaDTO.getIdContaBancaria());
-            contaBancaria.setAgencia(contaBancariaDTO.getAgencia());
-            contaBancaria.setNumeroConta(contaBancariaDTO.getNumeroConta());
-            contaBancaria.setBanco(contaBancariaDTO.getBanco());
-            contaBancaria.setFinanceiro(financeiro);
-
-            return contaBancariaRepository.save(contaBancaria);
-        } else {
-        throw new RuntimeException("Prefeitra não encontrada com o ID: " + id);
-            }
-        }
-
-    @Override
-    public ContaBancaria atualizar(Long id, ContaBancariaDTO contaBancariaDTO) {
-
-        ContaBancaria contaBancariaAtualizar = contaBancariaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("conta não encontrada com ID: " + id));
-
-        contaBancariaAtualizar.setAgencia(contaBancariaDTO.getAgencia());
-        contaBancariaAtualizar.setIdContaBancaria(contaBancariaDTO.getIdContaBancaria());
-
-        return contaBancariaRepository.save(contaBancariaAtualizar);
+        return contaBancariaRepository.save(contaBancaria);
     }
 
     @Override
+    public ContaBancaria atualizar(Long id, ContaBancariaDTO contaBancariaDTO) {
+        ContaBancaria contaBancariaExistente = contaBancariaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Conta bancária não encontrada com ID: " + id));
+
+        Condominio condominio = condominioRepository.findById(contaBancariaDTO.getIdCondominio())
+                .orElseThrow(() -> new EntityNotFoundException("Condomínio não encontrado com ID: " + contaBancariaDTO.getIdCondominio()));
+
+        contaBancariaExistente.setSaldoConta(contaBancariaDTO.getSaldoConta());
+        contaBancariaExistente.setNumeroConta(contaBancariaDTO.getNumeroConta());
+        contaBancariaExistente.setAgencia(contaBancariaDTO.getAgencia());
+        contaBancariaExistente.setBanco(contaBancariaDTO.getBanco());
+        contaBancariaExistente.setCondominio(condominio);
+
+        return contaBancariaRepository.save(contaBancariaExistente);
+    }
+
+        @Override
     public void excluir(Long id) {
         contaBancariaRepository.deleteById(id);
     }

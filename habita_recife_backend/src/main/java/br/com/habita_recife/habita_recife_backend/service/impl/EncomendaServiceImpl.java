@@ -35,15 +35,40 @@ public class EncomendaServiceImpl implements EncomendaService {
     public Optional<Encomenda> buscarPorId(Long id) {
         return Optional.empty();
     }
-    //falta salvar e atualizar
-    @Override
-    public Empresa salvar(EncomendaDTO encomendaDTO) {
-        return null;
-    }
 
     @Override
-    public Empresa atualizar(Long id, EncomendaDTO encomendaDTO) {
-        return null;
+    public Encomenda salvar(EncomendaDTO encomendaDTO) {
+        var morador = moradorRepository.findById(encomendaDTO.getIdMorador())
+                .orElseThrow(() -> new RuntimeException("Morador não encontrado"));
+        var porteiro = porteiroRepository.findById(encomendaDTO.getIdPorteiro())
+                .orElseThrow(() -> new RuntimeException("Porteiro não encontrado"));
+
+        Encomenda encomenda = new Encomenda();
+        encomenda.setTipoEncomenda(encomendaDTO.getTipoEncomenda());
+        encomenda.setDataEncomenda(encomendaDTO.getDataEncomenda());
+        encomenda.setMorador(morador);
+        encomenda.setPorteiro(porteiro);
+
+        return encomendaRepository.save(encomenda);
+    }
+
+
+    @Override
+    public Encomenda atualizar(Long id, EncomendaDTO encomendaDTO) {
+        Encomenda encomenda = encomendaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Encomenda não encontrada"));
+
+        var morador = moradorRepository.findById(encomendaDTO.getIdMorador())
+                .orElseThrow(() -> new RuntimeException("Morador não encontrado"));
+        var porteiro = porteiroRepository.findById(encomendaDTO.getIdPorteiro())
+                .orElseThrow(() -> new RuntimeException("Porteiro não encontrado"));
+
+        encomenda.setTipoEncomenda(encomendaDTO.getTipoEncomenda());
+        encomenda.setDataEncomenda(encomendaDTO.getDataEncomenda());
+        encomenda.setMorador(morador);
+        encomenda.setPorteiro(porteiro);
+
+        return encomendaRepository.save(encomenda);
     }
 
     @Override

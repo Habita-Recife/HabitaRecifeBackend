@@ -13,8 +13,6 @@ import java.util.Optional;
 public class SolicitacaoServiceImpl implements SolicitacaoService {
 
     private final SolicitacaoRepository solicitacaoRepository;
-    //morador
-    //sindico
 
 
     public SolicitacaoServiceImpl(SolicitacaoRepository solicitacaoRepository) {

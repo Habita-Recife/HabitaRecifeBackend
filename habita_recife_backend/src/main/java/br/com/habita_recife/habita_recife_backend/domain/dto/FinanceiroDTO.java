@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,9 +17,12 @@ import java.time.LocalDateTime;
 public class FinanceiroDTO {
 
     private Long id_financeiro;
-    private Double valor_cobranca;
+    private Long id_sindico;
+    private Long idContaBancaria;
+    private BigDecimal valor_cobranca;
     private LocalDateTime data_cobranca;
     private TipoCobranca tipoCobranca;
     private TipoMovimentacao tipoMovimentacao;
+
 
 }
