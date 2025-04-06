@@ -1,0 +1,166 @@
+* [33m263227f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgabriellamarinho[m[33m)[m alterações no serviceimpl e a controllers
+* [33m3a964ce[m atualizações de classes
+*   [33m525f1e8[m merge
+[32m|[m[33m\[m  
+[32m|[m *   [33m78dce1d[m Merge pull request #17 from Habita-Recife/ViniciusHubb
+[32m|[m [34m|[m[35m\[m  
+[32m|[m [34m|[m * [33m313a607[m[33m ([m[1;31morigin/ViniciusHubb[m[33m)[m redefinição de senha
+[32m|[m [34m|[m * [33mf27009d[m esqueci a senha
+[32m|[m [34m|[m *   [33me2777f5[m merge
+[32m|[m [34m|[m [36m|[m[1;31m\[m  
+[32m|[m [34m|[m [36m|[m * [33m483cd2c[m atualização na verificação e na persistencia no cadastro e associando roles em seus determinados usuarios eu sua permissões e autorizações.
+[32m|[m [34m|[m * [1;31m|[m [33m64eb385[m Merge branch 'norwalneto' of https://github.com/Habita-Recife/HabitaRecifeBackend into ViniciusHubb
+[32m|[m [34m|[m [1;32m|[m[1;31m\[m[1;31m|[m 
+[32m|[m [34m|[m [1;32m|[m * [33m9e0f334[m atualizações na roles
+[32m|[m [34m|[m [1;32m|[m[34m/[m  
+[32m|[m [34m|[m[34m/[m[1;32m|[m   
+[32m|[m [34m|[m * [33mad7cfab[m update
+[32m|[m [34m|[m[34m/[m  
+* [34m|[m [33maa1866e[m alteração cors
+* [34m|[m [33m5effdeb[m alterações
+[34m|[m[34m/[m  
+* [33m363075f[m atualização do swagger
+*   [33m282eaaf[m Merge branch 'norwalneto' into develop
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [33m1a4229d[m alfinalização da authenticação e authorização e configuação do SecurityConfig e suas permissões(havera possiveis melhorias e controlles na authorzações.
+[1;34m|[m * [33m6376080[m alterações nas roles
+* [1;35m|[m [33ma123b8f[m update merge alicia
+[1;35m|[m[1;35m/[m  
+*   [33m0d047c5[m Merge branch 'Aliciaestefany01' of https://github.com/Habita-Recife/HabitaRecifeBackend into norwalneto
+[1;36m|[m[31m\[m  
+[1;36m|[m * [33m7b8e3dd[m[33m ([m[1;31morigin/Aliciaestefany01[m[33m, [m[1;32mAliciaestefany01[m[33m)[m CRUD confirmação de serviço
+* [31m|[m   [33m8e5b8df[m update merge
+[32m|[m[33m\[m [31m\[m  
+[32m|[m * [31m|[m [33mffefefc[m update swagger
+[32m|[m * [31m|[m [33m58f370a[m Swagger configurado
+[32m|[m [31m|[m[31m/[m  
+* [31m|[m [33me4fc491[m update
+* [31m|[m [33m8f01859[m implementando autenticação com JWT
+* [31m|[m   [33m75a2520[m Merge branch 'gabriellamarinho' into norwalneto
+[31m|[m[35m\[m [31m\[m  
+[31m|[m [35m|[m[31m/[m  
+[31m|[m[31m/[m[35m|[m   
+[31m|[m * [33m8adb57e[m alterações e inseçrções de arquivos no fs authenticatioication
+* [35m|[m [33m7739d69[m Merge pull request #14 from Habita-Recife/gabriellamarinho
+[36m|[m[35m\[m[35m|[m 
+[36m|[m * [33m35c0605[m adição de financeiro controller e financeiro service, e alteração em outras entidades
+* [1;31m|[m [33m57ee25d[m Merge pull request #13 from Habita-Recife/ViniciusHubb
+[1;32m|[m[1;31m\[m[1;31m|[m 
+[1;32m|[m * [33m1690ca9[m Registro de senha criptografada do usuario no BD, Cadastro usuário
+* [1;33m|[m [33mcc461f4[m Merge pull request #12 from Habita-Recife/ViniciusHubb
+[1;34m|[m[1;33m\[m[1;33m|[m 
+[1;34m|[m * [33mccbd2d9[m update
+[1;34m|[m *   [33mfc24278[m Merge branch 'ViniciusHubb' of https://github.com/Habita-Recife/HabitaRecifeBackend into ViniciusHubb
+[1;34m|[m [1;36m|[m[31m\[m  
+[1;34m|[m [1;36m|[m * [33m3fce820[m update
+[1;34m|[m [1;36m|[m[1;34m/[m  
+[1;34m|[m[1;34m/[m[1;36m|[m   
+[1;34m|[m * [33m93a3953[m update
+[1;34m|[m[1;34m/[m  
+*   [33mf7f4716[m Merge remote-tracking branch 'remotes/origin/Aliciaestefany01' into develop
+[32m|[m[33m\[m  
+[32m|[m * [33m52b3fae[m Removendo pastas erradas.
+* [33m|[m [33mf935d16[m update DTO authentication
+* [33m|[m [33m07579e2[m Merge branch 'develop' of https://github.com/Habita-Recife/HabitaRecifeBackend into develop
+[34m|[m[33m\[m[33m|[m 
+[34m|[m * [33m55782b9[m Implementação do CRUD de Empresa e alalteração de prefeitura
+[34m|[m *   [33mac5470e[m Merge branch 'develop' into Aliciaestefany01
+[34m|[m [36m|[m[1;31m\[m  
+[34m|[m * [1;31m|[m [33m9da4c57[m Implementação do CRUD de Empresa e alalteração de prefeitura
+[34m|[m * [1;31m|[m [33me088402[m Implementação do CRUD da classe prefeitura
+* [1;31m|[m [1;31m|[m [33m1ada507[m Configuração dependencias
+* [1;31m|[m [1;31m|[m [33m8ba5fe4[m Organização inicial feature_authentication
+[1;31m|[m [1;31m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[1;31m|[m   
+* [1;31m|[m   [33md1379a2[m Merge branch 'ViniciusHubb' into develop
+[1;32m|[m[1;33m\[m [1;31m\[m  
+[1;32m|[m * [1;31m|[m [33mf72ee13[m Registro entrada e saida visitante
+* [1;33m|[m [1;31m|[m [33m46cd0fb[m Merge branch 'develop' of https://github.com/Habita-Recife/HabitaRecifeBackend into develop
+[1;34m|[m[1;33m\[m[1;33m|[m [1;31m|[m 
+[1;34m|[m * [1;31m|[m [33m2a0f894[m Correção de erros nas entidades e classess de serviços
+[1;34m|[m * [1;31m|[m [33mc9ffb7c[m update na classe financeuro e contaBancaria
+[1;34m|[m [1;31m|[m[1;31m/[m  
+* [1;31m|[m [33m511038a[m Merge branch 'develop' of https://github.com/Habita-Recife/HabitaRecifeBackend into ViniciusHubb
+[1;36m|[m[1;31m\[m[1;31m|[m 
+[1;36m|[m *   [33m575a610[m[33m ([m[1;32mdevelop[m[33m)[m Merge pull request #7 from Habita-Recife/gabriellamarinho
+[1;36m|[m [32m|[m[33m\[m  
+[1;36m|[m * [33m\[m   [33m06f4a92[m Merge branch 'ViniciusHubb' into develop
+[1;36m|[m [34m|[m[35m\[m [33m\[m  
+[1;36m|[m [34m|[m * [33m|[m [33m899ea66[m Ajustando ViFluxo ra funcionar as requisições CRUD
+[1;36m|[m [34m|[m * [33m|[m [33m4fd035c[m Ajustando Visitante para funcionar as requisições CRUD
+[1;36m|[m [34m|[m * [33m|[m [33mb505180[m implementação Visitante CRUD(VisitanteController, VisitanteDTO, VisitanteServiceImpl, VisitanteService, VisitanteReposito)
+[1;36m|[m [34m|[m * [33m|[m [33m3bbac8a[m implementação Fluxo CRUD(FluxoController, FluxoDTO, FluxoServiceImpl, FluxoService, FluxoRepository)
+[1;36m|[m [34m|[m * [33m|[m [33m4506a1f[m criação e conclusão do MoradorController e finalização do CRUD Morador
+[1;36m|[m [34m|[m * [33m|[m   [33m084cded[m Merge branch 'norwalneto' into develop
+[1;36m|[m [34m|[m [36m|[m[1;31m\[m [33m\[m  
+[1;36m|[m [34m|[m [36m|[m * [33m|[m [33mb119dd3[m finalizando CRUD Morador
+[1;36m|[m * [36m|[m [1;31m|[m [33m|[m [33mbcce822[m Merge branch 'develop' of https://github.com/Habita-Recife/HabitaRecifeBackend into develop
+[1;36m|[m [1;32m|[m[36m\[m[36m|[m [1;31m|[m [33m|[m 
+[1;36m|[m [1;32m|[m * [1;31m|[m [33m|[m   [33m3466dcc[m Merge pull request #5 from Habita-Recife/ViniciusHubb
+[1;36m|[m [1;32m|[m [1;31m|[m[1;35m\[m [1;31m\[m [33m\[m  
+[1;36m|[m [1;32m|[m [1;31m|[m [1;35m|[m[1;31m/[m [33m/[m  
+[1;36m|[m [1;32m|[m [1;31m|[m[1;31m/[m[1;35m|[m [33m|[m   
+[1;36m|[m [1;32m|[m [1;31m|[m * [33m|[m [33m87a0338[m correção de erros nas classes Porteiro e PorteiroServiceImpl
+[1;36m|[m [1;32m|[m [1;31m|[m * [33m|[m [33m617dccb[m Alteração  PorteiroServicempl e método excluir(porteiro)
+[1;36m|[m [1;32m|[m [1;31m|[m * [33m|[m [33m1451df8[m implementação Porteiro CRUD(PorteiroService, PorteiroServiceImpl, PorteiroController, PorteiroRepository, PorteiroD)
+[1;36m|[m [1;32m|[m [1;31m|[m[1;31m/[m [33m/[m  
+[1;36m|[m * [1;31m|[m [33m|[m [33m96b6274[m lombok annotation
+* [1;35m|[m [1;31m|[m [33m|[m [33mdf26f3f[m Ajustando ViFluxo ra funcionar as requisições CRUD
+* [1;35m|[m [1;31m|[m [33m|[m [33m7c7e587[m Ajustando Visitante para funcionar as requisições CRUD
+* [1;35m|[m [1;31m|[m [33m|[m [33m84fccc4[m implementação Visitante CRUD(VisitanteController, VisitanteDTO, VisitanteServiceImpl, VisitanteService, VisitanteReposito)
+* [1;35m|[m [1;31m|[m [33m|[m [33m1b59f09[m implementação Fluxo CRUD(FluxoController, FluxoDTO, FluxoServiceImpl, FluxoService, FluxoRepository)
+* [1;35m|[m [1;31m|[m [33m|[m [33m05778ad[m criação e conclusão do MoradorController e finalização do CRUD Morador
+* [1;35m|[m [1;31m|[m [33m|[m [33m17f6797[m finalizando CRUD Morador
+* [1;35m|[m [1;31m|[m [33m|[m [33m6cf33bc[m correção de erros nas classes Porteiro e PorteiroServiceImpl
+* [1;35m|[m [1;31m|[m [33m|[m [33mc5f2904[m Alteração  PorteiroServicempl e método excluir(porteiro)
+* [1;35m|[m [1;31m|[m [33m|[m [33m9f16b28[m implementação Porteiro CRUD(PorteiroService, PorteiroServiceImpl, PorteiroController, PorteiroRepository, PorteiroD)
+[33m|[m [1;35m|[m[33m_[m[1;31m|[m[33m/[m  
+[33m|[m[33m/[m[1;35m|[m [1;31m|[m   
+* [1;35m|[m [1;31m|[m [33m9d873ca[m add class contaBancaria
+* [1;35m|[m [1;31m|[m [33m878b730[m atualização metodo serviceImpl
+* [1;35m|[m [1;31m|[m   [33m738a780[m update vitrine service
+[1;36m|[m[1;31m\[m [1;35m\[m [1;31m\[m  
+[1;36m|[m [1;31m|[m [1;35m|[m[1;31m/[m  
+[1;36m|[m [1;31m|[m[1;31m/[m[1;35m|[m   
+[1;36m|[m * [1;35m|[m [33m7382e82[m atualização de classes
+* [31m|[m [1;35m|[m [33m4a27fe0[m update vitrine service
+* [31m|[m [1;35m|[m [33m21184b0[m update classes e service
+[32m|[m[31m\[m[31m|[m [1;35m|[m 
+[32m|[m * [1;35m|[m [33m1723d86[m implementado serviço e repository morador
+[32m|[m * [1;35m|[m [33m47e0daa[m Corrigindo erros e na recursão infinita com anotações temporarias
+[32m|[m * [1;35m|[m [33md52b04d[m implementação das seguintes classes e intefaces e concluindo o CRUD(CondominioServi, CondominioServiceImpl, CondominioController CondominioReposiory)
+* [33m|[m [1;35m|[m [33m899f27f[m update solicitação
+[33m|[m[33m/[m [1;35m/[m  
+* [1;35m|[m   [33ma51be45[m Merge pull request #3 from Habita-Recife/ViniciusHubb
+[1;35m|[m[35m\[m [1;35m\[m  
+[1;35m|[m [35m|[m[1;35m/[m  
+[1;35m|[m[1;35m/[m[35m|[m   
+[1;35m|[m * [33m0915999[m lombok annotation
+* [35m|[m   [33m243341a[m Merge pull request #2 from Habita-Recife/gabriellamarinho
+[36m|[m[1;31m\[m [35m\[m  
+[36m|[m * [35m|[m [33mdc25478[m commit branch gabriellamarinho
+[36m|[m[36m/[m [35m/[m  
+* [35m/[m [33m09af12e[m atualização na classe sindico e condominio
+[35m|[m[35m/[m  
+* [33m5080f01[m atualização na estrutura de arquivos e implementado modelo para o crud e  tratamento de exceÃções
+* [33m2f11032[m Correção nos relacionamentos e chaves estrangeiras concluidas.
+* [33m9d51e2b[m corrigindo as classes, seus relacionamentos e chaves estrangeiras
+* [33m26eea87[m atualização na classe morador e servico
+* [33m3ced813[m Implementação das classes, Empresa, Confirmação de servico, servico e seus relacionamentos
+* [33mfd95ad4[m Ajustes/criação  relacionamentos
+* [33me1b0259[m alterações realizadas nas classes
+* [33mbf7395e[m Implementação da classe Servico e seus relacionamentos
+* [33mb923251[m Relacionamento de classes visitante-porteiro-condominio
+* [33m0655148[m Relacionamento de classes Condominio - Sindico
+* [33mb271fcb[m Criando classe fluxo e movimento
+* [33mc88d8e3[m update classe vitrine
+* [33mb7717e6[m add classe sindico
+* [33m00468ae[m Entidades Morador, Mensagem, Solicitacao. Enums Status, TipoMEnsagem, TipoMorador, TipoSolicitacao
+* [33m6811129[m update
+* [33m49c25e8[m update
+* [33m8d5892c[m update
+* [33mec270a3[m add sindico
+* [33m0882bc9[m Criando Entidade Prefeitura e Relatroio e seus relacionamentos.
+* [33m74fef09[m primeira entidade
+* [33m1e76cea[m arquivos iniciais
+* [33m3a08bd5[m[33m ([m[1;32mmain[m[33m)[m Initial commit
