@@ -7,6 +7,7 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRe
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SolicitacaoRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
+import br.com.habita_recife.habita_recife_backend.exception.MoradorDuplicadoException;
 import br.com.habita_recife.habita_recife_backend.exception.MoradorNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.MoradorService;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class MoradorServiceImpl implements MoradorService {
     public Morador salvar(MoradorDTO moradorDTO) {
         Condominio condominio = condominioRepository.findById(moradorDTO.getId_condominio())
                 .orElseThrow(() ->
-                        new CondominioNotFoundException("Condomínio não encontrado com id: " + moradorDTO.getId_condominio()));
+                        new CondominioNotFoundException());
 
         Morador morador = new Morador();
         morador.setNomeMorador(moradorDTO.getNomeMorador());
@@ -59,11 +60,11 @@ public class MoradorServiceImpl implements MoradorService {
     @Override
     public Morador atualizar(Long id, MoradorDTO moradorDTO) {
         Morador moradorExistente = moradorRepository.findById(id)
-                .orElseThrow(() -> new MoradorNotFoundException("Morador não encontrado com id: " + id));
+                .orElseThrow(() -> new MoradorNotFoundException(id));
 
         moradorRepository.findByEmailMorador(moradorDTO.getEmailMorador()).ifPresent(m -> {
             if (!m.getIdMorador().equals(moradorExistente.getIdMorador())) {
-                throw new IllegalArgumentException("Já existe um morador com este e-mail: " + moradorDTO.getEmailMorador());
+                throw new MoradorDuplicadoException(moradorDTO.getEmailMorador());
             }
         });
 
@@ -76,7 +77,7 @@ public class MoradorServiceImpl implements MoradorService {
     @Override
     public void excluir(Long id) {
         Morador morador = moradorRepository.findById(id)
-                .orElseThrow(() -> new MoradorNotFoundException("Morador não encontrado com id: " + id));
+                .orElseThrow(() -> new MoradorNotFoundException(id));
 
         Condominio condominio = morador.getCondominio();
         if (condominio != null) {

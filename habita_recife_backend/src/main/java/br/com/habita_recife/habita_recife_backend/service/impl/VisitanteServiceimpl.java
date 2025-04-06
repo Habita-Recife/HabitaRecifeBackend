@@ -6,6 +6,8 @@ import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoFluxo;
 import br.com.habita_recife.habita_recife_backend.domain.model.Visitante;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
+import br.com.habita_recife.habita_recife_backend.exception.VisitanteDuplicadoException;
+import br.com.habita_recife.habita_recife_backend.exception.VisitanteNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.VisitanteService;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,7 @@ public class VisitanteServiceimpl implements VisitanteService {
         Optional<Visitante> existingVisitante =
                 visitanteRepository.findByCpfVisitante(visitanteDTO.getCpfVisitante());
         if (existingVisitante.isPresent()) {
-            throw new RuntimeException("Já existe um visitante com este cpf: " + visitanteDTO.getCpfVisitante());
+            throw new VisitanteNotFoundException(visitanteDTO.getCpfVisitante());
         }
 
         Visitante visitante = new Visitante();
@@ -57,11 +59,11 @@ public class VisitanteServiceimpl implements VisitanteService {
     @Override
     public Visitante atualizar(Long id, VisitanteDTO visitanteDTO) {
         Visitante visitanteExistente = visitanteRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Visitante não encontrado com id: " + id));
+                .orElseThrow(() -> new VisitanteNotFoundException(id));
 
         Optional<Visitante> visitanteOptional = visitanteRepository.findByCpfVisitante(visitanteDTO.getCpfVisitante());
         if (visitanteRepository.findByCpfVisitante(visitanteDTO.getCpfVisitante()).isPresent() && !visitanteExistente.getCpfVisitante().equals(visitanteDTO.getCpfVisitante())) {
-            throw new IllegalArgumentException("Já existe um visitante com este cpf: " + visitanteDTO.getCpfVisitante());
+            throw new VisitanteDuplicadoException(visitanteDTO.getCpfVisitante());
         }
 
         visitanteExistente.setNomeVisitante(visitanteDTO.getNomeVisitante());
@@ -74,7 +76,7 @@ public class VisitanteServiceimpl implements VisitanteService {
     @Override
     public void excluir(Long id) {
         Visitante visitante = visitanteRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Visitante não encontrado com id: " + id));
+                .orElseThrow(() -> new VisitanteNotFoundException(id));
 
         visitanteRepository.deleteById(id);
     }

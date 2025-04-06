@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.PrefeituraDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Prefeitura;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PrefeituraRepository;
+import br.com.habita_recife.habita_recife_backend.exception.PrefeituraNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.PrefeituraService;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class PrefeituraServiceImpl implements PrefeituraService {
     @Override
     public Prefeitura atualizar(Long id, PrefeituraDTO prefeituraDTO) {
         Prefeitura prefeituraExistente = prefeituraRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prefeitura não encontrado com id: " + id));
+                .orElseThrow(() -> new PrefeituraNotFoundException(id));
 
         prefeituraExistente.setNomePrefeitura(prefeituraDTO.getNomePrefeitura());
         return prefeituraRepository.save(prefeituraExistente);

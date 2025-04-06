@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.ServicoDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Servico;
 import br.com.habita_recife.habita_recife_backend.domain.repository.ServicoRepository;
+import br.com.habita_recife.habita_recife_backend.exception.ServicoNotFoundExcetion;
 import br.com.habita_recife.habita_recife_backend.service.ServicoService;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,6 @@ import java.util.Optional;
 public class ServicoServiceImpl implements ServicoService {
 
     private final ServicoRepository servicoRepository;
-    //sindico
-    //falta o bollean de confirmado
 
     public ServicoServiceImpl(ServicoRepository servicoRepository) {
         this.servicoRepository = servicoRepository;
@@ -46,7 +45,7 @@ public class ServicoServiceImpl implements ServicoService {
     public Servico atualizar(Long id, ServicoDTO servicoDTO) {
 
         Servico servicosAtualizados = servicoRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Serviços não encontrado com id " + id));
+                        .orElseThrow(() -> new ServicoNotFoundExcetion(id));
 
         servicosAtualizados.setValorServico(servicoDTO.getValorServico());
         servicosAtualizados.setDataContrato(servicoDTO.getDataContrato());
@@ -58,7 +57,7 @@ public class ServicoServiceImpl implements ServicoService {
     @Override
     public void excluir(Long id) {
         if (!servicoRepository.existsById(id)) {
-            throw new RuntimeException("Serviço não encontrado com ID: " + id);
+            throw new ServicoNotFoundExcetion(id);
         }
         servicoRepository.deleteById(id);
     }

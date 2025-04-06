@@ -6,6 +6,9 @@ import br.com.habita_recife.habita_recife_backend.domain.model.Encomenda;
 import br.com.habita_recife.habita_recife_backend.domain.repository.EncomendaRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
+import br.com.habita_recife.habita_recife_backend.exception.EncomendaNotFoundException;
+import br.com.habita_recife.habita_recife_backend.exception.MoradorNotFoundException;
+import br.com.habita_recife.habita_recife_backend.exception.PorteiroNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.EncomendaService;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +42,9 @@ public class EncomendaServiceImpl implements EncomendaService {
     @Override
     public Encomenda salvar(EncomendaDTO encomendaDTO) {
         var morador = moradorRepository.findById(encomendaDTO.getIdMorador())
-                .orElseThrow(() -> new RuntimeException("Morador não encontrado"));
+                .orElseThrow(() -> new MoradorNotFoundException());
         var porteiro = porteiroRepository.findById(encomendaDTO.getIdPorteiro())
-                .orElseThrow(() -> new RuntimeException("Porteiro não encontrado"));
+                .orElseThrow(() -> new PorteiroNotFoundException());
 
         Encomenda encomenda = new Encomenda();
         encomenda.setTipoEncomenda(encomendaDTO.getTipoEncomenda());
@@ -56,12 +59,12 @@ public class EncomendaServiceImpl implements EncomendaService {
     @Override
     public Encomenda atualizar(Long id, EncomendaDTO encomendaDTO) {
         Encomenda encomenda = encomendaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Encomenda não encontrada"));
+                .orElseThrow(() -> new EncomendaNotFoundException());
 
         var morador = moradorRepository.findById(encomendaDTO.getIdMorador())
-                .orElseThrow(() -> new RuntimeException("Morador não encontrado"));
+                .orElseThrow(() -> new MoradorNotFoundException(id));
         var porteiro = porteiroRepository.findById(encomendaDTO.getIdPorteiro())
-                .orElseThrow(() -> new RuntimeException("Porteiro não encontrado"));
+                .orElseThrow(() -> new PorteiroNotFoundException(id));
 
         encomenda.setTipoEncomenda(encomendaDTO.getTipoEncomenda());
         encomenda.setDataEncomenda(encomendaDTO.getDataEncomenda());

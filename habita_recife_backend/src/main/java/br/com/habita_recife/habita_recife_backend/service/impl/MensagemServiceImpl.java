@@ -4,8 +4,9 @@ import br.com.habita_recife.habita_recife_backend.domain.dto.MensagemDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Mensagem;
 import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
 import br.com.habita_recife.habita_recife_backend.domain.repository.MensagemRepository;
-import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
+import br.com.habita_recife.habita_recife_backend.exception.MensagemNotFundException;
+import br.com.habita_recife.habita_recife_backend.exception.SindicoNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.MensagemService;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,11 @@ public class MensagemServiceImpl implements MensagemService {
 
     private final MensagemRepository mensagemRepository;
     private final SindicoRepository sindicoRepository;
-    private final MoradorRepository moradorRepository;
 
 
-    public MensagemServiceImpl(MensagemRepository mensagemRepository, SindicoRepository sindicoRepository, MoradorRepository moradorRepository) {
+    public MensagemServiceImpl(MensagemRepository mensagemRepository,SindicoRepository sindicoRepository) {
         this.mensagemRepository = mensagemRepository;
         this.sindicoRepository = sindicoRepository;
-        this.moradorRepository = moradorRepository;
     }
 
     @Override
@@ -37,10 +36,11 @@ public class MensagemServiceImpl implements MensagemService {
         return mensagemRepository.findById(id);
 
     }
+
     @Override
     public Mensagem salvar(MensagemDTO mensagemDTO) {
         Sindico sindico = sindicoRepository.findById(mensagemDTO.getIdSindico())
-                .orElseThrow(() -> new RuntimeException("Síndico não encontrado"));
+                .orElseThrow(() -> new SindicoNotFoundException());
 
         Mensagem mensagem = new Mensagem();
         mensagem.setDataMensagem(mensagemDTO.getDataMensagem());
@@ -56,7 +56,7 @@ public class MensagemServiceImpl implements MensagemService {
     @Override
     public Mensagem atualizar(Long id, MensagemDTO mensagemDTO) {
         Mensagem mensagemExistente = mensagemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Mensagem não encontrada com ID: " + id));
+                .orElseThrow(() -> new MensagemNotFundException(id));
         mensagemExistente.setDataMensagem(mensagemDTO.getDataMensagem());
         mensagemExistente.setTipoMensagem(mensagemDTO.getTipoMensagem());
         mensagemExistente.setTitulo(mensagemDTO.getTitulo());
@@ -68,7 +68,7 @@ public class MensagemServiceImpl implements MensagemService {
     @Override
     public void excluir(Long id) {
         if (!mensagemRepository.existsById(id)) {
-            throw new RuntimeException("Mensagem não encontrada com ID: " + id);
+            throw new MensagemNotFundException(id);
         }
         mensagemRepository.deleteById(id);
 

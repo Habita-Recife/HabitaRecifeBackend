@@ -35,10 +35,6 @@ public class ContaBancaria {
     @Column(nullable = false, unique = true)
     private String banco;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Condominio condominio;
-
     @OneToMany(mappedBy = "contaBancaria", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Financeiro> financeiros;

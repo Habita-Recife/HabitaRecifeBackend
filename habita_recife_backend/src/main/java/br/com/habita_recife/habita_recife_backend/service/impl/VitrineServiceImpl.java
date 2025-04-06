@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.VitrineDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Vitrine;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VitrineRepository;
+import br.com.habita_recife.habita_recife_backend.exception.VitrineNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.VitrineService;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ public class VitrineServiceImpl implements VitrineService  {
     @Override
     public Vitrine atualizar(Long id, VitrineDTO vitrineDTO) {
         Vitrine vitrineExistente = vitrineRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vitrine não encontrada com ID: " + id));
+                .orElseThrow(() -> new VitrineNotFoundException(id));
 
         vitrineExistente.setNomeProduto(vitrineDTO.getNome_produto());
         vitrineExistente.setValorProduto(vitrineDTO.getValor_produto());
@@ -49,7 +50,7 @@ public class VitrineServiceImpl implements VitrineService  {
     @Override
     public void excluir(Long id) {
         if (!vitrineRepository.existsById(id)) {
-            throw new RuntimeException("Vitrine não encontrada com ID: " + id);
+            throw new VitrineNotFoundException(id);
         }
         vitrineRepository.deleteById(id);
     }

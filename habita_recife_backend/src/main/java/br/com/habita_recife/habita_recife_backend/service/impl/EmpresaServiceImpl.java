@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.EmpresaDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Empresa;
 import br.com.habita_recife.habita_recife_backend.domain.repository.EmpresaRepository;
+import br.com.habita_recife.habita_recife_backend.exception.EmpresaNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.EmpresaService;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Override
     public Empresa atualizar(Long id, EmpresaDTO empresaDTO) {
         Empresa empresaExistente = empresaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Empresa não encontrada com o id: " + id));
+                .orElseThrow(() -> new EmpresaNotFoundException(id));
 
         empresaExistente.setNomeEmpresa(empresaDTO.getNomeEmpresa());
         return empresaRepository.save(empresaExistente);

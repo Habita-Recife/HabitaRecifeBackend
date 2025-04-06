@@ -1,5 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -43,7 +44,6 @@ public class Condominio {
     @OneToOne(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private ContaBancaria contaBancaria;
-
 
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, fetch =
             FetchType.EAGER)

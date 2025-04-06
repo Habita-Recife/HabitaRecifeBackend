@@ -35,7 +35,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
             String resetToken = jwtTokenService.generateResetToken(email);
 
-            String resetLink = "https://localhost:5173/v1/users/reset-password?token=" + resetToken;
+            String resetLink = "http://localhost:3001/RecuperarSenha?token=" + resetToken;
 
             String subject = "Redefinição de Senha";
             String body = "Olá, " + user.getUsername() + "!\n\n"

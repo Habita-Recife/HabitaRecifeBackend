@@ -10,5 +10,13 @@ import java.util.Optional;
 @Repository
 public interface MensagemRepository extends JpaRepository<Mensagem, Long> {    Optional<Mensagem> findByTitulo(String titulo);
 
+    List<Mensagem> findAll();
+
     Optional<Mensagem> findById(Long id);
+
+    Mensagem save(Mensagem mensagem);
+
+    void deleteById(Long id);
+
+    boolean existsById(Long id);
 }
