@@ -6,7 +6,6 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRe
 import br.com.habita_recife.habita_recife_backend.domain.repository.ContaBancariaRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FinanceiroRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
-import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.ContaBancariaService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class ContaBancariaServiceImpl implements ContaBancariaService {

@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.controller;
 import br.com.habita_recife.habita_recife_backend.domain.dto.RelatorioDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Relatorio;
 import br.com.habita_recife.habita_recife_backend.service.RelatorioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/relatorio")
+@Tag(name = "Relatorio", description = "Gericiamento dos relatorios.")
 public class RelatorioController {
 
     private final RelatorioService relatorioService;

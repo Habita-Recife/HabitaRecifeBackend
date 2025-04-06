@@ -1,7 +1,6 @@
 package br.com.habita_recife.habita_recife_backend.service;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.EncomendaDTO;
-import br.com.habita_recife.habita_recife_backend.domain.model.Empresa;
 import br.com.habita_recife.habita_recife_backend.domain.model.Encomenda;
 
 import java.util.List;

@@ -23,11 +23,11 @@ public class Condominio {
     @Column(name = "nome_condominio", nullable = false, unique = true)
     private String nomeCondominio;
 
-//    @Column(name = "numero_apartamento", nullable = false)
-//    private Integer numeroApartamento;
-//
-//    @Column(name = "numero_bloco", nullable = false)
-//    private Integer numeroBloco;
+   @Column(name = "numero_apartamento", nullable = false)
+    private Integer numeroApartamento;
+
+   @Column(name = "numero_bloco", nullable = false)
+   private Integer numeroBloco;
 
     @Column(name = "endereco_condominio", nullable = false, unique = true, length = 300)
     private String enderecoCondominio;

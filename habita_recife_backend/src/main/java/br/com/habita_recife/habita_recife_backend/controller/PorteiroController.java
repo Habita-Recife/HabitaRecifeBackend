@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/porteiro")
-@Tag(name = "PorteiroController", description = "Gericiamento do Porteiro cadastrado.")
+@Tag(name = "Porteiro", description = "Gericiamento do Porteiro cadastrado.")
 @IsPorteiro
 public class PorteiroController {
 

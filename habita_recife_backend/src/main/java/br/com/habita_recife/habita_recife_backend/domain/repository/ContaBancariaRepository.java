@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface ContaBancariaRepository extends JpaRepository<ContaBancaria, Long> {
 
-    Optional<ContaBancaria> findBynumeroConta(String numeroConta);
+Optional<ContaBancaria> findByNumeroConta(String numeroConta);
 
 
 }

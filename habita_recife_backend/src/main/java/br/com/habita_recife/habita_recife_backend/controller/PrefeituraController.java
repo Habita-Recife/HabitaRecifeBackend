@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/prefeitura")
-@Tag(name = "PrefeituraController", description = "Gericiamento do Prefeitura cadastrado.")
+@Tag(name = "Prefeitura", description = "Gericiamento do Prefeitura cadastrado.")
 public class PrefeituraController {
 
     private final PrefeituraService prefeituraService;
