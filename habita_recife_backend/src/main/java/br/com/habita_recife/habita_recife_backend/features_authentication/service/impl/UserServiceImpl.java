@@ -108,11 +108,9 @@ public class UserServiceImpl implements UserService{
                     existeEntidade = sindicoRepository.findByEmailSindico(userDTO.getEmail()).isPresent();
                     break;
                 case PORTEIRO:
-                    // Caso o porteiro possua e-mail ou outro identificador para validação
                     existeEntidade = porteiroRepository.findByEmailPorteiro(userDTO.getEmail()).isPresent();
                     break;
                 case PREFEITURA:
-                    // Se a validação para prefeitura for feita por e-mail (ou outro campo), ajuste aqui
                     existeEntidade = prefeituraRepository.findByEmailPrefeitura(userDTO.getEmail()).isPresent();
                     break;
                 default:

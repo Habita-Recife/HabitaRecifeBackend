@@ -23,17 +23,20 @@ public class Vitrine {
     private Long id_vitrine;
 
     @Column(nullable = false)
-    private String nome_produto;
+    private String nomeProduto;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_vitrine",nullable = false)
     private TipoVitrine tipoVitrine;
 
     @Column(nullable = false)
-    private String descricao_produto;
+    private String descricaoProduto;
+
+    @Column(nullable = false)
+    private String telefoneContato;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="###,###.00")
-    private Double valor_produto;
+    private Double valorProduto;
 
     @ManyToOne
     @JoinColumn(name = "id_sindico", nullable = false,

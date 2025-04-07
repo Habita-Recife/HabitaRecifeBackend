@@ -40,4 +40,11 @@ public class Porteiro {
             foreignKey = @ForeignKey(name = "id_porteiro_condominio_fk"))
     @JsonBackReference
     private Condominio condominio;
+
+    @OneToMany(mappedBy = "porteiro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Encomenda>encomendas;
+
+
+
+
 }

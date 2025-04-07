@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.VitrineDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Vitrine;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VitrineRepository;
+import br.com.habita_recife.habita_recife_backend.exception.VitrineNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.VitrineService;
 import org.springframework.stereotype.Service;
 
@@ -31,17 +32,23 @@ public class VitrineServiceImpl implements VitrineService  {
     @Override
     public Vitrine salvar(VitrineDTO vitrineDTO) {
         Vitrine vitrine = new Vitrine();
+        vitrine.setNomeProduto(vitrineDTO.getNomeProduto());
+        vitrine.setTipoVitrine(vitrineDTO.getTipoVitrine());
+        vitrine.setValorProduto(vitrineDTO.getValorProduto());
+        vitrine.setDescricaoProduto(vitrineDTO.getDescricaoProduto());
+        vitrine.setTelefoneContato(vitrineDTO.getTelefoneContato());
+
         return vitrineRepository.save(vitrine);
     }
 
     @Override
     public Vitrine atualizar(Long id, VitrineDTO vitrineDTO) {
         Vitrine vitrineExistente = vitrineRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vitrine não encontrada com ID: " + id));
+                .orElseThrow(() -> new VitrineNotFoundException(id));
 
-        vitrineExistente.setNome_produto(vitrineDTO.getNome_produto());
-        vitrineExistente.setValor_produto(vitrineDTO.getValor_produto());
-        vitrineExistente.setDescricao_produto(vitrineDTO.getDescricao_produto());
+        vitrineExistente.setNomeProduto(vitrineDTO.getNomeProduto());
+        vitrineExistente.setValorProduto(vitrineDTO.getValorProduto());
+        vitrineExistente.setDescricaoProduto(vitrineDTO.getDescricaoProduto());
 
         return vitrineRepository.save(vitrineExistente);
     }
@@ -49,7 +56,7 @@ public class VitrineServiceImpl implements VitrineService  {
     @Override
     public void excluir(Long id) {
         if (!vitrineRepository.existsById(id)) {
-            throw new RuntimeException("Vitrine não encontrada com ID: " + id);
+            throw new VitrineNotFoundException(id);
         }
         vitrineRepository.deleteById(id);
     }

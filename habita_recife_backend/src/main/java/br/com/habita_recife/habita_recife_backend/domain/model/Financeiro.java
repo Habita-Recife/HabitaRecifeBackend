@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,8 +25,8 @@ public class Financeiro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_financeiro;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="###,###.00")
-    private Double valor_cobranca;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private BigDecimal valor_cobranca;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="dd/MM/yyyy HH:mm:ss")
     private LocalDateTime data_cobranca;
@@ -40,16 +41,16 @@ public class Financeiro {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_morador", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_cobranca_morador_fk"))
+            foreignKey = @ForeignKey(name = "id_cobranca_morador_fk"))
     private Morador morador;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sindico", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_cobranca_sindico_fk"))
+            foreignKey = @ForeignKey(name = "id_financeiro_sindico_fk"))
     private Sindico sindico;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_conta_bancaria",
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_conta_bancaria", nullable = false,
             foreignKey = @ForeignKey(name = "id_financeiro_conta_bancaria_fk"))
     @JsonBackReference
     private ContaBancaria contaBancaria;

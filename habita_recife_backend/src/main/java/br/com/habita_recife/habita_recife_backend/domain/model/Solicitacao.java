@@ -2,7 +2,7 @@ package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.Status;
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoSolicitacao;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,10 +37,12 @@ public class Solicitacao {
     @Column(name = "status_solicitacao", nullable = false)
     private Status status_solicitacao;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataSolicitacao;
+
     @ManyToOne
     @JoinColumn(name = "id_morador", nullable = false,
             foreignKey = @ForeignKey(name = "id_solicitacao_morador_fk"))
-    @JsonBackReference
     private Morador morador;
 
     @Column(nullable = false, updatable = false)
