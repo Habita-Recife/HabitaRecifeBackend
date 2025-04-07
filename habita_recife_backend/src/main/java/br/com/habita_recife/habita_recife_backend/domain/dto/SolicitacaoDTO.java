@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,5 +20,6 @@ public class SolicitacaoDTO {
     private String conteudo;
     private TipoSolicitacao tipo_solicitacao;
     private Status status_solicitacao;
+    private LocalDateTime dataSolicitacao;
 
 }

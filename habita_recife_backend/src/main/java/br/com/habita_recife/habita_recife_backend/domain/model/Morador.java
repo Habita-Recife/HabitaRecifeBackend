@@ -37,6 +37,10 @@ public class Morador {
     @Column(name = "cpf_morador", nullable = false, length = 11, unique = true)
     private String cpfMorador;
 
+    @Column(name = "numerobloco")
+    private NumeroBloco numeroBloco;
+
+
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Financeiro> financeiro;
 
@@ -58,4 +62,8 @@ public class Morador {
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Servico> servico;
+
+    @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Encomenda> encomendas;
+
 }

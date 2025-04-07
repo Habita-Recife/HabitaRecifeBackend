@@ -3,6 +3,8 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.CondominioDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
+import br.com.habita_recife.habita_recife_backend.exception.CondominioDuplicadoException;
+import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.CondominioService;
 import org.springframework.stereotype.Service;
 
@@ -35,14 +37,12 @@ public class CondominioServiceImpl implements CondominioService {
 
         if (condominioOptional.isPresent() &&
                 (condominioDTO.getIdCondominio() == null || !condominioOptional.get().getIdCondominio().equals(condominioDTO.getIdCondominio()))) {
-            throw new IllegalArgumentException("Já existe um condomínio com este nome: " + condominioDTO.getNomeCondominio());
+            throw new CondominioDuplicadoException(condominioDTO.getNomeCondominio());
         }
 
         Condominio condominio = new Condominio();
         condominio.setNomeCondominio(condominioDTO.getNomeCondominio());
         condominio.setEnderecoCondominio(condominioDTO.getEnderecoCondominio());
-        condominio.setNumeroApartamento(condominioDTO.getNumeroApartamento());
-        condominio.setNumeroBloco(condominioDTO.getNumeroBloco());
 
         return condominioRepository.save(condominio);
     }
@@ -50,12 +50,12 @@ public class CondominioServiceImpl implements CondominioService {
     @Override
     public Condominio atualizar(Long id, CondominioDTO condominioDTO) {
         Condominio condominioExistente = condominioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com id: " + id));
+                .orElseThrow(() -> new CondominioNotFoundException(id));
 
         Optional<Condominio> condominioOptional = condominioRepository
                 .findByNomeCondominioOrIdCondominio(condominioDTO.getNomeCondominio(), id);
         if (condominioOptional.isPresent() && !condominioOptional.get().getIdCondominio().equals(id)) {
-            throw new IllegalArgumentException("Já existe um condomínio com este nome: " + condominioDTO.getNomeCondominio());
+            throw new CondominioDuplicadoException(condominioDTO.getNomeCondominio());
         }
 
         condominioExistente.setNomeCondominio(condominioDTO.getNomeCondominio());
@@ -67,7 +67,7 @@ public class CondominioServiceImpl implements CondominioService {
     @Override
     public void excluir(Long id) {
         Condominio condominio = buscarPorId(id)
-                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado"));
+                .orElseThrow(() -> new CondominioNotFoundException());
         if (condominio.getSindico() != null) {
             condominio.getSindico().setCondominio(null);
         }
