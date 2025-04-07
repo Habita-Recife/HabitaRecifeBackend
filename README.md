@@ -147,7 +147,7 @@ bash
 bash
 ```
 	Backend: http://localhost:8080
-	Frontend: http://localhost:3000
+	Frontend: http://localhost:3001
 ```
 
       
@@ -271,6 +271,12 @@ classDiagram
     	+string numero_visitante
 	}
 
+	class Encomenda {
+	+Long id_encomenda
+	+TipoSolicitacao tipoEncomenda
+	+LocalDateTime dataEncomenda;
+	}
+
 	class Solicitacao {
     	+int id_solicitacao
     	+string titulo
@@ -315,8 +321,9 @@ classDiagram
 	Condominio "1" *--> "1" Conta_Bancaria: possui
 
 	Porteiro"1" *--> "N" Fluxo: controla
+	Porteiro"1" *--> "N" Encomenda: Gerencia
+
 	Visitante"1" *--> "N" Fluxo: é aceito 
-	Morador"1" *--> "N" Fluxo: é aceito
 
 	Usuario "1" *-- "N" Role : possui
 	Role "1" *-- "N" Morador : assume
@@ -334,13 +341,17 @@ classDiagram
 	Financeiro"1" *--> "1" Conta_Bancaria : recebe
 
 	Servico"1" *--> "N" ConfirmacaoServico: emite
+
 	ConfirmacaoServico "1" *--> "N" Morador : envia
 	ConfirmacaoServico "1" *--> "N" Empresa: envia
 
-
+	Morador"1" *--> "N" Fluxo: é aceito
 	Morador "1" *--> "N" Notificacao: recebe
 	Morador "1" *--> "N" Financeiro: paga
 	Morador "1" *--> "N" Solicitacao: faz
+	Morador "1" *--> "N" Mensagem: recebe
+
+
 
 
 	Prefeitura "1" *--> "1" Relatorio : recebe
