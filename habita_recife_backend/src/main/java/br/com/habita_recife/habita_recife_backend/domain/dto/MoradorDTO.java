@@ -18,4 +18,6 @@ public class MoradorDTO {
     private String veiculoMorador;
     private TipoMorador tipoMorador;
     private String cpfMorador;
+    private String bloco;
+    private String apartamento;
 }
