@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SindicoDTO {
 
+    private Long id_sindico;
     private Long idCondominio;
     private String nomeSindico;
     private String emailSindico;

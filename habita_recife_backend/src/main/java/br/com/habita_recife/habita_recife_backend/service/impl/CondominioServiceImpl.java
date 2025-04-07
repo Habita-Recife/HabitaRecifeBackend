@@ -43,6 +43,8 @@ public class CondominioServiceImpl implements CondominioService {
         Condominio condominio = new Condominio();
         condominio.setNomeCondominio(condominioDTO.getNomeCondominio());
         condominio.setEnderecoCondominio(condominioDTO.getEnderecoCondominio());
+        condominio.setNumeroApartamento(condominioDTO.getNumeroApartamento());
+        condominio.setNumeroBloco(condominioDTO.getNumeroBloco());
 
         return condominioRepository.save(condominio);
     }

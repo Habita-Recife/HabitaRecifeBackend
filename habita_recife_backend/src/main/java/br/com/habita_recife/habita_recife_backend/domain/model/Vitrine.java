@@ -1,6 +1,7 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import br.com.habita_recife.habita_recife_backend.domain.enums.TipoVitrine;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.persistence.EnumType;
@@ -41,7 +42,13 @@ public class Vitrine {
     @ManyToOne
     @JoinColumn(name = "id_sindico", nullable = false,
             foreignKey = @ForeignKey(name = "id_vitrine_sindico_fk"))
+    @JsonBackReference
     private Sindico sindico;
 
+    @ManyToOne
+    @JoinColumn(name = "id_morador", nullable = false,
+            foreignKey = @ForeignKey(name = "id_vitrine_morador_fk"))
+    @JsonBackReference
+    private Morador morador;
 }
 

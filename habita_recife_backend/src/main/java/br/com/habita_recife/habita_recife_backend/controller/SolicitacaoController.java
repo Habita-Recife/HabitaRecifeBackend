@@ -2,22 +2,21 @@ package br.com.habita_recife.habita_recife_backend.controller;
 
 import br.com.habita_recife.habita_recife_backend.domain.dto.SolicitacaoDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Solicitacao;
+import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsMorador;
+import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsSindico;
 import br.com.habita_recife.habita_recife_backend.service.SolicitacaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/solicitacao")
-@Tag(name = "Solicitação", description = "Visualização das solicitaçoes")
+@Tag(name = "Solicitação", description = "Visualização das solicitações")
 public class SolicitacaoController {
 
     private final SolicitacaoService solicitacaoService;
@@ -26,16 +25,15 @@ public class SolicitacaoController {
         this.solicitacaoService = solicitacaoService;
     }
 
-
     @GetMapping
-    @Operation(summary = "Listar", description = "Listar as solicitaçoes feitas.")
+    @Operation(summary = "Listar", description = "Listar as solicitações feitas.")
     public ResponseEntity<List<Solicitacao>> listarTodos() {
         List<Solicitacao> solicitacao = solicitacaoService.listarTodos();
         return ResponseEntity.ok(solicitacao);
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar por ID", description = "obter detalhes de uma solicitação específica.")
+    @Operation(summary = "Buscar por ID", description = "Obter detalhes de uma solicitação específica.")
     public ResponseEntity<Solicitacao> buscarPorId(@PathVariable long id) {
         Optional<Solicitacao> solicitacao = solicitacaoService.buscarPorId(id);
         return solicitacao.map(ResponseEntity::ok)
@@ -43,13 +41,14 @@ public class SolicitacaoController {
     }
 
     @PostMapping
-    @Operation(summary = "Criar", description = "Criar uma nova solicitção.")
+    @IsMorador
+    @Operation(summary = "Criar", description = "Criar uma nova solicitação.")
     public ResponseEntity<Solicitacao> salvar(@RequestBody SolicitacaoDTO solicitacaoDTO) {
         Solicitacao novaSolicitacao = solicitacaoService.salvar(solicitacaoDTO);
         return ResponseEntity.ok(novaSolicitacao);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Operation(summary = "Atualizar", description = "Atualizar uma solicitação existente.")
     public ResponseEntity<Solicitacao> atualizar(@PathVariable long id, @RequestBody SolicitacaoDTO solicitacaoDTO) {
         Solicitacao solicitacaoAtualizada = solicitacaoService.atualizar(id, solicitacaoDTO);
@@ -63,4 +62,19 @@ public class SolicitacaoController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}/aprovar")
+    @IsSindico
+    @Operation(summary = "Aprovar", description = "Aprovar uma solicitação existente.")
+    public ResponseEntity<Solicitacao> aprovarSolicitacao(@PathVariable long id) {
+        Solicitacao solicitacaoAprovada = solicitacaoService.aprovar(id);
+        return ResponseEntity.ok(solicitacaoAprovada);
+    }
+
+    @PutMapping("/{id}/recusar")
+    @IsSindico
+    @Operation(summary = "Recusar", description = "Recusar uma solicitação existente.")
+    public ResponseEntity<Solicitacao> recusarSolicitacao(@PathVariable long id) {
+        Solicitacao solicitacaoRecusada = solicitacaoService.recusar(id);
+        return ResponseEntity.ok(solicitacaoRecusada);
+    }
 }

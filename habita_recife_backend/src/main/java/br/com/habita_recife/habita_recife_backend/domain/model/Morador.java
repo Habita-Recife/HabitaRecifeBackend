@@ -53,6 +53,10 @@ public class Morador {
     private Condominio condominio;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Vitrine> vitrine;
+
+    @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Notificacao> notificacao;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
