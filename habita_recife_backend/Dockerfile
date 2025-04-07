@@ -1,7 +1,9 @@
-FROM openjdk:21-ea-1-jdk-slim
-
+FROM maven:3.9.4-eclipse-temurin-21 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-COPY target/habita_recife_backend-0.0.1-SNAPSHOT.jar /app/habita_recife_backend.jar
-
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=build /app/target/habita_recife_backend-0.0.1-SNAPSHOT.jar habita_recife_backend.jar
 ENTRYPOINT ["java", "-jar", "habita_recife_backend.jar"]

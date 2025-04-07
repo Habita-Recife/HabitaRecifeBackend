@@ -61,16 +61,25 @@ public class FluxoServiceImpl implements FluxoService {
         Visitante visitante = visitanteRepository.findById(fluxoDTO.getIdVisitante())
                 .orElseThrow(() -> new RuntimeException("Visitante não encontrado com id: " + fluxoDTO.getIdVisitante()));
 
-        Fluxo fluxoAtual = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
-        if (fluxoAtual != null && fluxoAtual.getStatusFluxo() != Status.ATIVO && fluxoAtual.getTipoFluxo() != TipoFluxo.ENTRADA) {
-            throw new RuntimeException("O visitante já realizou uma saída anteriormente.");
+        Fluxo fluxoEntrada = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
+        if (fluxoEntrada == null || fluxoEntrada.getStatusFluxo() != Status.ATIVO || fluxoEntrada.getTipoFluxo() != TipoFluxo.ENTRADA) {
+            throw new RuntimeException("Não há uma entrada ativa para este visitante.");
         }
 
-        fluxoAtual.setTipoFluxo(TipoFluxo.SAIDA);
-        fluxoAtual.setStatusFluxo(Status.INATIVO);
-        fluxoAtual.setDataFluxo(LocalDateTime.now());
+        fluxoEntrada.setStatusFluxo(Status.INATIVO);
+        fluxoRepository.save(fluxoEntrada);
 
-        return fluxoRepository.save(fluxoAtual);
+        Fluxo fluxoSaida = new Fluxo();
+        fluxoSaida.setTipoFluxo(TipoFluxo.SAIDA);
+        fluxoSaida.setStatusFluxo(Status.INATIVO);
+        fluxoSaida.setDataFluxo(LocalDateTime.now());
+        fluxoSaida.setVisitante(visitante);
+        fluxoSaida.setPorteiro(fluxoEntrada.getPorteiro());
+
+        visitante.setStatusVisitante(Status.INATIVO);
+        visitanteRepository.save(visitante);
+
+        return fluxoRepository.save(fluxoSaida);
     }
 
     @Override

@@ -6,6 +6,8 @@ import br.com.habita_recife.habita_recife_backend.domain.model.Porteiro;
 import br.com.habita_recife.habita_recife_backend.domain.repository.CondominioRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
+import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
+import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
 import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,13 @@ public class PorteiroServiceImpl implements PorteiroService {
 
     private final PorteiroRepository porteiroRepository;
     private final CondominioRepository condominioRepository;
+    private final UserRepository userRepository;
 
-    public PorteiroServiceImpl(PorteiroRepository porteiroRepository, CondominioRepository condominioRepository) {
+    public PorteiroServiceImpl(PorteiroRepository porteiroRepository,
+                               CondominioRepository condominioRepository, UserRepository userRepository) {
         this.porteiroRepository = porteiroRepository;
         this.condominioRepository = condominioRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -70,8 +75,17 @@ public class PorteiroServiceImpl implements PorteiroService {
             throw new IllegalArgumentException("Já existe um porteiro com este cpf: " + porteiroDTO.getCpfPorteiro());
         }
 
+        Optional<User> optionalUser = userRepository.findByEmail(porteiroExistente.getEmailPorteiro());
+
         porteiroExistente.setNomePorteiro(porteiroDTO.getNomePorteiro());
+        porteiroExistente.setEmailPorteiro(porteiroDTO.getEmailPorteiro());
         porteiroExistente.setCpfPorteiro(porteiroDTO.getCpfPorteiro());
+
+        optionalUser.ifPresent(user -> {
+            user.setEmail(porteiroDTO.getEmailPorteiro());
+            userRepository.save(user);
+        });
+
         return porteiroRepository.save(porteiroExistente);
     }
 

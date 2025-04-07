@@ -34,7 +34,7 @@ public class Morador {
     @Column(name = "tipo_morador", nullable = false)
     private TipoMorador tipoMorador;
 
-    @Column(name = "cpf_morador", nullable = false, length = 11, unique = true)
+    @Column(name = "cpf_morador", nullable = false, length = 14, unique = true)
     private String cpfMorador;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

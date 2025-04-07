@@ -4,6 +4,7 @@ import br.com.habita_recife.habita_recife_backend.domain.dto.MoradorDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Morador;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsAdmin;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsMorador;
+import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsPrefeitura;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsSindico;
 import br.com.habita_recife.habita_recife_backend.service.MoradorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
