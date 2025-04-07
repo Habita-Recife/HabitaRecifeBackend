@@ -7,6 +7,9 @@ import br.com.habita_recife.habita_recife_backend.domain.model.*;
 import br.com.habita_recife.habita_recife_backend.domain.repository.FluxoRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VisitanteRepository;
+import br.com.habita_recife.habita_recife_backend.exception.FluxoNotFoundException;
+import br.com.habita_recife.habita_recife_backend.exception.VisitanteDuplicadoException;
+import br.com.habita_recife.habita_recife_backend.exception.VisitanteNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.FluxoService;
 import org.springframework.stereotype.Service;
 
@@ -40,11 +43,11 @@ public class FluxoServiceImpl implements FluxoService {
     @Override
     public Fluxo registrarEntrada(FluxoDTO fluxoDTO) {
         Visitante visitante = visitanteRepository.findById(fluxoDTO.getIdVisitante())
-                .orElseThrow(() -> new RuntimeException("Visitante não encontrado com id: " + fluxoDTO.getIdVisitante()));
+                .orElseThrow(() -> new VisitanteNotFoundException( fluxoDTO.getIdVisitante()));
 
         Fluxo fluxoAtual = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
             if (fluxoAtual != null && fluxoAtual.getStatusFluxo() == Status.ATIVO && fluxoAtual.getTipoFluxo() == TipoFluxo.ENTRADA) {
-            throw new RuntimeException("O visitante já realizou uma entrada anteriormente.");
+            throw new VisitanteDuplicadoException(visitante.getCpfVisitante());
         }
 
         Fluxo fluxo = new Fluxo();
@@ -59,23 +62,32 @@ public class FluxoServiceImpl implements FluxoService {
     @Override
     public Fluxo registrarSaida(FluxoDTO fluxoDTO) {
         Visitante visitante = visitanteRepository.findById(fluxoDTO.getIdVisitante())
-                .orElseThrow(() -> new RuntimeException("Visitante não encontrado com id: " + fluxoDTO.getIdVisitante()));
+                .orElseThrow(() -> new VisitanteNotFoundException());
 
-        Fluxo fluxoAtual = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
-        if (fluxoAtual != null && fluxoAtual.getStatusFluxo() != Status.ATIVO && fluxoAtual.getTipoFluxo() != TipoFluxo.ENTRADA) {
-            throw new RuntimeException("O visitante já realizou uma saída anteriormente.");
+        Fluxo fluxoEntrada = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
+        if (fluxoEntrada == null || fluxoEntrada.getStatusFluxo() != Status.ATIVO || fluxoEntrada.getTipoFluxo() != TipoFluxo.ENTRADA) {
+            throw new VisitanteDuplicadoException(visitante.getCpfVisitante());
         }
 
-        fluxoAtual.setTipoFluxo(TipoFluxo.SAIDA);
-        fluxoAtual.setStatusFluxo(Status.INATIVO);
-        fluxoAtual.setDataFluxo(LocalDateTime.now());
+        fluxoEntrada.setStatusFluxo(Status.INATIVO);
+        fluxoRepository.save(fluxoEntrada);
 
-        return fluxoRepository.save(fluxoAtual);
+        Fluxo fluxoSaida = new Fluxo();
+        fluxoSaida.setTipoFluxo(TipoFluxo.SAIDA);
+        fluxoSaida.setStatusFluxo(Status.INATIVO);
+        fluxoSaida.setDataFluxo(LocalDateTime.now());
+        fluxoSaida.setVisitante(visitante);
+        fluxoSaida.setPorteiro(fluxoEntrada.getPorteiro());
+
+        visitante.setStatusVisitante(Status.INATIVO);
+        visitanteRepository.save(visitante);
+
+        return fluxoRepository.save(fluxoSaida);
     }
 
     @Override
     public void excluir(Long id) {
-        Fluxo fluxo = fluxoRepository.findById(id).orElseThrow(() -> new RuntimeException("Fluxo não " + "encontrado com id: " + id));
+        Fluxo fluxo = fluxoRepository.findById(id).orElseThrow(() -> new FluxoNotFoundException(id));
 
         Porteiro porteiro = fluxo.getPorteiro();
         if (porteiro != null) {

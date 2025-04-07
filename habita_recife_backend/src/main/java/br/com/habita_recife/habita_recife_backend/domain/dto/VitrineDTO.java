@@ -12,11 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class VitrineDTO {
 
+    private Long id_sindico;
     private Long id_vitrine;
-    private String nome_produto;
+    private String nomeProduto;
     private TipoVitrine tipoVitrine ;
-    private Double valor_produto;
-    private String descricao_produto;
+    private Double valorProduto;
+    private String descricaoProduto;
+    private String telefoneContato;
 
 
 }

@@ -11,10 +11,11 @@ import java.util.Optional;
 
 @Repository
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
-    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.id = :moradorId AND s.dataCriacao >= :horaAtras")
-    long countSolicitacoesUltimaHora(@Param("moradorId") Long moradorId, @Param("horaAtras") LocalDateTime horaAtras);
+    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.idMorador = :idMorador AND s.dataCriacao >= :horaAtras")
+    long countSolicitacoesUltimaHora(@Param("idMorador") Long idMorador, @Param("horaAtras") LocalDateTime horaAtras);
 
-    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.id = :moradorId AND s.dataCriacao >= :diaAtras")
-    long countSolicitacoesUltimoDia(@Param("moradorId") Long moradorId, @Param("diaAtras") LocalDateTime diaAtras);
+    @Query("SELECT COUNT(s) FROM Solicitacao s WHERE s.morador.idMorador = :idMorador AND s.dataCriacao >= :diaAtras")
+    long countSolicitacoesUltimoDia(@Param("idMorador") Long idMorador, @Param("diaAtras") LocalDateTime diaAtras);
+
     Optional<Solicitacao> findByTitulo(String titulo);
 }

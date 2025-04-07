@@ -27,15 +27,21 @@ public class Morador {
     @Column(name = "email_morador", nullable = false, unique = true)
     private String emailMorador;
 
-    @Column(name = "veiculo", unique = false)
+    @Column(name = "veiculo")
     private String veiculoMorador;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_morador", nullable = false)
     private TipoMorador tipoMorador;
 
-    @Column(name = "cpf_morador", nullable = false, length = 11, unique = true)
+    @Column(name = "cpf_morador", nullable = false, length = 14, unique = true)
     private String cpfMorador;
+
+    @Column(name = "bloco_morador", nullable = false, length = 2)
+    private String bloco;
+
+    @Column(name = "apartamento_morador", nullable = false, unique = true, length = 4)
+    private String apartamento;
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Financeiro> financeiro;
@@ -45,6 +51,10 @@ public class Morador {
             foreignKey = @ForeignKey(name = "id_morador_condominio_fk"))
     @JsonBackReference
     private Condominio condominio;
+
+    @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Vitrine> vitrine;
 
     @OneToMany(mappedBy = "morador",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Notificacao> notificacao;
@@ -58,4 +68,8 @@ public class Morador {
 
     @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Servico> servico;
+
+    @OneToMany(mappedBy = "morador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Encomenda> encomendas;
+
 }

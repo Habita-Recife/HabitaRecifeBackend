@@ -23,7 +23,7 @@ public class Visitante {
     private Long idVisitante;
 
     @Column(name = "cpf_visitante", nullable = false, unique = true, length =
-            12)
+            14)
     private String cpfVisitante;
 
     @Column(nullable = false)

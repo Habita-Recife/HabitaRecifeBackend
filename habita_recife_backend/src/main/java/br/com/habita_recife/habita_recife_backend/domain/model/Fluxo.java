@@ -38,6 +38,7 @@ public class Fluxo {
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "id_porteiro",
             foreignKey = @ForeignKey(name = "id_fluxo_porteiro_fk"))
+    @JsonBackReference
     private Porteiro porteiro;
 
     @ManyToOne(fetch =  FetchType.LAZY)

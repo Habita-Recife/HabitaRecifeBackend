@@ -1,6 +1,7 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Porteiro {
     private String cpfPorteiro;
 
     @OneToMany(mappedBy = "porteiro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Fluxo> fluxos;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -38,4 +40,11 @@ public class Porteiro {
             foreignKey = @ForeignKey(name = "id_porteiro_condominio_fk"))
     @JsonBackReference
     private Condominio condominio;
+
+    @OneToMany(mappedBy = "porteiro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Encomenda>encomendas;
+
+
+
+
 }

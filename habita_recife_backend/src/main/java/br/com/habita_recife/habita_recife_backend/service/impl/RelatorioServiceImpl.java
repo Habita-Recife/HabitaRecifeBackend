@@ -3,6 +3,7 @@ package br.com.habita_recife.habita_recife_backend.service.impl;
 import br.com.habita_recife.habita_recife_backend.domain.dto.RelatorioDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Relatorio;
 import br.com.habita_recife.habita_recife_backend.domain.repository.RelatorioRepository;
+import br.com.habita_recife.habita_recife_backend.exception.RelatorioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.service.RelatorioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class RelatorioServiceImpl implements RelatorioService {
     @Override
     public Relatorio atualizar(Long id, RelatorioDTO relatorioDTO) {
         Relatorio relatorioAtualizado= relatorioRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Relatorio nao encontrado pelo id"+id));
+                .orElseThrow(()-> new RelatorioNotFoundException(id));
         relatorioAtualizado.setConteudo_relatorio(relatorioDTO.getConteudo_relatorio());
         relatorioAtualizado.setData_relatorio(relatorioDTO.getData_relatorio());
         relatorioAtualizado.setTitulo(relatorioDTO.getTitulo());
@@ -59,7 +60,7 @@ public class RelatorioServiceImpl implements RelatorioService {
     @Override
     public void excluir(Long id) {
         if (!relatorioRepository.existsById(id)) {
-            throw new RuntimeException("Relatorio não encontrado com ID: " + id);
+            throw new RelatorioNotFoundException(id);
         }
         relatorioRepository.deleteById(id);
     }
