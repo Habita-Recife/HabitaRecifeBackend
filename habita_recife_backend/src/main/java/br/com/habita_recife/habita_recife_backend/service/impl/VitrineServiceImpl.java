@@ -32,6 +32,12 @@ public class VitrineServiceImpl implements VitrineService  {
     @Override
     public Vitrine salvar(VitrineDTO vitrineDTO) {
         Vitrine vitrine = new Vitrine();
+        vitrine.setNomeProduto(vitrineDTO.getNomeProduto());
+        vitrine.setTipoVitrine(vitrineDTO.getTipoVitrine());
+        vitrine.setValorProduto(vitrineDTO.getValorProduto());
+        vitrine.setDescricaoProduto(vitrineDTO.getDescricaoProduto());
+        vitrine.setTelefoneContato(vitrineDTO.getTelefoneContato());
+
         return vitrineRepository.save(vitrine);
     }
 
@@ -40,9 +46,9 @@ public class VitrineServiceImpl implements VitrineService  {
         Vitrine vitrineExistente = vitrineRepository.findById(id)
                 .orElseThrow(() -> new VitrineNotFoundException(id));
 
-        vitrineExistente.setNomeProduto(vitrineDTO.getNome_produto());
-        vitrineExistente.setValorProduto(vitrineDTO.getValor_produto());
-        vitrineExistente.setDescricaoProduto(vitrineDTO.getDescricao_produto());
+        vitrineExistente.setNomeProduto(vitrineDTO.getNomeProduto());
+        vitrineExistente.setValorProduto(vitrineDTO.getValorProduto());
+        vitrineExistente.setDescricaoProduto(vitrineDTO.getDescricaoProduto());
 
         return vitrineRepository.save(vitrineExistente);
     }

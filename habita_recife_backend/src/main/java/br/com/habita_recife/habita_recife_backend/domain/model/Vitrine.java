@@ -32,6 +32,9 @@ public class Vitrine {
     @Column(nullable = false)
     private String descricaoProduto;
 
+    @Column(nullable = false)
+    private String telefoneContato;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="###,###.00")
     private Double valorProduto;
 
