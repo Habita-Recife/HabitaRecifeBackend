@@ -4,6 +4,7 @@ import br.com.habita_recife.habita_recife_backend.domain.dto.PrefeituraDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Prefeitura;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsPrefeitura;
 import br.com.habita_recife.habita_recife_backend.service.PrefeituraService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/prefeitura")
-@Tag(name = "PrefeituraController", description = "Gericiamento do Prefeitura cadastrado.")
+@Tag(name = "Prefeitura", description = "Gericiamento do Prefeitura cadastrado.")
 public class PrefeituraController {
 
     private final PrefeituraService prefeituraService;
@@ -25,6 +26,7 @@ public class PrefeituraController {
 
     @GetMapping
     @IsPrefeitura
+    @Operation(summary = "Listar", description = "Listar todas as prefeituras.")
     public ResponseEntity<List<Prefeitura>> listarTodos() {
         List<Prefeitura> prefeituras = prefeituraService.listarTodos();
         return ResponseEntity.ok(prefeituras);
@@ -32,6 +34,7 @@ public class PrefeituraController {
 
     @GetMapping("/{id}")
     @IsPrefeitura
+    @Operation(summary = "Buscar por ID", description = "Buscar uma prefeitura pelo ID.")
     public ResponseEntity<Prefeitura> buscarPorId(@PathVariable Long id) {
         Optional<Prefeitura> prefeitura = prefeituraService.buscarPorId(id);
         return prefeitura.map(ResponseEntity::ok)
@@ -40,6 +43,7 @@ public class PrefeituraController {
 
     @PostMapping
     @IsPrefeitura
+    @Operation(summary = "Salvar", description = "Cadastrar nova prefeitura.")
     public ResponseEntity<Prefeitura> salvar(@RequestBody PrefeituraDTO prefeituraDTO) {
         Prefeitura novoPrefeitura = prefeituraService.salvar(prefeituraDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPrefeitura);
@@ -47,6 +51,7 @@ public class PrefeituraController {
 
     @PutMapping("/{id}")
     @IsPrefeitura
+    @Operation(summary = "Atualizar", description = "Atualizar prefeitura.")
     public ResponseEntity<Prefeitura> atualizar(@PathVariable Long id, @RequestBody PrefeituraDTO prefeituraDTO) {
         Prefeitura prefeituraAtualizado = prefeituraService.atualizar(id, prefeituraDTO);
         return ResponseEntity.ok(prefeituraAtualizado);
@@ -54,6 +59,7 @@ public class PrefeituraController {
 
     @DeleteMapping("/{id}")
     @IsPrefeitura
+    @Operation(summary = "Excluir", description = "Excluir prefeitura.")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         prefeituraService.excluir(id);
         return ResponseEntity.noContent().build();

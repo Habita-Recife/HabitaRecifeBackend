@@ -6,6 +6,7 @@ import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsAdmin;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsPorteiro;
 import br.com.habita_recife.habita_recife_backend.meta_anotacao.IsSindico;
 import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/porteiro")
-@Tag(name = "PorteiroController", description = "Gericiamento do Porteiro cadastrado.")
+@Tag(name = "Porteiro", description = "Gericiamento do Porteiro cadastrado.")
 @IsPorteiro
 public class PorteiroController {
 
@@ -29,12 +30,14 @@ public class PorteiroController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('PORTEIRO', 'SINDICO')")
+    @Operation(summary = "Listar", description = "Listar todos os porteiros.")
     public ResponseEntity<List<Porteiro>> listarTodos() {
         return ResponseEntity.ok(porteiroService.listarTodos());
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('PORTEIRO', 'SINDICO')")
+    @Operation(summary = "Buscar por ID", description = "Buscar um porteiro pelo ID.")
     public ResponseEntity<Porteiro> buscarPorId(@PathVariable Long id) {
         Optional<Porteiro> porteiro = porteiroService.buscarPorId(id);
         return porteiro.map(ResponseEntity::ok)
@@ -43,6 +46,7 @@ public class PorteiroController {
 
     @PostMapping
     @IsSindico
+    @Operation(summary = "Salvar", description = "Cadastrar novo porteiro.")
     public ResponseEntity<Porteiro> salvar(@RequestBody PorteiroDTO porteiroDTO) {
         Porteiro novoPorteiro = porteiroService.salvar(porteiroDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPorteiro);
@@ -50,6 +54,7 @@ public class PorteiroController {
 
     @PutMapping("/{id}")
     @IsSindico
+    @Operation(summary = "Atualizar", description = "Atualizar porteiro.")
     public ResponseEntity<Porteiro> atualizar(@PathVariable Long id, @RequestBody PorteiroDTO porteiroDTO) {
         Porteiro porteiroAtualizado = porteiroService.atualizar(id,
                 porteiroDTO);
@@ -58,6 +63,7 @@ public class PorteiroController {
 
     @DeleteMapping("/{id}")
     @IsSindico
+    @Operation(summary = "Excluir", description = "Excluir porteiro.")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         porteiroService.excluir(id);
         return ResponseEntity.noContent().build();
