@@ -1,12 +1,14 @@
 package br.com.habita_recife.habita_recife_backend.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -41,6 +43,11 @@ public class Sindico {
     @JsonBackReference
     private Condominio condominio;
 
+    @OneToMany(mappedBy = "sindico",cascade = CascadeType.ALL, fetch =
+            FetchType.LAZY)
+    @JsonManagedReference
+    private List<Solicitacao> solicitacao;
+
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Servico> servicos;
 
@@ -54,5 +61,6 @@ public class Sindico {
     private Set<ConfirmacaoServico> confirmacao_servicos;
 
     @OneToMany(mappedBy = "sindico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Vitrine> vitrines;
 }
