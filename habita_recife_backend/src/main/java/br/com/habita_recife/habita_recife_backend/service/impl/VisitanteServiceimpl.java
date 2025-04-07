@@ -39,7 +39,7 @@ public class VisitanteServiceimpl implements VisitanteService {
         Optional<Visitante> existingVisitante =
                 visitanteRepository.findByCpfVisitante(visitanteDTO.getCpfVisitante());
         if (existingVisitante.isPresent()) {
-            throw new VisitanteNotFoundException(visitanteDTO.getCpfVisitante());
+            throw new VisitanteDuplicadoException(visitanteDTO.getCpfVisitante());
         }
 
         Visitante visitante = new Visitante();

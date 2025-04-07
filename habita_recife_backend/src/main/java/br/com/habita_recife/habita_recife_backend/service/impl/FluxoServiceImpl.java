@@ -47,7 +47,7 @@ public class FluxoServiceImpl implements FluxoService {
 
         Fluxo fluxoAtual = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
             if (fluxoAtual != null && fluxoAtual.getStatusFluxo() == Status.ATIVO && fluxoAtual.getTipoFluxo() == TipoFluxo.ENTRADA) {
-            throw new VisitanteDuplicadoException();
+            throw new VisitanteDuplicadoException(visitante.getCpfVisitante());
         }
 
         Fluxo fluxo = new Fluxo();
@@ -66,7 +66,7 @@ public class FluxoServiceImpl implements FluxoService {
 
         Fluxo fluxoAtual = fluxoRepository.findTopByVisitanteOrderByDataFluxoDesc(visitante);
         if (fluxoAtual != null && fluxoAtual.getStatusFluxo() != Status.ATIVO && fluxoAtual.getTipoFluxo() != TipoFluxo.ENTRADA) {
-            throw new VisitanteDuplicadoException();
+            throw new VisitanteDuplicadoException(visitante.getCpfVisitante());
         }
 
         fluxoAtual.setTipoFluxo(TipoFluxo.SAIDA);

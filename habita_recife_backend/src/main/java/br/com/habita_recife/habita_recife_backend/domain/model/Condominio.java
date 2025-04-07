@@ -41,10 +41,6 @@ public class Condominio {
     @JsonManagedReference
     private Porteiro porteiro;
 
-    @OneToOne(mappedBy = "condominio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private ContaBancaria contaBancaria;
-
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, fetch =
             FetchType.EAGER)
     @JsonManagedReference

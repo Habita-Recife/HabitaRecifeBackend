@@ -38,4 +38,9 @@ public class ContaBancaria {
     @OneToMany(mappedBy = "contaBancaria", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Financeiro> financeiros;
+
+    @OneToOne
+    @JoinColumn(name = "condominio_id")
+    @JsonBackReference
+    private Condominio condominio;
 }
