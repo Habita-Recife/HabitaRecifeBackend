@@ -1,4 +1,4 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.util;
+package br.com.habita_recife.habita_recife_backend.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

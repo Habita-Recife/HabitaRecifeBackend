@@ -1,6 +1,6 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.config;
+package br.com.habita_recife.habita_recife_backend.config;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
+import br.com.habita_recife.habita_recife_backend.domain.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

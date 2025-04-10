@@ -1,4 +1,4 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.config;
+package br.com.habita_recife.habita_recife_backend.config;
 
 
 import jakarta.servlet.FilterChain;

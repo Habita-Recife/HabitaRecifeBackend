@@ -1,11 +1,10 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.service.impl;
+package br.com.habita_recife.habita_recife_backend.service.impl;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.config.JwtTokenService;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.service.ForgotPasswordService;
-import br.com.habita_recife.habita_recife_backend.features_authentication.util.PasswordUtil;
-import org.springframework.beans.factory.annotation.Value;
+import br.com.habita_recife.habita_recife_backend.config.JwtTokenService;
+import br.com.habita_recife.habita_recife_backend.domain.model.User;
+import br.com.habita_recife.habita_recife_backend.domain.repository.UserRepository;
+import br.com.habita_recife.habita_recife_backend.service.ForgotPasswordService;
+import br.com.habita_recife.habita_recife_backend.util.PasswordUtil;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 

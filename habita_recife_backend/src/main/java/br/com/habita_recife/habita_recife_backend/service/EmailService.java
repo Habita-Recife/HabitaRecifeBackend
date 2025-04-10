@@ -1,4 +1,4 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.service;
+package br.com.habita_recife.habita_recife_backend.service;
 
 public interface EmailService {
 

@@ -1,12 +1,12 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.bootstrap;
+package br.com.habita_recife.habita_recife_backend.bootstrap;
 
 import br.com.habita_recife.habita_recife_backend.domain.model.Prefeitura;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PrefeituraRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.RoleName;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.RoleRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
+import br.com.habita_recife.habita_recife_backend.domain.model.Role;
+import br.com.habita_recife.habita_recife_backend.domain.enums.RoleName;
+import br.com.habita_recife.habita_recife_backend.domain.model.User;
+import br.com.habita_recife.habita_recife_backend.domain.repository.RoleRepository;
+import br.com.habita_recife.habita_recife_backend.domain.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

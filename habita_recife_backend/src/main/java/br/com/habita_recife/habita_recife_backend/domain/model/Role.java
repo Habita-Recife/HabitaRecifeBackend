@@ -1,5 +1,6 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.model;
+package br.com.habita_recife.habita_recife_backend.domain.model;
 
+import br.com.habita_recife.habita_recife_backend.domain.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,10 +1,10 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.controller;
+package br.com.habita_recife.habita_recife_backend.controller;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserDTO;
-import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserLoginDTO;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
-import br.com.habita_recife.habita_recife_backend.features_authentication.service.ForgotPasswordService;
-import br.com.habita_recife.habita_recife_backend.features_authentication.service.UserService;
+import br.com.habita_recife.habita_recife_backend.domain.dto.UserDTO;
+import br.com.habita_recife.habita_recife_backend.domain.dto.UserLoginDTO;
+import br.com.habita_recife.habita_recife_backend.domain.model.User;
+import br.com.habita_recife.habita_recife_backend.service.ForgotPasswordService;
+import br.com.habita_recife.habita_recife_backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
