@@ -21,6 +21,7 @@ public class VitrineDTO {
     private String telefoneContato;
     private String bloco;
     private String apartamento;
+    private String nomeMorador;
 
 
 }

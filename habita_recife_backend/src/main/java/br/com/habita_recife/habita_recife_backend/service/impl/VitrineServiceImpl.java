@@ -79,18 +79,6 @@ public class VitrineServiceImpl implements VitrineService  {
 
     @Override
     public List<VitrineDTO> buscarPorCondominio(Long idCondominio) {
-        return vitrineRepository.findByCondominioId(idCondominio).stream()
-                .map(v -> new VitrineDTO(
-                        null,
-                        v.getId_vitrine(),
-                        v.getNomeProduto(),
-                        v.getTipoVitrine(),
-                        v.getValorProduto(),
-                        v.getDescricaoProduto(),
-                        v.getTelefoneContato(),
-                        v.getMorador().getBloco(),
-                        v.getMorador().getApartamento()
-                ))
-                .collect(Collectors.toList());
+        return vitrineRepository.findVitrinesByCondominio(idCondominio);
     }
 }
