@@ -1,21 +1,25 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.service.impl;
+package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PrefeituraRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.config.JwtTokenService;
-import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserLoginDTO;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.RoleName;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.RoleRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.service.EmailService;
-import br.com.habita_recife.habita_recife_backend.features_authentication.util.PasswordUtil;
-import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserDTO;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.service.UserService;
+import br.com.habita_recife.habita_recife_backend.config.JwtTokenService;
+import br.com.habita_recife.habita_recife_backend.domain.dto.UserLoginDTO;
+import br.com.habita_recife.habita_recife_backend.domain.model.Role;
+import br.com.habita_recife.habita_recife_backend.domain.enums.RoleName;
+import br.com.habita_recife.habita_recife_backend.domain.repository.RoleRepository;
+import br.com.habita_recife.habita_recife_backend.service.EmailService;
+import br.com.habita_recife.habita_recife_backend.util.PasswordUtil;
+import br.com.habita_recife.habita_recife_backend.domain.dto.UserDTO;
+import br.com.habita_recife.habita_recife_backend.domain.model.User;
+import br.com.habita_recife.habita_recife_backend.domain.repository.UserRepository;
+import br.com.habita_recife.habita_recife_backend.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +27,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -134,7 +139,7 @@ public class UserServiceImpl implements UserService{
 
         User savedUser = userRepository.save(user);
 
-        String token = jwtTokenService.generateToken(user.getEmail(), roles);
+        String token = jwtTokenService.generateToken(user.getEmail(), user.getUsername(), roles);
 
         Set<String> roleNames = new HashSet<>();
         for (Role role : savedUser.getRoles()) {
@@ -147,7 +152,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserLoginDTO loginUser(UserLoginDTO userLoginDTO) {
         try {
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             userLoginDTO.getEmail(),
                             userLoginDTO.getPassword()
@@ -156,13 +161,48 @@ public class UserServiceImpl implements UserService{
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Email ou senha incorretos!");
         }
+
         User user = userRepository.findByEmail(userLoginDTO.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
 
-        String token = jwtTokenService.generateToken(user.getEmail(), user.getRoles());
+        String accessToken = jwtTokenService.generateToken(user.getEmail(), user.getUsername(), user.getRoles());
+        String refreshToken = jwtTokenService.generateRefreshToken(user.getEmail(), user.getUsername(), user.getRoles());
 
-        UserLoginDTO responseDTO = new UserLoginDTO(user.getUsername(), user.getEmail(), token, user.getRoles());
+        UserLoginDTO responseDTO = new UserLoginDTO(user.getUsername(), user.getEmail(), accessToken, refreshToken, user.getRoles());
+        responseDTO.setRefreshToken(refreshToken);
 
         return responseDTO;
+    }
+
+    @Override
+    public UserLoginDTO refreshAccessToken(HttpServletRequest request) {
+        String refreshToken = getRefreshTokenFromCookie(request);
+
+        if (refreshToken == null || !jwtTokenService.validateToken(refreshToken)) {
+            throw new BadCredentialsException("Refresh token inválido ou ausente.");
+        }
+
+        String email = jwtTokenService.extractUsername(refreshToken);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            throw new BadCredentialsException("Usuário não encontrado.");
+        }
+
+        User user = optionalUser.get();
+        String newAccessToken = jwtTokenService.generateToken(user.getEmail(), user.getUsername(), user.getRoles());
+
+        return new UserLoginDTO(user.getUsername(), user.getEmail(), refreshToken, newAccessToken, user.getRoles());
+    }
+
+    private String getRefreshTokenFromCookie(HttpServletRequest request) {
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("refreshToken".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 }

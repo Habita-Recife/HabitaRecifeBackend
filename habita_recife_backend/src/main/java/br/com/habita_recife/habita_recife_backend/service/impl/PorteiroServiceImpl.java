@@ -8,8 +8,8 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepo
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.exception.PorteiroDuplicadoException;
 import br.com.habita_recife.habita_recife_backend.exception.PorteiroNotFoundException;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
+import br.com.habita_recife.habita_recife_backend.domain.model.User;
+import br.com.habita_recife.habita_recife_backend.domain.repository.UserRepository;
 import br.com.habita_recife.habita_recife_backend.service.PorteiroService;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.service.impl;
+package br.com.habita_recife.habita_recife_backend.service.impl;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.service.EmailService;
+import br.com.habita_recife.habita_recife_backend.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

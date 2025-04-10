@@ -1,4 +1,4 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.config;
+package br.com.habita_recife.habita_recife_backend.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -19,11 +19,11 @@ public class SwaggerConfig {
                         .version("1.0")
                         .description("Documentação da API do sistema de gestão condominial."))
                 .addTagsItem(new Tag().name("Usuários").description("Gerenciamento de usuários"))
-                .addTagsItem(new Tag().name("CondominioController").description("Gericiamento do condominio cadastrado."))
-                .addTagsItem(new Tag().name("SindicoController").description("Gericiamento do Sindico cadastrado."))
-                .addTagsItem(new Tag().name("MoradorController").description("Gericiamento do Morador cadastrado."))
-                .addTagsItem(new Tag().name("PorteiroController").description("Gericiamento do Porteiro cadastrado."))
-                .addTagsItem(new Tag().name("PrefeituraController").description("Gericiamento da Prefeitura cadastrada."))
+                .addTagsItem(new Tag().name("CondominioController").description("Gerenciamento do condominio cadastrado."))
+                .addTagsItem(new Tag().name("SindicoController").description("Gerenciamento do Sindico cadastrado."))
+                .addTagsItem(new Tag().name("MoradorController").description("Gerenciamento do Morador cadastrado."))
+                .addTagsItem(new Tag().name("PorteiroController").description("Gerenciamento do Porteiro cadastrado."))
+                .addTagsItem(new Tag().name("PrefeituraController").description("Gerenciamento da Prefeitura cadastrada."))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()

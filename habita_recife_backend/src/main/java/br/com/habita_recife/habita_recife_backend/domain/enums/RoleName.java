@@ -1,4 +1,4 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.model;
+package br.com.habita_recife.habita_recife_backend.domain.enums;
 
 import jakarta.persistence.*;
 

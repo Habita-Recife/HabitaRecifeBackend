@@ -8,8 +8,8 @@ import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepos
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
 import br.com.habita_recife.habita_recife_backend.exception.SindicoDuplicadoException;
 import br.com.habita_recife.habita_recife_backend.exception.SindicoNotFoundException;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
+import br.com.habita_recife.habita_recife_backend.domain.model.User;
+import br.com.habita_recife.habita_recife_backend.domain.repository.UserRepository;
 import br.com.habita_recife.habita_recife_backend.service.SindicoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

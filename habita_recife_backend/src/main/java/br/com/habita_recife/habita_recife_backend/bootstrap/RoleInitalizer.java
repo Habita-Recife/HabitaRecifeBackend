@@ -1,8 +1,8 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.bootstrap;
+package br.com.habita_recife.habita_recife_backend.bootstrap;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.RoleName;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.RoleRepository;
+import br.com.habita_recife.habita_recife_backend.domain.model.Role;
+import br.com.habita_recife.habita_recife_backend.domain.enums.RoleName;
+import br.com.habita_recife.habita_recife_backend.domain.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

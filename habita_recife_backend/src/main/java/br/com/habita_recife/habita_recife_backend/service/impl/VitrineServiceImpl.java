@@ -4,6 +4,7 @@ import br.com.habita_recife.habita_recife_backend.domain.dto.VitrineDTO;
 import br.com.habita_recife.habita_recife_backend.domain.model.Condominio;
 import br.com.habita_recife.habita_recife_backend.domain.model.Sindico;
 import br.com.habita_recife.habita_recife_backend.domain.model.Vitrine;
+import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.VitrineRepository;
 import br.com.habita_recife.habita_recife_backend.exception.CondominioNotFoundException;
@@ -14,16 +15,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VitrineServiceImpl implements VitrineService  {
 
     private final VitrineRepository vitrineRepository;
     private final SindicoRepository sindicoRepository;
+    private final MoradorRepository moradorRepository;
 
-    public VitrineServiceImpl(VitrineRepository vitrineRepository, SindicoRepository sindicoRepository) {
+    public VitrineServiceImpl(VitrineRepository vitrineRepository,
+                              SindicoRepository sindicoRepository, MoradorRepository moradorRepository) {
         this.vitrineRepository = vitrineRepository;
         this.sindicoRepository = sindicoRepository;
+        this.moradorRepository = moradorRepository;
     }
 
     @Override
@@ -70,5 +75,10 @@ public class VitrineServiceImpl implements VitrineService  {
             throw new VitrineNotFoundException(id);
         }
         vitrineRepository.deleteById(id);
+    }
+
+    @Override
+    public List<VitrineDTO> buscarPorCondominio(Long idCondominio) {
+        return vitrineRepository.findVitrinesByCondominio(idCondominio);
     }
 }
