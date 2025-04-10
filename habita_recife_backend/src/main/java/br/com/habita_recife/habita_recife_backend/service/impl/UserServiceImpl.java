@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService{
 
         User savedUser = userRepository.save(user);
 
-        String token = jwtTokenService.generateToken(user.getEmail(), roles);
+        String token = jwtTokenService.generateToken(user.getEmail(), user.getUsername(), roles);
 
         Set<String> roleNames = new HashSet<>();
         for (Role role : savedUser.getRoles()) {
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByEmail(userLoginDTO.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
 
-        String token = jwtTokenService.generateToken(user.getEmail(), user.getRoles());
+        String token = jwtTokenService.generateToken(user.getEmail(), user.getUsername(), user.getRoles());
 
         UserLoginDTO responseDTO = new UserLoginDTO(user.getUsername(), user.getEmail(), token, user.getRoles());
 
