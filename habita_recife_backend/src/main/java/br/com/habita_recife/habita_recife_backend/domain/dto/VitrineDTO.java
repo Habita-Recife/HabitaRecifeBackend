@@ -19,6 +19,8 @@ public class VitrineDTO {
     private Double valorProduto;
     private String descricaoProduto;
     private String telefoneContato;
+    private String bloco;
+    private String apartamento;
 
 
 }

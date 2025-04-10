@@ -54,5 +54,11 @@ public class VitrineController {
         vitrineService.excluir(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/condominio/{idCondominio}")
+    public ResponseEntity<List<VitrineDTO>> buscarPorCondominio(@PathVariable Long idCondominio) {
+        List<VitrineDTO> vitrines = vitrineService.buscarPorCondominio(idCondominio);
+        return ResponseEntity.ok(vitrines);
+    }
 }
 
