@@ -1,20 +1,20 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.service.impl;
+package br.com.habita_recife.habita_recife_backend.service.impl;
 
 import br.com.habita_recife.habita_recife_backend.domain.repository.MoradorRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PorteiroRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.PrefeituraRepository;
 import br.com.habita_recife.habita_recife_backend.domain.repository.SindicoRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.config.JwtTokenService;
-import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserLoginDTO;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.RoleName;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.RoleRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.service.EmailService;
-import br.com.habita_recife.habita_recife_backend.features_authentication.util.PasswordUtil;
-import br.com.habita_recife.habita_recife_backend.features_authentication.dto.UserDTO;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.User;
-import br.com.habita_recife.habita_recife_backend.features_authentication.repository.UserRepository;
-import br.com.habita_recife.habita_recife_backend.features_authentication.service.UserService;
+import br.com.habita_recife.habita_recife_backend.config.JwtTokenService;
+import br.com.habita_recife.habita_recife_backend.domain.dto.UserLoginDTO;
+import br.com.habita_recife.habita_recife_backend.domain.model.Role;
+import br.com.habita_recife.habita_recife_backend.domain.enums.RoleName;
+import br.com.habita_recife.habita_recife_backend.domain.repository.RoleRepository;
+import br.com.habita_recife.habita_recife_backend.service.EmailService;
+import br.com.habita_recife.habita_recife_backend.util.PasswordUtil;
+import br.com.habita_recife.habita_recife_backend.domain.dto.UserDTO;
+import br.com.habita_recife.habita_recife_backend.domain.model.User;
+import br.com.habita_recife.habita_recife_backend.domain.repository.UserRepository;
+import br.com.habita_recife.habita_recife_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService{
 
         User savedUser = userRepository.save(user);
 
-        String token = jwtTokenService.generateToken(user.getEmail(), roles);
+        String token = jwtTokenService.generateToken(user.getEmail(), user.getUsername(), roles);
 
         Set<String> roleNames = new HashSet<>();
         for (Role role : savedUser.getRoles()) {
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByEmail(userLoginDTO.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
 
-        String token = jwtTokenService.generateToken(user.getEmail(), user.getRoles());
+        String token = jwtTokenService.generateToken(user.getEmail(), user.getUsername(), user.getRoles());
 
         UserLoginDTO responseDTO = new UserLoginDTO(user.getUsername(), user.getEmail(), token, user.getRoles());
 

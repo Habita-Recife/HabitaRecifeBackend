@@ -1,6 +1,5 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.dto;
+package br.com.habita_recife.habita_recife_backend.domain.dto;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,17 +10,17 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserLoginDTO {
-
+@NoArgsConstructor
+public class UserDTO {
     private String username;
-    private String email;
     private String password;
+    private String email;
+    private Integer version;
     private String token;
-    private Set<Role> roles = new HashSet<>();
+    private Set<String> roles = new HashSet<>();
 
-    public UserLoginDTO(String username, String email, String token, Set<Role> roles) {
+    public UserDTO(String username, String email, String token, Set<String> roles) {
         this.username = username;
         this.email = email;
         this.token = token;

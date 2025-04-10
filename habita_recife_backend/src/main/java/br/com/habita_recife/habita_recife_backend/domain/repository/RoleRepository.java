@@ -1,7 +1,7 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.repository;
+package br.com.habita_recife.habita_recife_backend.domain.repository;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.RoleName;
+import br.com.habita_recife.habita_recife_backend.domain.model.Role;
+import br.com.habita_recife.habita_recife_backend.domain.enums.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

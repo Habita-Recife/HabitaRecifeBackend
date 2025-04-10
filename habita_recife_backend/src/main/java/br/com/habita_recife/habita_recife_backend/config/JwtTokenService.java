@@ -1,6 +1,6 @@
-package br.com.habita_recife.habita_recife_backend.features_authentication.config;
+package br.com.habita_recife.habita_recife_backend.config;
 
-import br.com.habita_recife.habita_recife_backend.features_authentication.model.Role;
+import br.com.habita_recife.habita_recife_backend.domain.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -23,13 +23,14 @@ public class JwtTokenService {
     @Value("${jwt.expiration}")
     private long expirationTime;
 
-    public String generateToken(String email, Set<Role> roles) {
+    public String generateToken(String email, String username, Set<Role> roles) {
         List<String> roleNames = roles.stream()
                 .map(role -> "ROLE_" + role.getRole().name())
                 .collect(Collectors.toList());
 
         return Jwts.builder()
                 .setSubject(email)
+                .claim("username", username)
                 .claim("roles", roleNames)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
