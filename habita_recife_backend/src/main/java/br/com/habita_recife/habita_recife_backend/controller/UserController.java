@@ -7,10 +7,15 @@ import br.com.habita_recife.habita_recife_backend.service.ForgotPasswordService;
 import br.com.habita_recife.habita_recife_backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 
 @RestController
@@ -43,8 +48,22 @@ public class UserController {
 
     @PostMapping("/login")
     @Operation(summary = "Login", description = "Realiza o login do usuario.")
-    public ResponseEntity<UserLoginDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO) {
+    public ResponseEntity<UserLoginDTO> loginUser(
+            @RequestBody UserLoginDTO userLoginDTO,
+            HttpServletResponse response
+    ) {
         UserLoginDTO responseDTO = userService.loginUser(userLoginDTO);
+
+        ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", responseDTO.getRefreshToken())
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(Duration.ofDays(7))
+                .sameSite("Strict")
+                .build();
+
+        response.setHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
+
         return ResponseEntity.ok(responseDTO);
     }
 
@@ -63,6 +82,27 @@ public class UserController {
         }
         forgotPasswordService.forgotPasswordReset(token, newPassword);
         return ResponseEntity.ok("Senha redefinida com sucesso.");
+    }
+
+    @PostMapping("/refresh-token")
+    @Operation(summary = "Renova o access token", description = "Gera um novo access token usando o refresh token do cookie.")
+    public ResponseEntity<UserLoginDTO> refreshAccessToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+        UserLoginDTO responseDTO = userService.refreshAccessToken(request);
+
+        ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", responseDTO.getRefreshToken())
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(Duration.ofDays(7))
+                .sameSite("Strict")
+                .build();
+
+        response.setHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
+
+        return ResponseEntity.ok(responseDTO);
     }
 
 }

@@ -19,12 +19,14 @@ public class UserLoginDTO {
     private String email;
     private String password;
     private String token;
+    private String refreshToken;
     private Set<Role> roles = new HashSet<>();
 
-    public UserLoginDTO(String username, String email, String token, Set<Role> roles) {
+    public UserLoginDTO(String username, String email, String token, String refreshToken, Set<Role> roles) {
         this.username = username;
         this.email = email;
         this.token = token;
+        this.refreshToken = refreshToken;
         this.roles = roles;
     }
 }
