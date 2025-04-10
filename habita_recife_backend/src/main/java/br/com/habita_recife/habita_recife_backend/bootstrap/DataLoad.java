@@ -32,15 +32,15 @@ public class DataLoad implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (prefeituraRepository.count() == 0) {
             Prefeitura prefeitura = new Prefeitura();
-            prefeitura.setNomePrefeitura("Prefeitura do Recife");
+            prefeitura.setNomePrefeitura("Habita Recife");
             prefeituraRepository.save(prefeitura);
-            System.out.println("Dados da Prefeitura inseridos com sucesso!");
+            System.out.println("Dados da Admin inseridos com sucesso!");
         }
 
-        String emailPrefeitura = "prefeitura@exemplo.com";
+        String emailPrefeitura = "admin@exemplo.com";
         if (userRepository.findByEmail(emailPrefeitura).isEmpty()) {
             User user = new User();
-            user.setUsername("prefeitura");
+            user.setUsername("admin");
             user.setEmail(emailPrefeitura);
             user.setPassword(passwordEncoder.encode("RecifePE12345678"));
 
@@ -53,15 +53,10 @@ public class DataLoad implements CommandLineRunner {
                 Role newRole = new Role(RoleName.PREFEITURA);
                 rolePrefeitura = roleRepository.save(newRole);
             }
-            // Busca a role de PREFEITURA ou cria uma nova, se necessário
-//            Role rolePrefeitura = roleRepository.findByRole(RoleName.PREFEITURA)
-//                    .orElseGet(() -> {
-//                        Role newRole = new Role(RoleName.PREFEITURA);
-//                        return roleRepository.save(newRole);
-//                    });
+
             user.getRoles().add(rolePrefeitura);
             userRepository.save(user);
-            System.out.println("Usuário Prefeitura inserido com sucesso!");
+            System.out.println("Usuário admin inserido com sucesso!");
         }
 
     }
