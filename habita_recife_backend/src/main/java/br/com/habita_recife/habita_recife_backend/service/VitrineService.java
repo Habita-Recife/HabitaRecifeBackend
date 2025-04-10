@@ -12,5 +12,6 @@ public interface VitrineService {
     Vitrine salvar(VitrineDTO vitrineDTO);
     Vitrine atualizar(Long id, VitrineDTO vitrineDTO);
     void excluir(Long id);
+    List<VitrineDTO> buscarPorCondominio(Long idCondominio);
 }
 
